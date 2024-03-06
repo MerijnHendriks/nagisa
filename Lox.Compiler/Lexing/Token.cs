@@ -4,18 +4,18 @@ namespace Lox.Compiler.Lexing
     {
         public readonly string File;
         public readonly int Index;
-        public readonly ETokenType Type;
+        public readonly int Type;
         public readonly string Value;
 
         public Token()
         {
             this.File = string.Empty;
             this.Index = 0;
-            this.Type = ETokenType.Invalid;
+            this.Type = TokenType.INVALID;
             this.Value = string.Empty;
         }
 
-        public Token(string file, int index, ETokenType type, string value)
+        public Token(string file, int index, int type, string value)
         {
             this.File = file;
             this.Index = index;

@@ -2,7 +2,7 @@ namespace Lox.Compiler.Lexing.Patterns
 {
     public sealed class FunPattern : TextPattern
     {
-        public FunPattern() : base("fun", ETokenType.Function)
+        public FunPattern() : base("fun", TokenType.FUNCTION)
         {
         }
     }

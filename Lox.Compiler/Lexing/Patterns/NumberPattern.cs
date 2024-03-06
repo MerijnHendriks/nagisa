@@ -51,7 +51,7 @@ namespace Lox.Compiler.Lexing.Patterns
 
             // Get token
             string value = source.Substring(current.Index, difference);
-            token = new Token(file, current.Index, ETokenType.Number, value);
+            token = new Token(file, current.Index, TokenType.NUMBER, value);
 
             // Get position
             next.Column += difference;

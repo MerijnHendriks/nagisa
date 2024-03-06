@@ -4,7 +4,7 @@ namespace Lox.Compiler.Lexing.Patterns
 {
     public sealed class PrintPattern : TextPattern
     {
-        public PrintPattern() : base("print", ETokenType.Print)
+        public PrintPattern() : base("print", TokenType.PRINT)
         {
         }
     }

@@ -135,7 +135,7 @@ namespace Lox.Compiler.Lexing
             {
                 next = this.ScanToken(file, source, current, ref token);
 
-                if (token.Type != ETokenType.Invalid)
+                if (token.Type != TokenType.INVALID)
                 {
                     // Add to result
                     result.Tokens.Add(token);
@@ -149,7 +149,7 @@ namespace Lox.Compiler.Lexing
             }
 
             // Add End-Of-File token
-            token = new Token(file, current.Index, ETokenType.EOF, string.Empty);
+            token = new Token(file, current.Index, TokenType.END_OF_FILE, string.Empty);
             result.Tokens.Add(token);
             result.Sourcemap.Add(current);
 

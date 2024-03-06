@@ -4,9 +4,9 @@ namespace Lox.Compiler.Lexing.Patterns
     {
         private readonly TextHelper _textHelper;
         private readonly char _target;
-        private readonly ETokenType _type;
+        private readonly int _type;
 
-        public CharacterPattern(char target, ETokenType type)
+        public CharacterPattern(char target, int type)
         {
             this._textHelper = new TextHelper();
             this._target = target;

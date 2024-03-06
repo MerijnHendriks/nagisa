@@ -2,7 +2,7 @@ namespace Lox.Compiler.Lexing.Patterns
 {
     public sealed class CommaPattern : CharacterPattern
     {
-        public CommaPattern() : base(',', ETokenType.Comma)
+        public CommaPattern() : base(',', TokenType.COMMA)
         {
         }
     }

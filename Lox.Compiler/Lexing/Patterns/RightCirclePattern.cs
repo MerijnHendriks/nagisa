@@ -2,7 +2,7 @@ namespace Lox.Compiler.Lexing.Patterns
 {
     public sealed class RightCirclePattern : CharacterPattern
     {
-        public RightCirclePattern() : base(')', ETokenType.RightCircle)
+        public RightCirclePattern() : base(')', TokenType.RIGHT_CIRCLE)
         {
         }
     }

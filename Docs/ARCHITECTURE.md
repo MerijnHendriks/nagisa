@@ -21,7 +21,6 @@ The following types are referenced:
     - `char[]`
     - `string`
     - `string[]`
-    - `enum`
     - `class`
     - `interface<T>`
   - `System`
@@ -33,25 +32,24 @@ The following types are referenced:
 
 > Q: Why target .NET Framework 2.0 and .NET Standard 1.0?
 
-- .NET Framework 2.0 removes much of the language's syntactic sugar.
-- .NET Standard 1.0 removes the .NET Framework and runtime specific APIs.
-
-Those combined restrict the language's subset to a level that it becomes easy
-to reason with the code, and enforces self-reliance.
-
-It also enables support for Unity Engine (2017.4 and older).
+- Enforcing a a minimal subset of the language makes it easy to to reason with
+  the code
+  - .NET Framework 2.0 removes much of the language's syntactic sugar.
+  - .NET Standard 1.0 removes the .NET Framework and runtime specific APIs.
+- Enforces self-reliance instead of using external packages.
+- Enables support for Unity Engine (2017.4 and older).
 
 > Q: Why MSTest v2 over \<_insert unit testing framework here_>
 
 Reliability is the top priority for me. A project written by Microsoft is less
-prone to hostile maintainers (see Activismware on NPM and Ransomware in Moq).
-It also has one of the least thrird-party dependencies (only `Newtonsoft.Json`)
-compared to other frameworks.
+prone to hostile maintainers (see Activismware on NPM and Ransomware in Moq),
+more likely to receive extended support and also has one of the least
+thrird-party dependencies (only `Newtonsoft.Json`) compared to other options.
 
-> Q: Is an older version of .NET Framework supported for testing?
+> Q: Is an older version of .NET Framework supported for `Lox.Compiler.Tests`?
 
-Yes! If you need to integrate the tests in a project targeting `net45`, use the
-following package versions in `Lox.Compiler.Tests`:
+Yes! If you need to integrate the tests in a project targeting `net45`, add
+the following to `Lox.Compiler.Tests`:
 
 ```xml
 <!-- .NET Framework v4.5 compatible MSTest v2 -->
@@ -61,3 +59,5 @@ following package versions in `Lox.Compiler.Tests`:
   <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
 </ItemGroup>
 ```
+
+If you need support for even older versions of .NET Framework, consider NUnit.

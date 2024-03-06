@@ -27,11 +27,11 @@ namespace Lox.Compiler
             {
                 Token token = result.Tokens[i];
 
-                if (token.Type == ETokenType.LineComment
-                    || token.Type == ETokenType.Whitespace
-                    || token.Type == ETokenType.Tab
-                    || token.Type == ETokenType.EOL
-                    || token.Type == ETokenType.EOF)
+                if (token.Type == TokenType.LINE_COMMENT
+                    || token.Type == TokenType.WHITESPACE
+                    || token.Type == TokenType.TAB
+                    || token.Type == TokenType.END_OF_LINE
+                    || token.Type == TokenType.END_OF_FILE)
                 {
                     result.Tokens.RemoveAt(i);
                     result.Sourcemap.RemoveAt(i);
