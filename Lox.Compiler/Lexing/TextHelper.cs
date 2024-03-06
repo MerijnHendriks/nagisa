@@ -42,9 +42,7 @@ namespace Lox.Compiler.Lexing
         {
             for (int i = 0; i < target.Length; ++i)
             {
-                int index = start + 1;
-
-                if (!this.IsMatchChar(source, index, target[i]))
+                if (!this.IsMatchChar(source, start + i, target[i]))
                 {
                     return false;
                 }
