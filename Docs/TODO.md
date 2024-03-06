@@ -1,0 +1,33 @@
+# TODO
+
+- Interpreter
+  - [x] Token scanner
+  - [ ] Parser
+  - [ ] Sematics analyzer
+  - [ ] Instruction machine
+  - [ ] Move `print` to standard library
+- Extended language features (from the book)
+  - [ ] Nested block comments (`/* /* ... */ */`)
+  - [ ] Comma expression (C-style)
+  - [ ] Tenary operator (`? :` note: pratt parser)
+  - [ ] Number conversion to string concatenation (`var a = 4 + "v"`, `var b = "v" + 4`)
+  - [ ] `break` statement
+  - [ ] `continue` statement
+  - [ ] Anomynous function (labda)
+  - [ ] Static class members
+  - [ ] Class field getter method
+  - [ ] BETA scemantics for overriding class methods
+- Extended language features (my own dialect)
+  - [X] `&&` and `||` operators
+  - [ ] Multi-file support (`import`, `export`)
+  - [ ] Optional typing (`var a: number`)
+- Ensurance
+  - [ ] Token pattern tests
+  - [ ] Expression tests
+  - [ ] Statement tests
+  - [ ] Instruction tests
+  - [ ] 100% line and branch coverage
+- Compatibility
+  - [ ] C# 2.0 support
+  - [ ] .NET Framework 2.0 subset support
+  - [ ] Micro mscorlib support
