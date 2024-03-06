@@ -110,6 +110,19 @@ namespace Lox.Compiler.Lexing
             throw new Exception(error);
         }
 
+        private void PrintToken(Token token, SourcePosition current, SourcePosition next)
+        {
+            string format = "[{0}, {1}, {2}] {3}";
+            string formatted = string.Format(format, current.Index, current.Line, current.Column, token.Type);
+
+            if (!string.IsNullOrEmpty(token.Value))
+            {
+                formatted += (", " + token.Value);
+            }
+
+            _logger.WriteInfo(formatted);
+        }
+
         public ScanResult Run(string file, string source)
         {
             Token token = new Token();
@@ -129,18 +142,7 @@ namespace Lox.Compiler.Lexing
                     result.Sourcemap.Add(current);
 
                     // Print
-                    string format = "[{0}, {1}, {2}] > [{3}, {4}, {5}], {6}";
-                    string formatted = string.Format(format,
-                        current.Index, current.Line, current.Column,
-                        next.Index,    next.Line,    next.Column,
-                        token.Type);
-                    
-                    if (!string.IsNullOrEmpty(token.Value))
-                    {
-                        formatted += (", " + token.Value);
-                    }
-
-                    _logger.WriteInfo(formatted);
+                    this.PrintToken(token, current, next);
                 }
 
                 current = next;
