@@ -23,15 +23,13 @@ namespace Lox.Compiler.Lexing
             this._textHelper = new TextHelper();
             this._patterns = new Pattern[]
             {
-                // Text file
+                // --- Text file
                 new WhitespacePattern(),
                 new TabPattern(),
                 new NewlinePattern(),
-
-                // Comments
+                // --- Comments
                 new LineCommentPattern(),
-
-                // Operators
+                // --- Operators
                 new DotPattern(),
                 new CommaPattern(),
                 new SemicolonPattern(),
@@ -65,8 +63,7 @@ namespace Lox.Compiler.Lexing
                 // new BitwiseOrPattern(),
                 // new BitwiseXorPattern(),
                 // new BitwiseComplement(),
-
-                // Keywords
+                // --- Keywords
                 new IfPattern(),
                 new ElsePattern(),
                 new WhilePattern(),
@@ -84,11 +81,10 @@ namespace Lox.Compiler.Lexing
                 new ClassPattern(),
                 new ThisPattern(),
                 new SuperPattern(),
-
+                // --- Build-in functions
                 // TODO: move this to VM bindings or standard library
                 new PrintPattern(),
-
-                // Expensive lookups
+                // --- Expensive lookups
                 new NumberPattern(),
                 new StringPattern(),
                 new IdentifierPattern()
