@@ -2,15 +2,15 @@ using Lox.Compiler.Lexing;
 
 namespace Lox.Compiler.Parsing.Expressions
 {
-    public class Super : Expr
+    public sealed class Super : Expr
     {
-        public Token Keyword;
-        public Token Method;
+        public readonly Token Keyword;
+        public readonly Token Method;
 
         public Super(Token keyword, Token method)
         {
-            Keyword = keyword;
-            Method = method;
+            this.Keyword = keyword;
+            this.Method = method;
         }
 
         public override T Accept<T>(IExpressionVisitor<T> visitor)

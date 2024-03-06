@@ -8,7 +8,6 @@ namespace Lox.Compiler.Lexing.Patterns
         public abstract bool IsMatch(string source, SourcePosition current);
         public abstract SourcePosition Run(string file, string source, SourcePosition current, ref Token token);
 
-        // TODO: better naming of method
         protected SourcePosition RunOffset(string file, string source, SourcePosition current, ref Token token, ETokenType type, int offset)
         {
             // get token

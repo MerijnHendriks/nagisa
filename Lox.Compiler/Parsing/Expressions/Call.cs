@@ -3,7 +3,7 @@ using Lox.Compiler.Lexing;
 
 namespace Lox.Compiler.Parsing.Expressions
 {
-    public class Call : Expr
+    public sealed class Call : Expr
     {
         public Expr Callee;
         public Token Paren;
@@ -11,9 +11,9 @@ namespace Lox.Compiler.Parsing.Expressions
 
         public Call(Expr callee, Token paren, List<Expr> arguments)
         {
-            Callee = callee;
-            Paren = paren;
-            Arguments = arguments;
+            this.Callee = callee;
+            this.Paren = paren;
+            this.Arguments = arguments;
         }
 
         public override T Accept<T>(IExpressionVisitor<T> visitor)

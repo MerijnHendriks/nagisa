@@ -4,13 +4,13 @@ using Lox.Compiler.Parsing.Expressions;
 
 namespace Lox.Compiler.Parsing.Statements
 {
-    public class Print : Stmt
+    public sealed class Print : Stmt
     {
-        public Expr Expression;
+        public readonly Expr Expression;
 
         public Print(Expr expression)
         {
-            Expression = expression;
+            this.Expression = expression;
         }
 
         public override T Accept<T>(IStatementVisitor<T> visitor)

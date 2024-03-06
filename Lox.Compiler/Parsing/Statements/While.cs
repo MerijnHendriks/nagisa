@@ -2,15 +2,15 @@ using Lox.Compiler.Parsing.Expressions;
 
 namespace Lox.Compiler.Parsing.Statements
 {
-    public class While : Stmt
+    public sealed class While : Stmt
     {
-        public Expr Condition;
-        public Stmt Body;
+        public readonly Expr Condition;
+        public readonly Stmt Body;
 
         public While(Expr condition, Stmt body)
         {
-            Condition = condition;
-            Body = body;
+            this.Condition = condition;
+            this.Body = body;
         }
 
         public override T Accept<T>(IStatementVisitor<T> visitor)

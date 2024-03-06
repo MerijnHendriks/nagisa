@@ -7,7 +7,7 @@
 
 namespace Lox.Compiler.Lexing.Patterns
 {
-    public class NewlinePattern : Pattern
+    public sealed class NewlinePattern : Pattern
     {
         private readonly TextHelper _textHelper;
 

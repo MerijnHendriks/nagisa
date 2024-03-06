@@ -2,15 +2,15 @@ using Lox.Compiler.Lexing;
 
 namespace Lox.Compiler.Parsing.Expressions
 {
-    public class Assign : Expr
+    public sealed class Assign : Expr
     {
-        public Token Name;
-        public Expr Value;
+        public readonly Token Name;
+        public readonly Expr Value;
 
         public Assign(Token name, Expr value)
         {
-            Name = name;
-            Value = value;
+            this.Name = name;
+            this.Value = value;
         }
 
         public override T Accept<T>(IExpressionVisitor<T> visitor)

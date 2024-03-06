@@ -2,7 +2,7 @@ using System;
 
 namespace Lox.Compiler.Lexing.Patterns
 {
-    public class IdentifierPattern : Pattern
+    public sealed class IdentifierPattern : Pattern
     {
         private readonly TextHelper _textHelper;
 

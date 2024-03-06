@@ -3,15 +3,15 @@ using Lox.Compiler.Parsing.Expressions;
 
 namespace Lox.Compiler.Parsing.Statements
 {
-    public class Return : Stmt
+    public sealed class Return : Stmt
     {
-        public Token Keyword;
-        public Expr Value;
+        public readonly Token Keyword;
+        public readonly Expr Value;
 
         public Return(Token keyword, Expr value)
         {
-            Keyword = keyword;
-            Value = value;
+            this.Keyword = keyword;
+            this.Value = value;
         }
 
         public override T Accept<T>(IStatementVisitor<T> visitor)

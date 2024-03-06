@@ -1,6 +1,6 @@
 namespace Lox.Compiler.Lexing.Patterns
 {
-    public class VarPattern : TextPattern
+    public sealed class VarPattern : TextPattern
     {
         public VarPattern() : base("var", ETokenType.Variable)
         {

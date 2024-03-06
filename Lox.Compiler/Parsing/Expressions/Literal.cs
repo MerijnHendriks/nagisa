@@ -1,12 +1,12 @@
 namespace Lox.Compiler.Parsing.Expressions
 {
-    public class Literal : Expr
+    public sealed class Literal : Expr
     {
-        public object Value;
+        public readonly object Value;
 
         public Literal(object value)
         {
-            Value = value;
+            this.Value = value;
         }
 
         public override T Accept<T>(IExpressionVisitor<T> visitor)

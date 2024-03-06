@@ -2,15 +2,15 @@ using Lox.Compiler.Lexing;
 
 namespace Lox.Compiler.Parsing.Expressions
 {
-    public class Unary : Expr
+    public sealed class Unary : Expr
     {
-        public Token Operator;
-        public Expr Right;
+        public readonly Token Operator;
+        public readonly Expr Right;
 
         public Unary(Token op, Expr right)
         {
-            Operator = op;
-            Right = right;
+            this.Operator = op;
+            this.Right = right;
         }
 
         public override T Accept<T>(IExpressionVisitor<T> visitor)

@@ -1,6 +1,6 @@
 namespace Lox.Compiler.Lexing.Patterns
 {
-    public class LineCommentPattern : Pattern
+    public sealed class LineCommentPattern : Pattern
     {
         private const string TARGET = "//";
 

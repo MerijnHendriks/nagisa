@@ -1,12 +1,12 @@
 namespace Lox.Compiler.Parsing.Expressions
 {
-    public class Grouping : Expr
+    public sealed class Grouping : Expr
     {
-        public Expr Expression;
+        public readonly Expr Expression;
 
         public Grouping(Expr expression)
         {
-            Expression = expression;
+            this.Expression = expression;
         }
 
         public override T Accept<T>(IExpressionVisitor<T> visitor)

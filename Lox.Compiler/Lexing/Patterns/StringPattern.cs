@@ -2,7 +2,7 @@ using System;
 
 namespace Lox.Compiler.Lexing.Patterns
 {
-    public class StringPattern : Pattern
+    public sealed class StringPattern : Pattern
     {
         private const char DELIMITER = '"';
 

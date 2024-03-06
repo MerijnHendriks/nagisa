@@ -1,5 +1,6 @@
 namespace Lox.Compiler.Lexing
 {
+    // TODO: make class TokenType instead with const int
     public enum ETokenType
     {
         Invalid,            // ERROR

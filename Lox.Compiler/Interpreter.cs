@@ -5,7 +5,7 @@ using Lox.Compiler.Lexing;
 
 namespace Lox.Compiler
 {
-    public class Interpreter
+    public sealed class Interpreter
     {
         private readonly ILogger _logger;
         private readonly Scanner _scanner;
@@ -36,6 +36,10 @@ namespace Lox.Compiler
                     result.Sourcemap.RemoveAt(i);
                 }
             }
+
+            // convert tokens to AST
+            Parser parser = new Parser();
+            parser.Run(result);
         }
 
         public void RunMulti(string[] files, string[] sources)

@@ -1,6 +1,6 @@
 namespace Lox.Compiler.Lexing.Patterns
 {
-    public class EqualPattern : TextPattern
+    public sealed class EqualPattern : TextPattern
     {
         public EqualPattern() : base("==", ETokenType.Equal)
         {

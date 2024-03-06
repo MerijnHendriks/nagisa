@@ -2,17 +2,17 @@ using Lox.Compiler.Parsing.Expressions;
 
 namespace Lox.Compiler.Parsing.Statements
 {
-    public class If : Stmt
+    public sealed class If : Stmt
     {
-        public Expr Condition;
-        public Stmt ThenBranch;
-        public Stmt ElseBranch;
+        public readonly Expr Condition;
+        public readonly Stmt ThenBranch;
+        public readonly Stmt ElseBranch;
 
         public If(Expr condition, Stmt thenBranch, Stmt elseBranch)
         {
-            Condition = condition;
-            ThenBranch = thenBranch;
-            ElseBranch = elseBranch;
+            this.Condition = condition;
+            this.ThenBranch = thenBranch;
+            this.ElseBranch = elseBranch;
         }
 
         public override T Accept<T>(IStatementVisitor<T> visitor)

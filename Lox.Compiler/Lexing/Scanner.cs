@@ -11,7 +11,7 @@ using Lox.Compiler.Lexing.Patterns;
 
 namespace Lox.Compiler.Lexing
 {
-    public class Scanner
+    public sealed class Scanner
     {
         private readonly ILogger _logger;
         private readonly TextHelper _textHelper;

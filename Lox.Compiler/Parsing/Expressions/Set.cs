@@ -2,17 +2,17 @@ using Lox.Compiler.Lexing;
 
 namespace Lox.Compiler.Parsing.Expressions
 {
-    public class Set : Expr
+    public sealed class Set : Expr
     {
-        public Expr Object;
-        public Token Name;
-        public Expr Value;
+        public readonly Expr Object;
+        public readonly Token Name;
+        public readonly Expr Value;
 
         public Set(Expr obj, Token name, Expr value)
         {
-            Object = obj;
-            Name = name;
-            Value = value;
+            this.Object = obj;
+            this.Name = name;
+            this.Value = value;
         }
 
         public override T Accept<T>(IExpressionVisitor<T> visitor)

@@ -2,13 +2,13 @@ using Lox.Compiler.Lexing;
 
 namespace Lox.Compiler.Parsing.Expressions
 {
-    public class This : Expr
+    public sealed class This : Expr
     {
-        public Token Keyword;
+        public readonly Token Keyword;
 
         public This(Token keyword)
         {
-            Keyword = keyword;
+            this.Keyword = keyword;
         }
 
         public override T Accept<T>(IExpressionVisitor<T> visitor)

@@ -1,25 +1,30 @@
 namespace Lox.Compiler.Lexing
 {
-    public class TextHelper
+    public sealed class TextHelper
     {
-        private char[] _alphaUpper = new char[]
-        {
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-            'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-            'Y', 'Z' 
-        };
+        private readonly char[] _alphaUpper;
+        private readonly char[] _alphaLower;
+        private readonly char[] _digits;
 
-        private char[] _alphaLower = new char[]
+        public TextHelper()
         {
-            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
-            'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
-            'y', 'z'
-        };
-
-        private char[] _digits = new char[]
-        {
-            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
-        };
+            this._alphaUpper = new char[]
+            {
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                'Y', 'Z' 
+            };
+            this._alphaLower = new char[]
+            {
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+                'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+                'y', 'z'
+            };
+            this._digits = new char[]
+            {
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+            };
+        }
 
         public bool IsAtEnd(string source, int index)
         {

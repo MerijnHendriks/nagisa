@@ -4,17 +4,17 @@ using Lox.Compiler.Parsing.Expressions;
 
 namespace Lox.Compiler.Parsing.Statements
 {
-    public class Class : Stmt
+    public sealed class Class : Stmt
     {
-        public Token Name;
-        public Variable Superclass;
-        public List<Function> Methods;
+        public readonly Token Name;
+        public readonly Variable Superclass;
+        public readonly List<Function> Methods;
 
         public Class(Token name, Variable superclass, List<Function> methods)
         {
-            Name = name;
-            Superclass = superclass;
-            Methods = methods;
+            this.Name = name;
+            this.Superclass = superclass;
+            this.Methods = methods;
         }
 
         public override T Accept<T>(IStatementVisitor<T> visitor)

@@ -2,9 +2,9 @@ using Lox.Compiler.Lexing;
 
 namespace Lox.Compiler.Parsing
 {
-    public class Parser
+    public sealed class Parser
     {
-        public void Run(Token[] tokens)
+        public void Run(ScanResult result)
         {
             //
         }
