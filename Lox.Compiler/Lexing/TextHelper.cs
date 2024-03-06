@@ -1,3 +1,5 @@
+using System;
+
 namespace Lox.Compiler.Lexing
 {
     public sealed class TextHelper
@@ -101,6 +103,73 @@ namespace Lox.Compiler.Lexing
                 || this.IsAlphaUpper(source, index)
                 || this.IsAlphaLower(source, index)
                 || this.IsDigit(source, index);
+        }
+
+        public string GetTokenTypeName(int type)
+        {
+            switch (type)
+            {
+                case TokenType.INVALID: return "--- ERROR ---";
+                case TokenType.END_OF_FILE: return "EOF";
+                case TokenType.END_OF_LINE: return "EOL";
+                case TokenType.DOT: return ".";
+                case TokenType.COMMA: return ",";
+                case TokenType.SEMICOLON: return ";";
+                case TokenType.LEFT_SQUARE: return "[";
+                case TokenType.RIGHT_SQUARE: return "]";
+                case TokenType.LEFT_CURLY: return "{";
+                case TokenType.RIGHT_CURLY: return "}";
+                case TokenType.LEFT_CIRCLE: return "(";
+                case TokenType.RIGHT_CIRCLE: return ")";
+                case TokenType.LEFT_ARROW: return "<";
+                case TokenType.RIGHT_ARROW: return ">";
+                case TokenType.ASSIGN: return "=";
+                case TokenType.NOT: return "!";
+                case TokenType.PLUS: return "+";
+                case TokenType.MINUS: return "-";
+                case TokenType.STAR: return "*";
+                case TokenType.SLASH: return "/";
+                case TokenType.EQUAL: return "==";
+                case TokenType.NOT_EQUAL: return "!=";
+                case TokenType.LESS_EQUAL: return "<=";
+                case TokenType.GREATER_EQUAL: return ">=";
+                case TokenType.ADD_ASSIGN: return "+=";
+                case TokenType.SUBSTRACT_ASSIGN: return "-=";
+                case TokenType.MULTIPLY_ASSIGN: return "*=";
+                case TokenType.DIVIDE_ASSIGN: return "/=";
+                case TokenType.IDENTIFIER: return "IDENTIFIER";
+                case TokenType.NUMBER: return "NUMBER";
+                case TokenType.STRING: return "STRING";
+                case TokenType.TRUE: return "true";
+                case TokenType.FALSE: return "false";
+                case TokenType.NIL: return "nil";
+                case TokenType.THIS: return "this";
+                case TokenType.SUPER: return "super";
+                case TokenType.VAR: return "var";
+                case TokenType.FUN: return "fun";
+                case TokenType.CLASS: return "class";
+                case TokenType.AND: return "and";
+                case TokenType.OR: return "or";
+                case TokenType.IF: return "if";
+                case TokenType.ELSE: return "else";
+                case TokenType.WHILE: return "while";
+                case TokenType.FOR: return "for";
+                case TokenType.CONTINUE: return "continue";
+                case TokenType.BREAK: return "break";
+                case TokenType.RETURN: return "return";
+                case TokenType.PRINT: return "print";
+                case TokenType.LINE_COMMENT: return "//";
+                case TokenType.TAB: return "\t";
+                case TokenType.WHITESPACE: return "' '";
+                case TokenType.BITSHIFT_LEFT: return "<<=";
+                case TokenType.BITSHIFT_RIGHT: return ">>=";     
+                case TokenType.BITWISE_AND: return "&";
+                case TokenType.BITWISE_OR: return "|";
+                case TokenType.BITWISE_XOR: return "^";
+                case TokenType.BITWISE_COMPLEMENT: return "~";
+                default:
+                    throw new Exception("Invalid type.");
+            }
         }
     }
 }

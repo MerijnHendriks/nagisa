@@ -38,8 +38,8 @@ namespace Lox.Compiler.Lexing
         public const int NIL = 32;                  // nil
         public const int THIS = 33;                 // this
         public const int SUPER = 34;                // super
-        public const int VARIABLE = 35;             // var
-        public const int FUNCTION = 36;             // fun
+        public const int VAR = 35;                  // var
+        public const int FUN = 36;                  // fun
         public const int CLASS = 37;                // class
         public const int AND = 38;                  // and; &&
         public const int OR = 39;                   // or; ||
