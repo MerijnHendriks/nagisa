@@ -1,11 +1,11 @@
 namespace Lox.Compiler.Lexing
 {
-    public struct SourcePosition
+    public sealed class SourcePosition
     {
-        public string File;
-        public int Index;
-        public int Line;
-        public int Column;
+        public readonly string File;
+        public int Index;               // mutated in Scanner/Pattern
+        public int Line;                // mutated in Scanner/Pattern
+        public int Column;              // mutated in Scanner/Pattern
 
         public SourcePosition(string file, int index, int line, int column)
         {

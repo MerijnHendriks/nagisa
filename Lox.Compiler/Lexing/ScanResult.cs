@@ -9,8 +9,8 @@ namespace Lox.Compiler.Lexing
 {
     public sealed class ScanResult
     {
-        public List<Token> Tokens;
-        public List<SourcePosition> Sourcemap;
+        public readonly List<Token> Tokens;
+        public readonly List<SourcePosition> Sourcemap;
 
         public ScanResult()
         {

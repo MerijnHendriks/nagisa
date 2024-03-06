@@ -22,7 +22,6 @@ The following types are referenced:
     - `string`
     - `string[]`
     - `enum`
-    - `struct`
     - `class`
     - `interface`
     - `interface<T>`
@@ -33,21 +32,33 @@ The following types are referenced:
 
 ## FAQ
 
-> Why target .NET Framework 2.0 and .NET Standard 1.0?
+> Q: Why target .NET Framework 2.0 and .NET Standard 1.0?
 
 - .NET Framework 2.0 removes much of the language's syntactic sugar.
-- .NET Standard 1.0 removes the .NET Framework specific APIs.
+- .NET Standard 1.0 removes the .NET Framework and runtime specific APIs.
 
-It restrict the language's subset to a level that it becomes easy to reason
-with the code, and enforces self-reliance.
+Those combined restrict the language's subset to a level that it becomes easy
+to reason with the code, and enforces self-reliance.
 
-In addition, it makes supporting .NET Micro easier, and enables support for
-Unity Engine
+It also enables support for Unity Engine (2017.4 and older).
 
-## TODO
+> Q: Why MSTest v2 over \<_insert unit testing framework here_>
 
-- Remove unavailable APIs in TinyCLR (see [this](https://github.com/ghi-electronics/TinyCLR-Libraries))
-- Remove unavailable APIs in nanoFramework (see [this](https://github.com/nanoframework/CoreLibrary/tree/main/nanoFramework.CoreLibrary/System))
-- Remove generics (see [this](https://docs.ghielectronics.com/software/tinyclr/limitations.html))
-  - Replace List<T> with ArrayList
-  - Rework visitor pattern without generics
+Reliability is the top priority for me. A project written by Microsoft is less
+prone to hostile maintainers (see Activismware on NPM and Ransomware in Moq).
+It also has one of the least thrird-party dependencies (only `Newtonsoft.Json`)
+compared to other frameworks.
+
+> Q: Is an older version of .NET Framework supported for testing?
+
+Yes! If you need to integrate the tests in a project targeting `net45`, use the
+following package versions in `Lox.Compiler.Tests`:
+
+```xml
+<!-- .NET Framework v4.5 compatible MSTest v2 -->
+<ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.3" />
+  <PackageReference Include="MSTest.TestAdapter" Version="2.2.10" />
+  <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
+</ItemGroup>
+```
