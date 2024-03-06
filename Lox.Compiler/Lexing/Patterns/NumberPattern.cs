@@ -28,7 +28,7 @@ namespace Lox.Compiler.Lexing.Patterns
                 if (!this._textHelper.IsDigit(source, next.Index)
                     && !this._textHelper.IsMatchChar(source, next.Index, DELIMITER))
                 {
-                    // end of number
+                    // End of number
                     break;
                 }
 
@@ -49,11 +49,11 @@ namespace Lox.Compiler.Lexing.Patterns
 
             int difference = next.Index - current.Index;
 
-            // get token
+            // Get token
             string value = source.Substring(current.Index, difference);
             token = new Token(file, current.Index, ETokenType.Number, value);
 
-            // get position
+            // Get position
             next.Column += difference;
             ++next.Index;
 

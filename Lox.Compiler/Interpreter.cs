@@ -18,10 +18,10 @@ namespace Lox.Compiler
 
         public void RunSingle(string file, string source)
         {
-            // get tokens
+            // Get tokens
             ScanResult result = this._scanner.Run(file, source);
 
-            // remove tokens unused by parser (reverse order)
+            // Remove tokens unused by parser (reverse order)
             for (int i = result.Tokens.Count - 1; i >= 0; --i)
             {
                 Token token = result.Tokens[i];
@@ -37,7 +37,7 @@ namespace Lox.Compiler
                 }
             }
 
-            // convert tokens to AST
+            // Convert tokens to AST
             Parser parser = new Parser();
             parser.Run(result);
         }

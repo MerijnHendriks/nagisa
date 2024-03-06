@@ -24,7 +24,7 @@ namespace Lox.Compiler.Lexing.Patterns
             {
                 if (!this._textHelper.IsIdentifier(source, next.Index))
                 {
-                    // end of identifier
+                    // End of identifier
                     break;
                 }
 
@@ -40,11 +40,11 @@ namespace Lox.Compiler.Lexing.Patterns
                 throw new Exception(error);
             }
 
-            // get token
+            // Get token
             string value = source.Substring(current.Index, difference);
             token = new Token(file, current.Index, ETokenType.Identifier, value);
 
-            // get position
+            // Get position
             next.Column += difference;
             ++next.Index;
             

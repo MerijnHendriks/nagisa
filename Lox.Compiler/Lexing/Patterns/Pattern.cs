@@ -10,10 +10,10 @@ namespace Lox.Compiler.Lexing.Patterns
 
         protected SourcePosition RunOffset(string file, string source, SourcePosition current, ref Token token, ETokenType type, int offset)
         {
-            // get token
+            // Get token
             token = new Token(file, current.Index, type, string.Empty);
 
-            // get position
+            // Get position
             int nextIndex = current.Index + offset;
             int nextColumn = current.Column + offset;
             SourcePosition next = new SourcePosition(file, nextIndex, current.Line, nextColumn);

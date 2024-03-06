@@ -28,7 +28,7 @@ namespace Lox.Compiler.Lexing.Patterns
             {
                 if (this._newlinePattern.IsMatch(source, next))
                 {
-                    // end of line comment
+                    // End of line comment
                     break;
                 }
 
@@ -37,10 +37,11 @@ namespace Lox.Compiler.Lexing.Patterns
 
             int difference = next.Index - startIndex;
 
-            // get token
+            // Get token
             string value = source.Substring(startIndex, difference);
             token = new Token(file, current.Index, ETokenType.LineComment, value);
 
+            // Get position
             next.Column += difference;
             ++next.Index;
 

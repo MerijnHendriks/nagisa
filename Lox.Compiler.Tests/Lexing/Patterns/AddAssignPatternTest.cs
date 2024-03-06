@@ -13,7 +13,7 @@ namespace Lox.Compiler.Tests.Lexing.Patterns
             var logger = new Logger();
             var scanner = new Scanner(logger);
 
-            // code here
+            // TODO: code here
 
             Assert.IsTrue(true);
         }

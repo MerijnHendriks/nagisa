@@ -1,16 +1,11 @@
-/* NOTE:
-   C# 2.0 doesn't support parameterless constructors for structs and the data
-   inside this structure is mutated, hence this being a class.
-*/
-
 using System.Collections.Generic;
 
 namespace Lox.Compiler.Lexing
 {
     public sealed class ScanResult
     {
-        public readonly List<Token> Tokens;
-        public readonly List<SourcePosition> Sourcemap;
+        public readonly List<Token> Tokens;             // Mutated in Interpreter,Scanner
+        public readonly List<SourcePosition> Sourcemap; // Mutated in Interpreter,Scanner
 
         public ScanResult()
         {
