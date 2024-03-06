@@ -23,7 +23,6 @@ The following types are referenced:
     - `string[]`
     - `enum`
     - `class`
-    - `interface`
     - `interface<T>`
   - `System`
     - `Exception`

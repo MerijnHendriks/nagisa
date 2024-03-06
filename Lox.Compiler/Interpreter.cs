@@ -8,10 +8,10 @@ namespace Lox.Compiler
 {
     public sealed class Interpreter
     {
-        private readonly ILogger _logger;
+        private readonly Logger _logger;
         private readonly Scanner _scanner;
 
-        public Interpreter(ILogger logger)
+        public Interpreter(Logger logger)
         {
             this._logger = logger;
             this._scanner = new Scanner(logger);

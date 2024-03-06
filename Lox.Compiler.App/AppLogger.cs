@@ -3,14 +3,14 @@ using Lox.Compiler.Common;
 
 namespace Lox.Compiler.App
 {
-    public class Logger : ILogger
+    public sealed class AppLogger : Logger
     {
-        public void WriteInfo(string text)
+        public override void WriteInfo(string text)
         {
             Console.WriteLine(text);
         }
 
-        public void WriteError(string text)
+        public override void WriteError(string text)
         {
             Console.WriteLine(text);
         }

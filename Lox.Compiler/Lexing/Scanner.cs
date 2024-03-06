@@ -13,11 +13,11 @@ namespace Lox.Compiler.Lexing
 {
     public sealed class Scanner
     {
-        private readonly ILogger _logger;
+        private readonly Logger _logger;
         private readonly TextHelper _textHelper;
         private readonly Pattern[] _patterns;
 
-        public Scanner(ILogger logger)
+        public Scanner(Logger logger)
         {
             this._logger = logger;
             this._textHelper = new TextHelper();

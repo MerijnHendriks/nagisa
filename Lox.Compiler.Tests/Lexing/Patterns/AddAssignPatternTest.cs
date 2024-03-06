@@ -1,20 +1,26 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Lox.Compiler.Common;
 using Lox.Compiler.Lexing;
 using Lox.Compiler.Lexing.Patterns;
 
 namespace Lox.Compiler.Tests.Lexing.Patterns
 {
     [TestClass]
-    public class AddAssignPatternTest
+    public sealed class AddAssignPatternTest
     {
+        private readonly Logger _logger;
+        private readonly Scanner _scanner;
+
+        public AddAssignPatternTest()
+        {
+            _logger = new TestLogger();
+            _scanner = new Scanner(_logger);
+        }
+
         [TestMethod]
         public void Test1()
         {
-            var logger = new Logger();
-            var scanner = new Scanner(logger);
-
             // TODO: code here
-
             Assert.IsTrue(true);
         }
     }

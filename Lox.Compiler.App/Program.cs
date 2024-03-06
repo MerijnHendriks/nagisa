@@ -7,7 +7,7 @@ namespace Lox.Compiler.App
     {
         static void Main(string[] args)
         {
-            var logger = new Logger();
+            var logger = new AppLogger();
             var interpreter = new Interpreter(logger);
 
             if (args.Length == 1)
