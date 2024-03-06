@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Lox.Compiler.Common;
 using Lox.Compiler.Lexing;
+using Lox.Compiler.Parsing;
 
 namespace Lox.Compiler
 {
