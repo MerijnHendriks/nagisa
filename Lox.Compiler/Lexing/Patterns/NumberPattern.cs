@@ -34,6 +34,10 @@ namespace Lox.Compiler.Lexing.Patterns
 
                 if (this._textHelper.IsMatchChar(source, next.Index, DELIMITER))
                 {
+                    // TODO:
+                    // - lookeahead 1
+                    // - If number after 1 delimiter, OK!
+                    //   Else ERROR
                     ++delimiter;
                 }
 
