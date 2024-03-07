@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Lox.Compiler.Common;
 using Lox.Compiler.Lexing;
 using Lox.Compiler.Lexing.Patterns;
 using Lox.Compiler.Tests.Common;
