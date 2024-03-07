@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Lox.Compiler.Common;
 using Lox.Compiler.Lexing;
@@ -9,20 +10,30 @@ namespace Lox.Compiler.Tests.Lexing.Patterns
     [TestClass]
     public sealed class AddAssignPatternTest
     {
-        private readonly Logger _logger;
-        private readonly Scanner _scanner;
+        private readonly PatternTestHelper _helper;
 
         public AddAssignPatternTest()
         {
-            _logger = new TestLogger();
-            _scanner = new Scanner(_logger);
+            _helper = new PatternTestHelper();
         }
 
         [TestMethod]
         public void Test1()
         {
-            // TODO: code here
-            Assert.IsTrue(true);
+            var file = string.Empty;
+            var source = "+=";
+            var tokens = new Token[]
+            {
+                new Token(file, 0, TokenType.ADD_ASSIGN, string.Empty),
+                new Token(file, 1, TokenType.END_OF_FILE, string.Empty)
+            };
+            var sourcemap = new SourcePosition[]
+            {
+                new SourcePosition(file, 0, 1, 1),
+                new SourcePosition(file, 1, 1, 3)
+            };
+
+            _helper.AssertPattern(source, tokens, sourcemap);
         }
     }
 }
