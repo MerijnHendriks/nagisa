@@ -1,7 +1,7 @@
 using System;
 using Lox.Compiler.Common;
 
-namespace Lox.Compiler.Tests
+namespace Lox.Compiler.Tests.Common
 {
     public sealed class TestLogger : Logger
     {

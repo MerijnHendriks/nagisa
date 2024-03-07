@@ -1,7 +1,7 @@
 using System;
 using Lox.Compiler.Common;
 
-namespace Lox.Compiler.App
+namespace Lox.Compiler.App.Common
 {
     public sealed class AppLogger : Logger
     {

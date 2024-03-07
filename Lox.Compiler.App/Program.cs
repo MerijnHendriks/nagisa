@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using Lox.Compiler.App.Common;
 
 namespace Lox.Compiler.App
 {
