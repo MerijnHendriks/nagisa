@@ -110,7 +110,7 @@ namespace Lox.Compiler.Lexing
             throw new Exception(error);
         }
 
-        private void PrintToken(Token token, SourcePosition current, SourcePosition next)
+        private void PrintToken(Token token, SourcePosition current)
         {
             string format = "[{0}, {1}, {2}] {3}";
             string typeName = _textHelper.GetTokenTypeName(token.Type);
@@ -143,7 +143,7 @@ namespace Lox.Compiler.Lexing
                     result.Sourcemap.Add(current);
 
                     // Print
-                    this.PrintToken(token, current, next);
+                    this.PrintToken(token, current);
                 }
 
                 current = next;
@@ -153,6 +153,7 @@ namespace Lox.Compiler.Lexing
             token = new Token(file, current.Index, TokenType.END_OF_FILE, string.Empty);
             result.Tokens.Add(token);
             result.Sourcemap.Add(current);
+            this.PrintToken(token, current);
 
             return result;
         }
