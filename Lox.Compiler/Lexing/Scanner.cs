@@ -127,7 +127,7 @@ namespace Lox.Compiler.Lexing
         public ScanResult Run(string file, string source)
         {
             Token token = new Token();
-            SourcePosition current = new SourcePosition(file, 0, 1, 0);
+            SourcePosition current = new SourcePosition(file, 0, 1, 1);
             SourcePosition next = current;
             ScanResult result = new ScanResult();
 
