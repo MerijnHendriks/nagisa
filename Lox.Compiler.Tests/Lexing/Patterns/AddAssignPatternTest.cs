@@ -35,5 +35,28 @@ namespace Lox.Compiler.Tests.Lexing.Patterns
 
             _helper.AssertPattern(source, tokens, sourcemap);
         }
+
+        [TestMethod]
+        public void Test2()
+        {
+            var file = string.Empty;
+            var source = " += ";
+            var tokens = new Token[]
+            {
+                new Token(file, 0, TokenType.WHITESPACE, string.Empty),
+                new Token(file, 1, TokenType.ADD_ASSIGN, string.Empty),
+                new Token(file, 3, TokenType.WHITESPACE, string.Empty),
+                new Token(file, 4, TokenType.END_OF_FILE, string.Empty)
+            };
+            var sourcemap = new SourcePosition[]
+            {
+                new SourcePosition(file, 0, 1, 1),
+                new SourcePosition(file, 1, 1, 2),
+                new SourcePosition(file, 3, 1, 4),
+                new SourcePosition(file, 4, 1, 5)
+            };
+
+            _helper.AssertPattern(source, tokens, sourcemap);
+        }
     }
 }
