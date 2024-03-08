@@ -35,6 +35,7 @@
         {
             "label": "dotnet: publish",
             "type": "shell",
+            // Framework version specified because Lox.Compiler targets multiple frameworks
             "command": "dotnet publish --nologo --no-restore --no-build --framework net8.0",
             "dependsOrder": "sequence",
             "dependsOn": "dotnet: build release",
