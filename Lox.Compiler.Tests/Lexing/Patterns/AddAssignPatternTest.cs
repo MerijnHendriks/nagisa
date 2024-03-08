@@ -17,7 +17,7 @@ namespace Lox.Compiler.Tests.Lexing.Patterns
         }
 
         [TestMethod]
-        public void Test1()
+        public void TestSingle()
         {
             var file = string.Empty;
             var source = "+=";
@@ -36,7 +36,7 @@ namespace Lox.Compiler.Tests.Lexing.Patterns
         }
 
         [TestMethod]
-        public void Test2()
+        public void TestSurrounded()
         {
             var file = string.Empty;
             var source = " += ";
