@@ -1,6 +1,11 @@
 # Architecture
 
-...
+## Scanner
+
+Both `Token` and `SourcePosition` use a combination of `File` and `Index` to
+give them an unique matching ID. For both instances, `File` is the source file
+it originated from (exp. `./MyFilder/MyFile.lox`) and the `Index` is the index
+of the scanner's iterator where the token was encountered.
 
 ## Dependencies
 
@@ -44,7 +49,7 @@ The following types are referenced:
 Reliability is the top priority for me. A project written by Microsoft is less
 prone to hostile maintainers (see Activismware on NPM and Ransomware in Moq),
 more likely to receive extended support and also has one of the least
-thrird-party dependencies (only `Newtonsoft.Json`) compared to other options.
+third-party dependencies (only `Newtonsoft.Json`) compared to other options.
 
 > Q: Is an older version of .NET Framework supported for `Lox.Compiler.Tests`?
 
@@ -60,4 +65,5 @@ the following to `Lox.Compiler.Tests`:
 </ItemGroup>
 ```
 
-If you need support for even older versions of .NET Framework, consider NUnit.
+If you need support for even older versions of .NET Framework, consider
+migrating the tests to NUnit.
