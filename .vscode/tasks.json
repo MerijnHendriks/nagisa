@@ -15,7 +15,7 @@
         {
             "label": "dotnet: build debug",
             "type": "shell",
-            "command": "dotnet build --nologo --no-restore --configuration Debug",
+            "command": "dotnet build --nologo --configuration Debug",
             "dependsOrder": "sequence",
             "dependsOn": "dotnet: restore",
             "group": {
@@ -25,7 +25,7 @@
         {
             "label": "dotnet: build release",
             "type": "shell",
-            "command": "dotnet build --nologo --no-restore --configuration Release",
+            "command": "dotnet build --nologo --configuration Release",
             "dependsOrder": "sequence",
             "dependsOn": "dotnet: restore",
             "group": {
@@ -36,7 +36,7 @@
             "label": "dotnet: publish",
             "type": "shell",
             // Framework version specified because Lox.Compiler targets multiple frameworks
-            "command": "dotnet publish --nologo --no-restore --no-build --framework net8.0",
+            "command": "dotnet publish --nologo --no-build --framework net8.0",
             "dependsOrder": "sequence",
             "dependsOn": "dotnet: build release",
             "group": {
@@ -46,13 +46,21 @@
         {
             "label": "dotnet: test",
             "type": "shell",
-            "command": "dotnet test --nologo --no-restore --no-build",
+            "command": "dotnet test --nologo --no-build",
             "dependsOrder": "sequence",
             "dependsOn": "dotnet: build debug",
             "group": {
                 "kind": "test",
                 "isDefault": true
             }
+        },
+        {
+            "label": "dotnet: run",
+            "type": "shell",
+            "command": "dotnet run --no-build --project Lox.Compiler.App -- program.lox",
+            "dependsOrder": "sequence",
+            "dependsOn": "dotnet: build debug",
+            "problemMatcher": []
         }
     ]
 }
