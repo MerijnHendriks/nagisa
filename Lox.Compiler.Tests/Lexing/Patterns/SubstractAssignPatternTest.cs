@@ -7,11 +7,11 @@ using Lox.Compiler.Tests.Common;
 namespace Lox.Compiler.Tests.Lexing.Patterns
 {
     [TestClass]
-    public sealed class AddAssignPatternTest
+    public sealed class SubstractAssignPatternTest
     {
         private readonly PatternTestHelper _helper;
 
-        public AddAssignPatternTest()
+        public SubstractAssignPatternTest()
         {
             _helper = new PatternTestHelper();
         }
