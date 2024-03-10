@@ -15,7 +15,7 @@
         {
             "label": "dotnet: build debug",
             "type": "shell",
-            "command": "dotnet build --nologo --configuration Debug",
+            "command": "dotnet build --nologo --no-restore --configuration Debug",
             "dependsOrder": "sequence",
             "dependsOn": "dotnet: restore",
             "group": {
@@ -25,7 +25,7 @@
         {
             "label": "dotnet: build release",
             "type": "shell",
-            "command": "dotnet build --nologo --configuration Release",
+            "command": "dotnet build --nologo  --no-restore --configuration Release",
             "dependsOrder": "sequence",
             "dependsOn": "dotnet: restore",
             "group": {
