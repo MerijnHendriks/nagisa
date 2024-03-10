@@ -23,7 +23,7 @@ namespace Lox.Compiler.Tests.Lexing.Patterns
             var source = "-=";
             var tokens = new Token[]
             {
-                new Token(file, 0, TokenType.ADD_ASSIGN, string.Empty),
+                new Token(file, 0, TokenType.SUBSTRACT_ASSIGN, string.Empty),
                 new Token(file, 2, TokenType.END_OF_FILE, string.Empty)
             };
             var sourcemap = new SourcePosition[]
@@ -43,7 +43,7 @@ namespace Lox.Compiler.Tests.Lexing.Patterns
             var tokens = new Token[]
             {
                 new Token(file, 0, TokenType.WHITESPACE, string.Empty),
-                new Token(file, 1, TokenType.ADD_ASSIGN, string.Empty),
+                new Token(file, 1, TokenType.SUBSTRACT_ASSIGN, string.Empty),
                 new Token(file, 3, TokenType.WHITESPACE, string.Empty),
                 new Token(file, 4, TokenType.END_OF_FILE, string.Empty)
             };
