@@ -7,11 +7,11 @@ using Lox.Compiler.Tests.Common;
 namespace Lox.Compiler.Tests.Lexing.Patterns
 {
     [TestClass]
-    public sealed class AddAssignPatternTest
+    public sealed class SubstractAssignPatternTest
     {
         private readonly PatternTestHelper _helper;
 
-        public AddAssignPatternTest()
+        public SubstractAssignPatternTest()
         {
             _helper = new PatternTestHelper();
         }
@@ -20,10 +20,10 @@ namespace Lox.Compiler.Tests.Lexing.Patterns
         public void TestSingle()
         {
             var file = string.Empty;
-            var source = "+=";
+            var source = "-=";
             var tokens = new Token[]
             {
-                new Token(file, 0, TokenType.ADD_ASSIGN, string.Empty),
+                new Token(file, 0, TokenType.SUBSTRACT_ASSIGN, string.Empty),
                 new Token(file, 2, TokenType.END_OF_FILE, string.Empty)
             };
             var sourcemap = new SourcePosition[]
@@ -39,11 +39,11 @@ namespace Lox.Compiler.Tests.Lexing.Patterns
         public void TestSurrounded()
         {
             var file = string.Empty;
-            var source = " += ";
+            var source = " -= ";
             var tokens = new Token[]
             {
                 new Token(file, 0, TokenType.WHITESPACE, string.Empty),
-                new Token(file, 1, TokenType.ADD_ASSIGN, string.Empty),
+                new Token(file, 1, TokenType.SUBSTRACT_ASSIGN, string.Empty),
                 new Token(file, 3, TokenType.WHITESPACE, string.Empty),
                 new Token(file, 4, TokenType.END_OF_FILE, string.Empty)
             };
@@ -58,4 +58,4 @@ namespace Lox.Compiler.Tests.Lexing.Patterns
             _helper.AssertPattern(source, tokens, sourcemap);
         }
     }
-}
+} 

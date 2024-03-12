@@ -66,39 +66,39 @@ namespace Lox.Compiler.Tests.Common
         {
             if (string.IsNullOrEmpty(source))
             {
-                Assert.Fail("Wrong written test: no source");
+                Assert.Fail("No input source.");
             }
 
             if (tokens == null || tokens.Length == 0)
             {
-                Assert.Fail("Wrong written test: no tokens");
+                Assert.Fail("No input tokens.");
             }
 
             if (sourcemap == null || sourcemap.Length == 0)
             {
-                Assert.Fail("Wrong written test: no sourcemap");
+                Assert.Fail("No input sourcemap.");
             }
 
             if (tokens.Length != sourcemap.Length)
             {
-                Assert.Fail("Wrong written test: inputs do not match");
+                Assert.Fail("Input tokens and sourcemap not of equal length.");
             }
 
             var result = _scanner.Run(string.Empty, source);
 
             if (result.Tokens.Count != tokens.Length)
             {
-                Assert.Fail("Length of resulting tokens.");
+                Assert.Fail($"result.Tokens.Count incorrect. Expected {tokens.Length}, got {result.Tokens.Count}.");
             }
 
             if (result.Sourcemap.Count != sourcemap.Length)
             {
-                Assert.Fail("Length of resulting sourcemap.");
+                Assert.Fail($"result.Sourcemap.Count incorrect. Expected {sourcemap.Length}, got {result.Sourcemap.Count}.");
             }
 
             if (result.Tokens.Count != result.Sourcemap.Count)
             {
-                Assert.Fail("Length of sourcemap not equal to length of tokens");
+                Assert.Fail("Result tokens and sourcemap not of equal length.");
             }
 
             for (var i = 0; i < tokens.Length; ++i)
