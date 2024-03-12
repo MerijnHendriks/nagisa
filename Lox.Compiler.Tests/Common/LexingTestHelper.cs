@@ -5,18 +5,18 @@ using Lox.Compiler.Lexing;
 
 namespace Lox.Compiler.Tests.Common
 {
-    public sealed class PatternTestHelper
+    public sealed class LexingTestHelper
     {
         private readonly Logger _logger;
         private readonly Scanner _scanner;
 
-        public PatternTestHelper()
+        public LexingTestHelper()
         {
             _logger = new TestLogger();
             _scanner = new Scanner(_logger);
         }
 
-        private void AssertToken(Token truth, Token other)
+        public void AssertToken(Token truth, Token other)
         {
             if (other.File != truth.File)
             {
@@ -39,7 +39,7 @@ namespace Lox.Compiler.Tests.Common
             }
         }
 
-        private void AssertSourcePosition(SourcePosition truth, SourcePosition other)
+        public void AssertSourcePosition(SourcePosition truth, SourcePosition other)
         {
             if (other.File != truth.File)
             {
@@ -62,7 +62,7 @@ namespace Lox.Compiler.Tests.Common
             }
         }
 
-        public void AssertPattern(string source, Token[] tokens, SourcePosition[] sourcemap)
+        public void AssertScanner(string source, Token[] tokens, SourcePosition[] sourcemap)
         {
             if (string.IsNullOrEmpty(source))
             {
