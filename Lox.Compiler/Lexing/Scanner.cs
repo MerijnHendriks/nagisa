@@ -1,9 +1,3 @@
-/*  NOTE:
-    Be VERY careful when modifying Scanner._patterns, order is extremely important here;
-    Correctness: Cases like "+=" MUST be matched BEFORE "+", otherwise "+=" will be detected as "+", "=".
-    Performance: Common cases MUST match ASAP, othterwise performance degrades significantly.
-*/
-
 using System;
 using System.Collections.Generic;
 using Lox.Compiler.Common;
