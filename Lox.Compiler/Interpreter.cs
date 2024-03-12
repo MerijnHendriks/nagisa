@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Lox.Compiler.Common;
 using Lox.Compiler.Lexing;
+using Lox.Compiler.Lexing.Patterns;
 using Lox.Compiler.Parsing;
 
 namespace Lox.Compiler
@@ -13,8 +14,11 @@ namespace Lox.Compiler
 
         public Interpreter(Logger logger)
         {
+            PatternProvider patternProvider = new PatternProvider();
+            Pattern[] patterns = patternProvider.GetPatterns();
+
             this._logger = logger;
-            this._scanner = new Scanner(logger);
+            this._scanner = new Scanner(logger, patterns);
         }
 
         public void RunSingle(string file, string source)

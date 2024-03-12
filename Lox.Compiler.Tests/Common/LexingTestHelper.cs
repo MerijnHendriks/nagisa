@@ -12,8 +12,11 @@ namespace Lox.Compiler.Tests.Common
 
         public LexingTestHelper()
         {
+            var patternProvider = new PatternProvider();
+            var patterns = patternProvider.GetPatterns();
+
             _logger = new TestLogger();
-            _scanner = new Scanner(_logger);
+            _scanner = new Scanner(_logger, patterns);
         }
 
         public void AssertToken(Token truth, Token other)
