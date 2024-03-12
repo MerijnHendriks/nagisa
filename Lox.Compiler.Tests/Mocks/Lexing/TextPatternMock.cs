@@ -6,7 +6,6 @@ namespace Lox.Compiler.Tests.Mocks.Lexing
     {
         public TextPatternMock(string target, int type) : base(target, type)
         {
-            // Deliberately left empty
         }
     }
 }
