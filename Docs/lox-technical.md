@@ -37,7 +37,7 @@ varDecl        → "var" IDENTIFIER ( "=" expression )? ";" ;
 
 ### Statements
 
-> > Crafting Interpreters, Appendix A1.1.2
+> Crafting Interpreters, Appendix A1.1.2
 
 The remaining statement rules produce side effects, but do not introduce
 bindings.
@@ -65,7 +65,7 @@ block          → "{" declaration* "}" ;
 
 ### Expressions
 
-> > Crafting Interpreters, Appendix A1.1.3
+> Crafting Interpreters, Appendix A1.1.3
 
 Expressions produce values. Lox has a number of unary and binary operators with
 different levels of precedence. Some grammars for languages do not directly
