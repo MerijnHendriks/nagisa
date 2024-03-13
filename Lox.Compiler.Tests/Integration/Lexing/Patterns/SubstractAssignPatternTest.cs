@@ -20,6 +20,7 @@ namespace Lox.Compiler.Tests.Integration.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "-=";
+
             var truthTokens = new Token[]
             {
                 new Token(file, 0, TokenType.SUBSTRACT_ASSIGN, string.Empty),
@@ -39,6 +40,7 @@ namespace Lox.Compiler.Tests.Integration.Lexing.Patterns
         {
             var file = string.Empty;
             var source = " -= ";
+
             var truthTokens = new Token[]
             {
                 new Token(file, 0, TokenType.WHITESPACE, string.Empty),

@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using Lox.Compiler.Common;
 using Lox.Compiler.Lexing;
+using Lox.Compiler.Lexing.Patterns;
 
 namespace Lox.Compiler.Tests.Common
 {
@@ -63,6 +64,61 @@ namespace Lox.Compiler.Tests.Common
             {
                 Assert.Fail($"SourcePosition.Column is incorrect. Expected {truth.Column}, got {other.Column}.");
             }
+        }
+
+        public void AssertPatternIsMatch(Pattern pattern, string source, SourcePosition current, bool expected)
+        {
+            if (pattern == null)
+            {
+                Assert.Fail("No input pattern.");
+            }
+
+            if (string.IsNullOrEmpty(source))
+            {
+                Assert.Fail("No input source.");
+            }
+
+            if (current == null)
+            {
+                Assert.Fail("No input current.");
+            }
+
+            var result = pattern.IsMatch(source, current);
+            Assert.IsTrue(result == expected);
+        }
+
+        public void AssertPatternRun(Pattern pattern, string file, string source, SourcePosition current, Token token, SourcePosition next)
+        {
+            if (pattern == null)
+            {
+                Assert.Fail("No input pattern.");
+            }
+
+            if (string.IsNullOrEmpty(source))
+            {
+                Assert.Fail("No input source.");
+            }
+
+            if (current == null)
+            {
+                Assert.Fail("No input current.");
+            }
+
+            if (token == null)
+            {
+                Assert.Fail("No input token.");
+            }
+
+            if (next == null)
+            {
+                Assert.Fail("No input next.");
+            }
+
+            var resultToken = new Token();
+            var resultNext = pattern.Run(file, source, current, ref resultToken);
+
+            this.AssertToken(token, resultToken);
+            this.AssertSourcePosition(next, resultNext);
         }
 
         public void AssertScanner(string source, Token[] tokens, SourcePosition[] sourcemap)

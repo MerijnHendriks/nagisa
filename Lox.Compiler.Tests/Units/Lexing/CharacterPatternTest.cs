@@ -19,43 +19,28 @@ namespace Lox.Compiler.Tests.Integration.Lexing.Patterns
         [TestMethod]
         public void TestIsMatch()
         {
-            // intepreter
             var file = string.Empty;
             var source = "a";
-
-            // scanner
             var current = new SourcePosition(file, 0, 1, 1);
+            var pattern = new CharacterPatternMock();
 
-            // pattern
-            var pattern = new CharacterPatternMock('a', TokenType.IDENTIFIER);
-            var result = pattern.IsMatch(source, current);
+            var truthResult = true;
 
-            // validate
-            Assert.IsTrue(result);
+            _helper.AssertPatternIsMatch(pattern, source, current, truthResult);
         }
 
         [TestMethod]
         public void TestRun()
         {
-            // truths
-            var truthToken = new Token(string.Empty, 0, TokenType.IDENTIFIER, string.Empty);
-            var truthSourcePosition = new SourcePosition(string.Empty, 1, 1, 2);
-
-            // intepreter
             var file = string.Empty;
             var source = "a";
-
-            // scanner
             var current = new SourcePosition(file, 0, 1, 1);
-            var token = new Token();
+            var pattern = new CharacterPatternMock();
 
-            // pattern
-            var pattern = new CharacterPatternMock('a', TokenType.IDENTIFIER);
-            var next = pattern.Run(file, source, current, ref token);
+            var truthToken = new Token(file, 0, TokenType.IDENTIFIER, string.Empty);
+            var truthNext = new SourcePosition(file, 1, 1, 2);
 
-            // validate
-            _helper.AssertToken(truthToken, token);
-            _helper.AssertSourcePosition(truthSourcePosition, next);
+            _helper.AssertPatternRun(pattern, file, source, current, truthToken, truthNext);
         }
     }
 }
