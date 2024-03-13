@@ -7,11 +7,11 @@ using Lox.Compiler.Tests.Mocks.Lexing;
 namespace Lox.Compiler.Tests.Units.Lexing.Patterns
 {
     [TestClass]
-    public sealed class CharacterPatternTest
+    public sealed class AddAssignPatternTest
     {
         private readonly LexingTestHelper _helper;
 
-        public CharacterPatternTest()
+        public AddAssignPatternTest()
         {
             _helper = new LexingTestHelper();
         }
@@ -20,8 +20,8 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         public void TestIsMatch()
         {
             var file = string.Empty;
-            var source = "a";
-            var pattern = new CharacterPatternMock();
+            var source = "+=";
+            var pattern = new AddAssignPattern();
 
             var truthResult = true;
 
@@ -32,11 +32,11 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         public void TestRun()
         {
             var file = string.Empty;
-            var source = "a";
-            var pattern = new CharacterPatternMock();
+            var source = "+=";
+            var pattern = new AddAssignPattern();
 
-            var truthToken = new Token(file, 0, TokenType.IDENTIFIER, string.Empty);
-            var truthNext = new SourcePosition(file, 1, 1, 2);
+            var truthToken = new Token(file, 0, TokenType.ADD_ASSIGN, string.Empty);
+            var truthNext = new SourcePosition(file, 2, 1, 3);
 
             _helper.AssertPatternRun(pattern, file, source, truthToken, truthNext);
         }

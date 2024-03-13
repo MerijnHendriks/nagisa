@@ -66,7 +66,7 @@ namespace Lox.Compiler.Tests.Common
             }
         }
 
-        public void AssertPatternIsMatch(Pattern pattern, string source, SourcePosition current, bool expected)
+        public void AssertPatternIsMatch(Pattern pattern, string file, string source, bool expected)
         {
             if (pattern == null)
             {
@@ -78,16 +78,13 @@ namespace Lox.Compiler.Tests.Common
                 Assert.Fail("No input source.");
             }
 
-            if (current == null)
-            {
-                Assert.Fail("No input current.");
-            }
-
+            var current = new SourcePosition(file, 0, 1, 1);
             var result = pattern.IsMatch(source, current);
+
             Assert.IsTrue(result == expected);
         }
 
-        public void AssertPatternRun(Pattern pattern, string file, string source, SourcePosition current, Token token, SourcePosition next)
+        public void AssertPatternRun(Pattern pattern, string file, string source, Token token, SourcePosition next)
         {
             if (pattern == null)
             {
@@ -97,11 +94,6 @@ namespace Lox.Compiler.Tests.Common
             if (string.IsNullOrEmpty(source))
             {
                 Assert.Fail("No input source.");
-            }
-
-            if (current == null)
-            {
-                Assert.Fail("No input current.");
             }
 
             if (token == null)
@@ -114,6 +106,7 @@ namespace Lox.Compiler.Tests.Common
                 Assert.Fail("No input next.");
             }
 
+            var current = new SourcePosition(file, 0, 1, 1);
             var resultToken = new Token();
             var resultNext = pattern.Run(file, source, current, ref resultToken);
 
