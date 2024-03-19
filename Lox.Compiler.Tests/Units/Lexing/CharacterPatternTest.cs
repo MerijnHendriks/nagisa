@@ -9,13 +9,6 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
     [TestClass]
     public sealed class CharacterPatternTest
     {
-        private readonly LexingTestHelper _helper;
-
-        public CharacterPatternTest()
-        {
-            _helper = new LexingTestHelper();
-        }
-
         [TestMethod]
         public void TestIsMatch()
         {
@@ -25,7 +18,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
 
             var truthResult = true;
 
-            _helper.AssertPatternIsMatch(pattern, file, source, truthResult);
+            LexingTestHelper.AssertPatternIsMatch(pattern, file, source, truthResult);
         }
 
         [TestMethod]
@@ -38,7 +31,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
             var truthToken = new Token(file, 0, TokenType.IDENTIFIER, string.Empty);
             var truthNext = new SourcePosition(file, 1, 1, 2);
 
-            _helper.AssertPatternRun(pattern, file, source, truthToken, truthNext);
+            LexingTestHelper.AssertPatternRun(pattern, file, source, truthToken, truthNext);
         }
     }
 }

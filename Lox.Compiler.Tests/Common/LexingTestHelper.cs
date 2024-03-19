@@ -6,12 +6,12 @@ using Lox.Compiler.Lexing.Patterns;
 
 namespace Lox.Compiler.Tests.Common
 {
-    public sealed class LexingTestHelper
+    public static class LexingTestHelper
     {
-        private readonly Logger _logger;
-        private readonly Scanner _scanner;
+        private static readonly Logger _logger;
+        private static readonly Scanner _scanner;
 
-        public LexingTestHelper()
+        static LexingTestHelper()
         {
             var patternProvider = new PatternProvider();
             var patterns = patternProvider.GetPatterns();
@@ -20,7 +20,7 @@ namespace Lox.Compiler.Tests.Common
             _scanner = new Scanner(_logger, patterns);
         }
 
-        public void AssertToken(Token truth, Token other)
+        public static void AssertToken(Token truth, Token other)
         {
             if (other.File != truth.File)
             {
@@ -43,7 +43,7 @@ namespace Lox.Compiler.Tests.Common
             }
         }
 
-        public void AssertSourcePosition(SourcePosition truth, SourcePosition other)
+        public static void AssertSourcePosition(SourcePosition truth, SourcePosition other)
         {
             if (other.File != truth.File)
             {
@@ -66,7 +66,7 @@ namespace Lox.Compiler.Tests.Common
             }
         }
 
-        public void AssertPatternIsMatch(Pattern pattern, string file, string source, bool expected)
+        public static void AssertPatternIsMatch(Pattern pattern, string file, string source, bool expected)
         {
             if (pattern == null)
             {
@@ -84,7 +84,7 @@ namespace Lox.Compiler.Tests.Common
             Assert.IsTrue(result == expected);
         }
 
-        public void AssertPatternRun(Pattern pattern, string file, string source, Token token, SourcePosition next)
+        public static void AssertPatternRun(Pattern pattern, string file, string source, Token token, SourcePosition next)
         {
             if (pattern == null)
             {
@@ -110,11 +110,11 @@ namespace Lox.Compiler.Tests.Common
             var resultToken = new Token();
             var resultNext = pattern.Run(file, source, current, ref resultToken);
 
-            this.AssertToken(token, resultToken);
-            this.AssertSourcePosition(next, resultNext);
+            AssertToken(token, resultToken);
+            AssertSourcePosition(next, resultNext);
         }
 
-        public void AssertScanner(string source, Token[] tokens, SourcePosition[] sourcemap)
+        public static void AssertScanner(string source, Token[] tokens, SourcePosition[] sourcemap)
         {
             if (string.IsNullOrEmpty(source))
             {
@@ -155,12 +155,12 @@ namespace Lox.Compiler.Tests.Common
 
             for (var i = 0; i < tokens.Length; ++i)
             {
-                this.AssertToken(tokens[i], result.Tokens[i]);
+                AssertToken(tokens[i], result.Tokens[i]);
             }
 
             for (var i = 0; i < sourcemap.Length; ++i)
             {
-                this.AssertSourcePosition(sourcemap[i], result.Sourcemap[i]);
+                AssertSourcePosition(sourcemap[i], result.Sourcemap[i]);
             }
         }
     }

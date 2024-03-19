@@ -8,13 +8,6 @@ namespace Lox.Compiler.Tests.Integration.Lexing.Patterns
     [TestClass]
     public sealed class AddAssignPatternTest
     {
-        private readonly LexingTestHelper _helper;
-
-        public AddAssignPatternTest()
-        {
-            _helper = new LexingTestHelper();
-        }
-
         [TestMethod]
         public void TestSingle()
         {
@@ -32,7 +25,7 @@ namespace Lox.Compiler.Tests.Integration.Lexing.Patterns
                 new SourcePosition(file, 2, 1, 3)
             };
 
-            _helper.AssertScanner(source, truthTokens, truthSourcemap);
+            LexingTestHelper.AssertScanner(source, truthTokens, truthSourcemap);
         }
 
         [TestMethod]
@@ -56,7 +49,7 @@ namespace Lox.Compiler.Tests.Integration.Lexing.Patterns
                 new SourcePosition(file, 4, 1, 5)
             };
 
-            _helper.AssertScanner(source, truthTokens, truthSourcemap);
+            LexingTestHelper.AssertScanner(source, truthTokens, truthSourcemap);
         }
     }
 }
