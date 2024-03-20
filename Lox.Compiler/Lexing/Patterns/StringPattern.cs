@@ -29,11 +29,16 @@ namespace Lox.Compiler.Lexing.Patterns
             {
                 if (this._textHelper.IsMatchChar(source, next.Index, DELIMITER))
                 {
-                    // TODO: check escaped quote (\") 
-
-                    // End of string
-                    foundDelimiter = true;
-                    break;
+                    if (this._textHelper.IsMatchChar(source, next.Index - 1, '\\'))
+                    {
+                        // Escaped string
+                    }
+                    else
+                    {
+                        // End of string
+                        foundDelimiter = true;
+                        break;
+                    }
                 }
 
                 ++next.Index;
