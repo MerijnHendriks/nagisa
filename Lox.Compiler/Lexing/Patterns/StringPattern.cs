@@ -29,6 +29,8 @@ namespace Lox.Compiler.Lexing.Patterns
             {
                 if (this._textHelper.IsMatchChar(source, next.Index, DELIMITER))
                 {
+                    // TODO: check escaped quote (\") 
+
                     // End of string
                     foundDelimiter = true;
                     break;

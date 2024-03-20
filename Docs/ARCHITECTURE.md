@@ -44,6 +44,13 @@ The following types are referenced:
 - Enforces self-reliance instead of using external packages.
 - Enables support for Unity Engine (2017.4 and older).
 
+> Q: Why `class` and not `struct` / `enum`?
+
+One of the goals is to make the code relatively easy to port over to other languages.
+
+- Structs have some odd rules in C# and not supported in languages like Lox/JS/Python
+- Enums (as C-like constructs) are not suppored in languages like JS/Python
+
 > Q: Why MSTest v2 over \<_insert unit testing framework here_>
 
 Reliability is the top priority for me. A project written by Microsoft is less
