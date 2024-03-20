@@ -7,14 +7,14 @@ using Lox.Compiler.Tests.Mocks.Lexing;
 namespace Lox.Compiler.Tests.Units.Lexing.Patterns
 {
     [TestClass]
-    public sealed class AndOperatorPatternTest
+    public sealed class AndPatternTest
     {
         [TestMethod]
         public void TestIsMatch()
         {
             var file = string.Empty;
-            var source = "&&";
-            var pattern = new AndOperatorPattern();
+            var source = "and";
+            var pattern = new AndPattern();
 
             var truthResult = true;
 
@@ -25,11 +25,11 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         public void TestRun()
         {
             var file = string.Empty;
-            var source = "&&";
-            var pattern = new AndOperatorPattern();
+            var source = "and";
+            var pattern = new AndPattern();
 
             var truthToken = new Token(file, 0, TokenType.AND, string.Empty);
-            var truthNext = new SourcePosition(file, 2, 1, 3);
+            var truthNext = new SourcePosition(file, 3, 1, 4);
 
             LexingTestHelper.AssertPatternRun(pattern, file, source, truthToken, truthNext);
         }
