@@ -1,14 +1,16 @@
 # Lox.Compiler
 
-An attempt at implementing Lox in C# 2.0.
+> Lasciate ogne speranza, voi ch'intrate.
 
-## Usage
+A reimplementation of Lox in a very limited subset of C# 2.
 
-- build: `dotnet build`
-- test: `dotnet test`
-- run: `dotnet run --project Lox.Compiler.App -- program.lox`
+**Usage** | **Command**
+--------- | ------------------------------------------------------
+Build     | `dotnet build`
+Test      | `dotnet test`
+Run       | `dotnet run --project Lox.Compiler.App -- program.lox`
 
 ## Goals
 
 - Easily embeddable
-- Easy-to-port-over code (to other programming languages as well)
+- Easy to port over code (to other programming languages as well)
