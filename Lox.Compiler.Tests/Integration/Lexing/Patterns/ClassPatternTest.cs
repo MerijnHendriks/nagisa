@@ -15,7 +15,7 @@ namespace Lox.Compiler.Tests.Integration.Lexing.Patterns
 
             var truthTokens = new Token[]
             {
-                new Token(file, 0, TokenType.CLASS, string.Empty),
+                new Token(file, 0, TokenType.CLASS,       string.Empty),
                 new Token(file, 5, TokenType.END_OF_FILE, string.Empty)
             };
             var truthSourcemap = new SourcePosition[]
@@ -35,9 +35,9 @@ namespace Lox.Compiler.Tests.Integration.Lexing.Patterns
 
             var truthTokens = new Token[]
             {
-                new Token(file, 0, TokenType.WHITESPACE, string.Empty),
-                new Token(file, 1, TokenType.CLASS, string.Empty),
-                new Token(file, 6, TokenType.WHITESPACE, string.Empty),
+                new Token(file, 0, TokenType.WHITESPACE,  string.Empty),
+                new Token(file, 1, TokenType.CLASS,       string.Empty),
+                new Token(file, 6, TokenType.WHITESPACE,  string.Empty),
                 new Token(file, 7, TokenType.END_OF_FILE, string.Empty)
             };
             var truthSourcemap = new SourcePosition[]
