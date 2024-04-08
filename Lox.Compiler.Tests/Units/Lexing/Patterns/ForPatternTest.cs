@@ -2,7 +2,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Lox.Compiler.Lexing;
 using Lox.Compiler.Lexing.Patterns;
 using Lox.Compiler.Tests.Common;
-using Lox.Compiler.Tests.Mocks.Lexing;
 
 namespace Lox.Compiler.Tests.Units.Lexing.Patterns
 {

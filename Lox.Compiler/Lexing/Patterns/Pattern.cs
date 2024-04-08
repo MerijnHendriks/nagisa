@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace Lox.Compiler.Lexing.Patterns
 {
     public abstract class Pattern
