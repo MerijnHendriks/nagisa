@@ -9,10 +9,10 @@ namespace Lox.Compiler.Tests.Mocks.Lexing
         private readonly int _type;
         private readonly int _offset;
 
-        public PatternMock(int type, int offset)
+        public PatternMock()
         {
-            this._type = type;
-            this._offset = offset;
+            this._type = TokenType.IDENTIFIER; 
+            this._offset = 1;
         }
 
         public override bool IsMatch(string source, SourcePosition current)
