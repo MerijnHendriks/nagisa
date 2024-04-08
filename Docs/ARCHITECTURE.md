@@ -1,5 +1,24 @@
 # Architecture
 
+## Code conventions
+
+- If you use something part of a member, use the `this` keyword.
+- Only use `mscorlib`, `System` and `System.Generic.Collection` types.
+- Do NOT use LINQ
+  - Not supported by Lox
+  - It's 3-5x slower than hand-written loops
+  - If you need LINQ, consider rethinking your approach (does a simpler system work too?)
+- Do NOT use `foreach`
+  - Not supported by Lox
+  - It's 2-5x slower than `for` on .NET 7.0 and older
+- Do NOT use language-specific features unsupported by Lox
+  - `static`
+  - `enum`
+  - method overloading
+- Prefer inheritance over composition
+- Use generics only where mandatory
+- Use polymorphism where mandatory
+
 ## Scanner
 
 Both `Token` and `SourcePosition` use a combination of `File` and `Index` to
