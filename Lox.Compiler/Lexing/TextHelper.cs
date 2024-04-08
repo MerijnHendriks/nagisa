@@ -35,6 +35,11 @@ namespace Lox.Compiler.Lexing
 
         public bool IsMatchChar(string source, int index, char target)
         {
+            if (this.IsAtEnd(source, index))
+            {
+                return false;
+            }
+
             return source[index] == target;
         }
 
