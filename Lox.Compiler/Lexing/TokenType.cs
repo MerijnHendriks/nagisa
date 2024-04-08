@@ -8,8 +8,6 @@ namespace Lox.Compiler.Lexing
         public const int DOT = 2;                   // .
         public const int COMMA = 3;                 // ,
         public const int SEMICOLON = 4;             // ;
-        public const int LEFT_SQUARE = 5;           // [
-        public const int RIGHT_SQUARE = 6;          // ]
         public const int LEFT_CURLY = 7;            // {
         public const int RIGHT_CURLY = 8;           // }
         public const int LEFT_CIRCLE = 9;           // (
@@ -54,11 +52,5 @@ namespace Lox.Compiler.Lexing
         public const int LINE_COMMENT = 48;         // // hello; world!
         public const int TAB = 49;                  // \t
         public const int WHITESPACE = 50;           //
-        public const int BITSHIFT_LEFT = 51;        // <<=
-        public const int BITSHIFT_RIGHT = 52;       // >>=      
-        public const int BITWISE_AND = 53;          // &
-        public const int BITWISE_OR = 54;           // |
-        public const int BITWISE_XOR = 55;          // ^
-        public const int BITWISE_COMPLEMENT = 56;   // ~
     }
 }

@@ -107,14 +107,11 @@ namespace Lox.Compiler.Lexing
         {
             switch (type)
             {
-                case TokenType.INVALID: return "--- ERROR ---";
                 case TokenType.END_OF_FILE: return "EOF";
                 case TokenType.END_OF_LINE: return "EOL";
                 case TokenType.DOT: return ".";
                 case TokenType.COMMA: return ",";
                 case TokenType.SEMICOLON: return ";";
-                case TokenType.LEFT_SQUARE: return "[";
-                case TokenType.RIGHT_SQUARE: return "]";
                 case TokenType.LEFT_CURLY: return "{";
                 case TokenType.RIGHT_CURLY: return "}";
                 case TokenType.LEFT_CIRCLE: return "(";
@@ -159,12 +156,7 @@ namespace Lox.Compiler.Lexing
                 case TokenType.LINE_COMMENT: return "//";
                 case TokenType.TAB: return "\t";
                 case TokenType.WHITESPACE: return "' '";
-                case TokenType.BITSHIFT_LEFT: return "<<=";
-                case TokenType.BITSHIFT_RIGHT: return ">>=";     
-                case TokenType.BITWISE_AND: return "&";
-                case TokenType.BITWISE_OR: return "|";
-                case TokenType.BITWISE_XOR: return "^";
-                case TokenType.BITWISE_COMPLEMENT: return "~";
+                case TokenType.INVALID:
                 default:
                     throw new Exception("Invalid type.");
             }
