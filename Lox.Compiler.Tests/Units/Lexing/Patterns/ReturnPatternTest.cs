@@ -15,9 +15,9 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
             var source = "return";
             var pattern = new ReturnPattern();
 
-            var truthResult = true;
+            var expectedResult = true;
 
-            LexingTestHelper.AssertPatternIsMatch(pattern, file, source, truthResult);
+            LexingTestHelper.AssertPatternIsMatch(pattern, file, source, expectedResult);
         }
 
         [TestMethod]
@@ -27,10 +27,10 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
             var source = "return";
             var pattern = new ReturnPattern();
 
-            var truthToken = new Token(file, 0, TokenType.RETURN, string.Empty);
-            var truthNext = new SourcePosition(file, 6, 1, 7);
+            var expectedToken = new Token(file, 0, TokenType.RETURN, string.Empty);
+            var expectedNext = new SourcePosition(file, 6, 1, 7);
 
-            LexingTestHelper.AssertPatternRun(pattern, file, source, truthToken, truthNext);
+            LexingTestHelper.AssertPatternRun(pattern, file, source, expectedToken, expectedNext);
         }
     }
 }

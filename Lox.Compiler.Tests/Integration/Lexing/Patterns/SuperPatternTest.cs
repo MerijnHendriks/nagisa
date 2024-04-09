@@ -13,18 +13,18 @@ namespace Lox.Compiler.Tests.Integration.Lexing.Patterns
             var file = string.Empty;
             var source = "super";
 
-            var truthTokens = new Token[]
+            var expectedTokens = new Token[]
             {
                 new Token(file, 0, TokenType.SUPER,       string.Empty),
                 new Token(file, 5, TokenType.END_OF_FILE, string.Empty)
             };
-            var truthSourcemap = new SourcePosition[]
+            var expectedSourcemap = new SourcePosition[]
             {
                 new SourcePosition(file, 0, 1, 1),
                 new SourcePosition(file, 5, 1, 6)
             };
 
-            LexingTestHelper.AssertScanner(source, truthTokens, truthSourcemap);
+            LexingTestHelper.AssertScanner(source, expectedTokens, expectedSourcemap);
         }
 
         [TestMethod]
@@ -33,14 +33,14 @@ namespace Lox.Compiler.Tests.Integration.Lexing.Patterns
             var file = string.Empty;
             var source = " super ";
 
-            var truthTokens = new Token[]
+            var expectedTokens = new Token[]
             {
                 new Token(file, 0, TokenType.WHITESPACE,  string.Empty),
                 new Token(file, 1, TokenType.SUPER,       string.Empty),
                 new Token(file, 6, TokenType.WHITESPACE,  string.Empty),
                 new Token(file, 7, TokenType.END_OF_FILE, string.Empty)
             };
-            var truthSourcemap = new SourcePosition[]
+            var expectedSourcemap = new SourcePosition[]
             {
                 new SourcePosition(file, 0, 1, 1),
                 new SourcePosition(file, 1, 1, 2),
@@ -48,7 +48,7 @@ namespace Lox.Compiler.Tests.Integration.Lexing.Patterns
                 new SourcePosition(file, 7, 1, 8)
             };
 
-            LexingTestHelper.AssertScanner(source, truthTokens, truthSourcemap);
+            LexingTestHelper.AssertScanner(source, expectedTokens, expectedSourcemap);
         }
     }
 }

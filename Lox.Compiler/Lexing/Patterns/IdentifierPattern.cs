@@ -37,8 +37,8 @@ namespace Lox.Compiler.Lexing.Patterns
             if (difference > 31)
             {
                 string format = "Identifier at {0} is too long. Max 31 characters allowed.";
-                string error = string.Format(format, current.Index);
-                throw new Exception(error);
+                string message = string.Format(format, current.Index);
+                throw new Exception(message);
             }
 
             // Get token

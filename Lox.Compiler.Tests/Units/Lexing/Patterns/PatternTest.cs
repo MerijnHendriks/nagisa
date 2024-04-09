@@ -15,10 +15,10 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
             var source = "a";
             var pattern = new PatternMock();
 
-            var truthToken = new Token(file, 0, TokenType.IDENTIFIER, string.Empty);
-            var truthNext = new SourcePosition(file, 1, 1, 2);
+            var expectedToken = new Token(file, 0, TokenType.IDENTIFIER, string.Empty);
+            var expectedNext = new SourcePosition(file, 1, 1, 2);
 
-            LexingTestHelper.AssertPatternRun(pattern, file, source, truthToken, truthNext);
+            LexingTestHelper.AssertPatternRun(pattern, file, source, expectedToken, expectedNext);
         }
     }
 }

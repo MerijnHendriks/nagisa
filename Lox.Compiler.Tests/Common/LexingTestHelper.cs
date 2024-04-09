@@ -19,49 +19,65 @@ namespace Lox.Compiler.Tests.Common
             _scanner = new Scanner(_logger, patterns);
         }
 
-        public static void AssertToken(Token truth, Token other)
+        public static void AssertToken(Token expected, Token result)
         {
-            if (other.File != truth.File)
+            if (result.File != expected.File)
             {
-                Assert.Fail($"Token.File is incorrect. Expected {truth.File}, got {other.File}.");
+                var format = "Token.File is incorrect. Expected {0}, got {1}.";
+                var message = string.Format(format, expected.File, result.File);
+                Assert.Fail(message);
             }
 
-            if (other.Index != truth.Index)
+            if (result.Index != expected.Index)
             {
-                Assert.Fail($"Token.Index is incorrect. Expected {truth.Index}, got {other.Index}.");
+                var format = "Token.Index is incorrect. Expected {0}, got {1}.";
+                var message = string.Format(format, expected.Index, result.Index);
+                Assert.Fail(message);
             }
 
-            if (other.Type != truth.Type)
+            if (result.Type != expected.Type)
             {
-                Assert.Fail($"Token.Type is incorrect. Expected {truth.Type}, got {other.Type}.");
+                var format = "Token.Type is incorrect. Expected {0}, got {1}.";
+                var message = string.Format(format, expected.Type, result.Type);
+                Assert.Fail(message);
             }
 
-            if (other.Value != truth.Value)
+            if (result.Value != expected.Value)
             {
-                Assert.Fail($"Token.Value is incorrect. Expected {truth.Value}, got {other.Value}.");
+                var format = "Token.Value is incorrect. Expected {0}, got {1}.";
+                var message = string.Format(format, expected.Value, result.Value);
+                Assert.Fail(message);
             }
         }
 
-        public static void AssertSourcePosition(SourcePosition truth, SourcePosition other)
+        public static void AssertSourcePosition(SourcePosition expected, SourcePosition result)
         {
-            if (other.File != truth.File)
+            if (result.File != expected.File)
             {
-                Assert.Fail($"SourcePosition.File is incorrect. Expected {truth.File}, got {other.File}.");
+                var format = "SourcePosition.File is incorrect. Expected {0}, got {1}.";
+                var message = string.Format(format, expected.File, result.File);
+                Assert.Fail(message);
             }
 
-            if (other.Index != truth.Index)
+            if (result.Index != expected.Index)
             {
-                Assert.Fail($"SourcePosition.Index is incorrect. Expected {truth.Index}, got {other.Index}.");
+                var format = "SourcePosition.Index is incorrect. Expected {0}, got {1}.";
+                var message = string.Format(format, expected.Index, result.Index);
+                Assert.Fail(message);
             }
 
-            if (other.Line != truth.Line)
+            if (result.Line != expected.Line)
             {
-                Assert.Fail($"SourcePosition.Line is incorrect. Expected {truth.Line}, got {other.Line}.");
+                var format = "SourcePosition.Line is incorrect. Expected {0}, got {1}.";
+                var message = string.Format(format, expected.Line, result.Line);
+                Assert.Fail(message);
             }
 
-            if (other.Column != truth.Column)
+            if (result.Column != expected.Column)
             {
-                Assert.Fail($"SourcePosition.Column is incorrect. Expected {truth.Column}, got {other.Column}.");
+                var format = "SourcePosition.Column is incorrect. Expected {0}, got {1}.";
+                var message = string.Format(format, expected.Column, result.Column);
+                Assert.Fail(message);
             }
         }
 
@@ -83,7 +99,7 @@ namespace Lox.Compiler.Tests.Common
             Assert.IsTrue(result == expected);
         }
 
-        public static void AssertPatternRun(Pattern pattern, string file, string source, Token token, SourcePosition next)
+        public static void AssertPatternRun(Pattern pattern, string file, string source, Token expectedToken, SourcePosition expectedNext)
         {
             if (pattern == null)
             {
@@ -95,12 +111,12 @@ namespace Lox.Compiler.Tests.Common
                 Assert.Fail("No input source.");
             }
 
-            if (token == null)
+            if (expectedToken == null)
             {
                 Assert.Fail("No input token.");
             }
 
-            if (next == null)
+            if (expectedNext == null)
             {
                 Assert.Fail("No input next.");
             }
@@ -109,42 +125,46 @@ namespace Lox.Compiler.Tests.Common
             var resultToken = new Token();
             var resultNext = pattern.Run(file, source, current, ref resultToken);
 
-            AssertToken(token, resultToken);
-            AssertSourcePosition(next, resultNext);
+            AssertToken(expectedToken, resultToken);
+            AssertSourcePosition(expectedNext, resultNext);
         }
 
-        public static void AssertScanner(string source, Token[] tokens, SourcePosition[] sourcemap)
+        public static void AssertScanner(string source, Token[] expectedTokens, SourcePosition[] expectedSourcemap)
         {
             if (string.IsNullOrEmpty(source))
             {
                 Assert.Fail("No input source.");
             }
 
-            if (tokens == null || tokens.Length == 0)
+            if (expectedTokens == null || expectedTokens.Length == 0)
             {
                 Assert.Fail("No input tokens.");
             }
 
-            if (sourcemap == null || sourcemap.Length == 0)
+            if (expectedSourcemap == null || expectedSourcemap.Length == 0)
             {
                 Assert.Fail("No input sourcemap.");
             }
 
-            if (tokens.Length != sourcemap.Length)
+            if (expectedTokens.Length != expectedSourcemap.Length)
             {
                 Assert.Fail("Input tokens and sourcemap not of equal length.");
             }
 
             var result = _scanner.Run(string.Empty, source);
 
-            if (result.Tokens.Count != tokens.Length)
+            if (result.Tokens.Count != expectedTokens.Length)
             {
-                Assert.Fail($"result.Tokens.Count incorrect. Expected {tokens.Length}, got {result.Tokens.Count}.");
+                var format = "result.Tokens.Count incorrect. Expected {0}, got {1}.";
+                var message = string.Format(format, expectedTokens.Length, result.Tokens.Count);
+                Assert.Fail(message);
             }
 
-            if (result.Sourcemap.Count != sourcemap.Length)
+            if (result.Sourcemap.Count != expectedSourcemap.Length)
             {
-                Assert.Fail($"result.Sourcemap.Count incorrect. Expected {sourcemap.Length}, got {result.Sourcemap.Count}.");
+                var format = "result.Sourcemap.Count incorrect. Expected {0}, got {1}.";
+                var message = string.Format(format, expectedSourcemap.Length, result.Sourcemap.Count);
+                Assert.Fail(message);
             }
 
             if (result.Tokens.Count != result.Sourcemap.Count)
@@ -152,14 +172,14 @@ namespace Lox.Compiler.Tests.Common
                 Assert.Fail("Result tokens and sourcemap not of equal length.");
             }
 
-            for (var i = 0; i < tokens.Length; ++i)
+            for (var i = 0; i < expectedTokens.Length; ++i)
             {
-                AssertToken(tokens[i], result.Tokens[i]);
+                AssertToken(expectedTokens[i], result.Tokens[i]);
             }
 
-            for (var i = 0; i < sourcemap.Length; ++i)
+            for (var i = 0; i < expectedSourcemap.Length; ++i)
             {
-                AssertSourcePosition(sourcemap[i], result.Sourcemap[i]);
+                AssertSourcePosition(expectedSourcemap[i], result.Sourcemap[i]);
             }
         }
     }

@@ -47,8 +47,8 @@ namespace Lox.Compiler.Lexing.Patterns
             if (!foundDelimiter)
             {
                 string format = "String at {0} not closed.";
-                string error = string.Format(format, current.Index);
-                throw new Exception(error);
+                string message = string.Format(format, current.Index);
+                throw new Exception(message);
             }
 
             int difference = next.Index - startIndex;

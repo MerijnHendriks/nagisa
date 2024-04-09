@@ -43,8 +43,8 @@ namespace Lox.Compiler.Lexing.Patterns
             if (delimiter > 1)
             {
                 string format = "Number at {0} has too many delimiters.";
-                string error = string.Format(format, current.Index);
-                throw new Exception(error);
+                string message = string.Format(format, current.Index);
+                throw new Exception(message);
             }
 
             int difference = next.Index - current.Index;
