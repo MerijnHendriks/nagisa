@@ -33,7 +33,7 @@ namespace Lox.Compiler.Lexing
 
             string format = "[{0}]: No matching pattern for {1} at [idx:{2},ln:{3},col:{4}].";
             string error = string.Format(format, file, source[current.Index], current.Index, current.Line, current.Column);
-            throw new Exception(error);
+            throw new PatternMatchingException(error);
         }
 
         private void PrintToken(Token token, SourcePosition current)
