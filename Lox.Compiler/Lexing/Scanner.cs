@@ -79,7 +79,7 @@ namespace Lox.Compiler.Lexing
         private void PrintToken(Token token, SourcePosition current)
         {
             string format = "[{0}, {1}, {2}] {3}";
-            string typeName = _textHelper.GetTokenName(token.Type);
+            string typeName = this.GetTokenName(token.Type);
             string formatted = string.Format(format, current.Index, current.Line, current.Column, typeName);
 
             if (!string.IsNullOrEmpty(token.Value))
