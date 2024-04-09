@@ -13,7 +13,8 @@ namespace Lox.Compiler.Lexing.Patterns
 
         public override bool IsMatch(string source, SourcePosition current)
         {
-            return this._textHelper.IsIdentifier(source, current.Index);
+            return this._textHelper.IsIdentifier(source, current.Index)
+                && !this._textHelper.IsDigit(source, current.Index);
         }
 
         public override SourcePosition Run(string file, string source, SourcePosition current, ref Token token)
