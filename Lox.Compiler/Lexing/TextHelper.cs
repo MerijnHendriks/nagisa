@@ -43,7 +43,7 @@ namespace Lox.Compiler.Lexing
             return source[index] == target;
         }
 
-        public bool IsMatchText(string source, int start, string target)
+        public bool IsMatchString(string source, int start, string target)
         {
             for (int i = 0; i < target.Length; ++i)
             {

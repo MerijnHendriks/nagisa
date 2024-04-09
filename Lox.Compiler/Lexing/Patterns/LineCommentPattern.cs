@@ -15,7 +15,7 @@ namespace Lox.Compiler.Lexing.Patterns
 
         public override bool IsMatch(string source, SourcePosition current)
         {
-            return this._textHelper.IsMatchText(source, current.Index, TARGET);
+            return this._textHelper.IsMatchString(source, current.Index, TARGET);
         }
 
         public override SourcePosition Run(string file, string source, SourcePosition current, ref Token token)
