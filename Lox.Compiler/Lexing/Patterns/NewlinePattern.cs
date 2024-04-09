@@ -20,7 +20,7 @@ namespace Lox.Compiler.Lexing.Patterns
         {
             // \r\n
             if (!this._textHelper.IsAtEnd(source, current.Index + 1)
-                && this._textHelper.IsEndOfLine(source, current.Index))
+                && this._textHelper.IsNewLine(source, current.Index))
             {
                 return true;
             }
@@ -43,7 +43,7 @@ namespace Lox.Compiler.Lexing.Patterns
             // Get position
             int nextIndex = current.Index;
 
-            if (this._textHelper.IsEndOfLine(source, current.Index))
+            if (this._textHelper.IsNewLine(source, current.Index))
             {
                 // \r\n
                 nextIndex += 2;

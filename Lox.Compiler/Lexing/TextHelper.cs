@@ -79,7 +79,7 @@ namespace Lox.Compiler.Lexing
             return this.IsMatchChar(source, index, '\n');
         }
 
-        public bool IsEndOfLine(string source, int index)
+        public bool IsNewLine(string source, int index)
         {
             return this.IsCarriageReturn(source, index)
                 && this.IsLineFeed(source, index + 1);
