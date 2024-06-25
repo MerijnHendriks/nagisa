@@ -46,9 +46,18 @@
 		 },
 		"tasks": [
 			{
+				"label": "dotnet: tool restore",
+				"type": "shell",
+				"command": "dotnet tool restore --configfile Nuget.config",
+				"problemMatcher": []
+			},
+			{
 				"label": "dotnet: restore",
 				"type": "shell",
-				"command": "dotnet restore --nologo",
+				"command": "dotnet restore --nologo --configfile Nuget.config",
+				"problemMatcher": [],
+				"dependsOn": ["dotnet: tool restore"],
+				"dependsOrder": "sequence",
 			},
 			{
 				"label": "dotnet: build debug",
@@ -90,6 +99,39 @@
 				"group": {
 					"kind": "test",
 					"isDefault": true
+				}
+			},
+			{
+				"label": "dotnet: test coverage",
+				"type": "shell",
+				"command": "dotnet test --nologo --no-build --results-directory reports/tests/ --collect:'Code Coverage;Format=cobertura'",
+				"problemMatcher": [],
+				"dependsOn": ["dotnet: build debug"],
+				"dependsOrder": "sequence",
+				"group": {
+					"kind": "test"
+				}
+			},
+			{
+				"label": "dotnet: report coverage",
+				"type": "shell",
+				"command": "dotnet reportgenerator -reports:reports/**/*.cobertura.xml -targetdir:reports/ -reporttypes:MarkdownSummaryGithub",
+				"problemMatcher": [],
+				"dependsOn": ["dotnet: test coverage"],
+				"dependsOrder": "sequence",
+				"group": {
+					"kind": "test"
+				}
+			},
+			{
+				"label": "dotnet: test mutation",
+				"type": "shell",
+				"command": "dotnet stryker --config-file .config/stryker.json --output ./",
+				"problemMatcher": [],
+				"dependsOn": ["dotnet: restore"],
+				"dependsOrder": "sequence",
+				"group": {
+					"kind": "test"
 				}
 			},
 			{

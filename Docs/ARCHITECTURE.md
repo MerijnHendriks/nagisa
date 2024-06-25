@@ -3,28 +3,26 @@
 ## Code conventions
 
 - If you use something part of a member, use the `this` keyword.
-- Only use `mscorlib`, `System` and `System.Generic.Collection` types.
-- Do NOT use LINQ
-  - Not supported by Lox
-  - It's 3-5x slower than hand-written loops
-  - If you need LINQ, consider rethinking your approach (does a simpler system work too?)
-- Do NOT use `foreach`
-  - Not supported by Lox
-  - It's 2-5x slower than `for` on .NET 7.0 and older
-- Do NOT use language-specific features unsupported by Lox
-  - `static`
-  - `enum`
-  - method overloading
 - Prefer inheritance over composition
-- Use generics only where mandatory
-- Use polymorphism where mandatory
-
-## Scanner
-
-Both `Token` and `SourcePosition` use a combination of `File` and `Index` to
-give them an unique matching ID. For both instances, `File` is the source file
-it originated from (exp. `./MyFilder/MyFile.lox`) and the `Index` is the index
-of the scanner's iterator where the token was encountered.
+- Only use the following type namespaces:
+  - `mscorlib`
+  - `System`
+  - `System.Generic.Collection`
+  - `Microsoft.VisualStudio.TestTools.UnitTesting`
+- Do NOT use `foreach`
+  - It's 2-5x slower than `for` on .NET 7.0 and older
+- Do NOT use LINQ
+  - It's 3-5x slower than hand-written loops
+  - If you need LINQ, consider rethinking your approach (does something simpler
+    work?)
+- Do NOT use the following language features:
+  - `enum` (use `int`/`string` table instead)
+  - method overloading
+- Only use the following when there are no better options:
+  - `static`
+  - `interface`
+  - generics
+  - polymorphism
 
 ## Dependencies
 
@@ -52,32 +50,50 @@ The following types are referenced:
   - `System.Generic.Collections`
     - `List<T>`
 
+## Lexing
+
+### Scanner
+
+Both `Token` and `SourcePosition` use a combination of `File` and `Index` to
+give them an unique matching ID.
+
+- `File` is the source file it originated from (exp. `./MyFolder/MyFile.lox`)
+- `Index` is the index of the scanner's iterator where the token was
+  encountered.
+
 ## FAQ
 
-> Q: Why target .NET Framework 2.0 and .NET Standard 1.0?
+> - Why target .NET Framework 2.0 and .NET Standard 1.0?
 
-- Enforcing a a minimal subset of the language makes it easy to to reason with
-  the code
-  - .NET Framework 2.0 removes much of the language's syntactic sugar.
-  - .NET Standard 1.0 removes the .NET Framework and runtime specific APIs.
-- Enforces self-reliance instead of using external packages.
-- Enables support for Unity Engine (2017.4 and older).
+They're used to enforce a minimal subset of the C# language and .NET runtimes.
+This also encourages self-reliance over external package usage and improves
+portability (example: Unity Engine (2017.4 and older)). It is easier to upgrade
+old code to a newer version than downgrading retroactively.
 
-> Q: Why `class` and not `struct` / `enum`?
+The following is reduced:
 
-One of the goals is to make the code relatively easy to port over to other languages.
+- C# 2.0: resticts language features
+- .NET Framework 2.0: removes much of the language's syntactic sugar.
+- .NET Standard 1.0: removes platform and runtime specific APIs.
 
-- Structs have some odd rules in C# and not supported in languages like Lox/JS/Python
+> - Why `class` and not `struct` / `enum`?
+
+One of the goals is to make the code relatively easy to port over to other
+languages.
+
+- Structs have some odd rules in C# and not supported in languages like
+  Lox/JS/Python
 - Enums (as C-like constructs) are not suppored in languages like JS/Python
 
-> Q: Why MSTest v2 over \<_insert unit testing framework here_>
+> - Why MSTest v2 over \<_insert unit testing framework here_>
+> - Why Microsoft.CodeCoverage over <_insert code coverage collector here_>
 
 Reliability is the top priority for me. A project written by Microsoft is less
 prone to hostile maintainers (see Activismware on NPM and Ransomware in Moq),
 more likely to receive extended support and also has one of the least
 third-party dependencies (only `Newtonsoft.Json`) compared to other options.
 
-> Q: Is an older version of .NET Framework supported for `Lox.Compiler.Tests`?
+> - Is an older version of .NET Framework supported for `Lox.Compiler.Tests`?
 
 Yes! If you need to integrate the tests in a project targeting `net45`, add
 the following to `Lox.Compiler.Tests`:
@@ -93,3 +109,7 @@ the following to `Lox.Compiler.Tests`:
 
 If you need support for even older versions of .NET Framework, consider
 migrating the tests to NUnit.
+
+> - Are the configured tools supported on .NET Framework?
+
+Yes! If you run them through the .NET 8.0 SDK.

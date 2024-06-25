@@ -1,4 +1,10 @@
-.nuget/
+# .NET SDK
 bin/
 obj/
 TestResults/
+
+# NuGet
+.nuget
+
+# tools (code coverage, mutation testing, etc)
+reports/

@@ -1,0 +1,11 @@
+{
+  "stryker-config": {
+    "mutation-level": "Complete",
+    "target-framework": "net8.0",
+    "reporters": [
+      "Progress",
+      "Markdown"
+    ],
+    "report-file-name": "mutation"
+  }
+}
