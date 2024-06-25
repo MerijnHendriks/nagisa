@@ -6,6 +6,9 @@
       "Progress",
       "Markdown"
     ],
-    "report-file-name": "mutation"
+    "report-file-name": "mutation",
+    "coverage-analysis": "perTestInIsolation",
+    "disable-bail": true,
+    "disable-mix-mutants": true
   }
 }
