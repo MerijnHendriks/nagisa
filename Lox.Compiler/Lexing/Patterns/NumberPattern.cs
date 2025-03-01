@@ -1,4 +1,4 @@
-using System;
+using System.IO;
 
 namespace Lox.Compiler.Lexing.Patterns
 {
@@ -44,7 +44,7 @@ namespace Lox.Compiler.Lexing.Patterns
             {
                 string format = "Number at {0} has too many delimiters.";
                 string message = string.Format(format, current.Index);
-                throw new Exception(message);
+                throw new InvalidDataException(message);
             }
 
             int difference = next.Index - current.Index;

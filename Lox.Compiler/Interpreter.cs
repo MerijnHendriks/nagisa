@@ -50,7 +50,7 @@ namespace Lox.Compiler
         {
             if (files.Length != sources.Length)
             {
-                throw new Exception("files and sources length not equal.");
+                throw new ArgumentException("files and sources length not equal.");
             }
 
             for (int i = 0; i < files.Length; ++i)

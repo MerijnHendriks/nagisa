@@ -17,7 +17,7 @@ namespace Lox.Compiler.Lexing
             this._patterns = patterns;
         }
 
-        #if DEBUG
+#if DEBUG
         private string GetTokenName(int type)
         {
             switch (type)
@@ -73,26 +73,27 @@ namespace Lox.Compiler.Lexing
                 case TokenType.WHITESPACE:       return "' '";
                 case TokenType.INVALID:
                 default:
-                    throw new Exception("Invalid type.");
+                    throw new ArgumentException("Invalid type.");
             }
         }
-        #endif
+#endif
 
-        #if DEBUG
+#if DEBUG
         private void PrintToken(Token token, SourcePosition current)
         {
-            string format = "[{0}, {1}, {2}] {3}";
             string typeName = this.GetTokenName(token.Type);
+            string format = "[{0}, {1}, {2}] {3}";
             string formatted = string.Format(format, current.Index, current.Line, current.Column, typeName);
 
             if (!string.IsNullOrEmpty(token.Value))
             {
-                formatted += (", " + token.Value);
+                formatted += ", ";
+                formatted += token.Value;
             }
 
             _logger.WriteInfo(formatted);
         }
-        #endif
+#endif
 
         private SourcePosition ScanToken(string file, string source, SourcePosition current, ref Token token)
         {
@@ -131,9 +132,9 @@ namespace Lox.Compiler.Lexing
                     result.Tokens.Add(token);
                     result.Sourcemap.Add(current);
 
-                    #if DEBUG
+#if DEBUG
                     this.PrintToken(token, current);
-                    #endif
+#endif
                 }
 
                 current = next;
@@ -144,9 +145,9 @@ namespace Lox.Compiler.Lexing
             result.Tokens.Add(token);
             result.Sourcemap.Add(current);
 
-            #if DEBUG
+#if DEBUG
             this.PrintToken(token, current);
-            #endif
+#endif
 
             return result;
         }

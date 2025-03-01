@@ -1,9 +1,11 @@
-using System;
+using System.IO;
 
 namespace Lox.Compiler.Lexing.Patterns
 {
     public sealed class IdentifierPattern : Pattern
     {
+        private const int MAX_IDENTIFIER_LENGTH = 31;
+
         private readonly TextHelper _textHelper;
 
         public IdentifierPattern()
@@ -34,11 +36,11 @@ namespace Lox.Compiler.Lexing.Patterns
 
             int difference = next.Index - current.Index;
 
-            if (difference > 31)
+            if (difference > MAX_IDENTIFIER_LENGTH)
             {
                 string format = "Identifier at {0} is too long. Max 31 characters allowed.";
                 string message = string.Format(format, current.Index);
-                throw new Exception(message);
+                throw new InvalidDataException(message);
             }
 
             // Get token

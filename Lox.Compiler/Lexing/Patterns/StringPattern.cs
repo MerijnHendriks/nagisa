@@ -1,4 +1,4 @@
-using System;
+using System.IO;
 
 namespace Lox.Compiler.Lexing.Patterns
 {
@@ -48,7 +48,7 @@ namespace Lox.Compiler.Lexing.Patterns
             {
                 string format = "String at {0} not closed.";
                 string message = string.Format(format, current.Index);
-                throw new Exception(message);
+                throw new InvalidDataException(message);
             }
 
             int difference = next.Index - startIndex;
