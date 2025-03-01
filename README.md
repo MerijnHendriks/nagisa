@@ -15,3 +15,7 @@ Run       | `dotnet run --project Lox.Compiler.App -- program.lox`
 - Support Lox standard
   - Grammer: Appendix A1 conforming
   - Featureset: none of the challenges
+
+## Requirements
+
+- .NET 9 SDK

@@ -19,7 +19,7 @@
 				"type": "coreclr",
 				"request": "launch",
 				"preLaunchTask": "dotnet: build debug",
-				"program": "${workspaceFolder}/Lox.Compiler.App/bin/Debug/net8.0/win-x64/loxc.dll",
+				"program": "${workspaceFolder}/Lox.Compiler.App/bin/Debug/net9.0/win-x64/loxc.dll",
 				"args": [
 					"program.lox"
 				],
@@ -30,8 +30,8 @@
 					"moduleLoad": false
 				},
 				"env": {
-					"DOTNET_NOLOGO": "yes",
-					"DOTNET_CLI_TELEMETRY_OPTOUT": "yes"
+					"DOTNET_CLI_TELEMETRY_OPTOUT": "yes",
+					"DOTNET_NOLOGO": "yes"
 				}
 			}
 		]
@@ -40,11 +40,17 @@
 		"version": "2.0.0",
 		"options": {
 			"env": {
-				"DOTNET_NOLOGO": "yes",
-				"DOTNET_CLI_TELEMETRY_OPTOUT": "yes"
+				"DOTNET_CLI_TELEMETRY_OPTOUT": "yes",
+				"DOTNET_NOLOGO": "yes"
 			}
 		 },
 		"tasks": [
+			{
+				"label": "dotnet: format",
+				"type": "shell",
+				"command": "dotnet format",
+				"problemMatcher": []
+			},
 			{
 				"label": "dotnet: tool restore",
 				"type": "shell",
@@ -60,11 +66,19 @@
 				"dependsOrder": "sequence",
 			},
 			{
+				"label": "dotnet: clean",
+				"type": "shell",
+				"command": "dotnet clean --nologo",
+				"problemMatcher": [],
+				"dependsOn": ["dotnet: restore"],
+				"dependsOrder": "sequence",
+			},
+			{
 				"label": "dotnet: build debug",
 				"type": "shell",
 				"command": "dotnet build --nologo --no-restore --configuration Debug",
 				"dependsOrder": "sequence",
-				"dependsOn": "dotnet: restore",
+				"dependsOn": "dotnet: clean",
 				"group": {
 					"kind": "build"
 				}
@@ -74,7 +88,7 @@
 				"type": "shell",
 				"command": "dotnet build --nologo  --no-restore --configuration Release",
 				"dependsOrder": "sequence",
-				"dependsOn": "dotnet: restore",
+				"dependsOn": "dotnet: clean",
 				"group": {
 					"kind": "build"
 				}
@@ -83,7 +97,7 @@
 				"label": "dotnet: publish",
 				"type": "shell",
 				// Framework version specified because Lox.Compiler targets multiple frameworks
-				"command": "dotnet publish --nologo --no-build --framework net8.0",
+				"command": "dotnet publish --nologo --no-build --framework net9.0",
 				"dependsOrder": "sequence",
 				"dependsOn": "dotnet: build release",
 				"group": {
@@ -128,7 +142,7 @@
 				"type": "shell",
 				"command": "dotnet stryker --config-file .config/stryker.json --output ./",
 				"problemMatcher": [],
-				"dependsOn": ["dotnet: restore"],
+				"dependsOn": ["dotnet: clean"],
 				"dependsOrder": "sequence",
 				"group": {
 					"kind": "test"

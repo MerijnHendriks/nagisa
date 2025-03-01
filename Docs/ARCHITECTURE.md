@@ -30,9 +30,9 @@ The following C# versions and runtimes are used:
 
 **Project**        | **C# version** | **Runtime**
 ------------------ | -------------- | -----------------------------------
-Lox.Compiler       | C# 2.0         | `net20`, `netstandard1.0`, `net8.0`
-Lox.Compiler.App   | C# 3.0         | `net8.0`
-Lox.Compiler.Tests | C# 3.0         | `net8.0`
+Lox.Compiler       | C# 2.0         | `net20`, `netstandard1.0`, `net9.0`
+Lox.Compiler.App   | C# 3.0         | `net9.0`
+Lox.Compiler.Tests | C# 3.0         | `net9.0`
 
 The following types are referenced:
 

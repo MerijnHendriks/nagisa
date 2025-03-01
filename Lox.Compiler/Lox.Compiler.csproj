@@ -1,8 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net20;netstandard1.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>net20;netstandard1.0;net9.0</TargetFrameworks>
     <LangVersion>2</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Disable "Targeting .NET Standard prior to 2.0 is no longer recommended." warning -->
+    <NoWarn>$(NoWarn);NETSDK1215</NoWarn>
   </PropertyGroup>
 
   <!-- .NET Framework v2.0 compatible CI builds -->
