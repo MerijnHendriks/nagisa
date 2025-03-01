@@ -25,9 +25,14 @@ namespace Lox.Compiler.Lexing.Patterns
                 return true;
             }
 
-            // \r or \n      
-            if (this._textHelper.IsCarriageReturn(source, current.Index)
-                || this._textHelper.IsLineFeed(source, current.Index))
+            // \r      
+            if (this._textHelper.IsCarriageReturn(source, current.Index))
+            {
+                return true;
+            }
+
+            // \n
+            if (this._textHelper.IsLineFeed(source, current.Index))
             {
                 return true;
             }
