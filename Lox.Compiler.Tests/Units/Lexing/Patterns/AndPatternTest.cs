@@ -13,7 +13,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "and";
-            var pattern = new AndPattern();
+            var pattern = new TextPattern("and", TokenType.AND);
 
             var expectedResult = true;
 
@@ -25,7 +25,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "and";
-            var pattern = new AndPattern();
+            var pattern = new TextPattern("and", TokenType.AND);
 
             var expectedToken = new Token(file, 0, TokenType.AND, string.Empty);
             var expectedNext = new SourcePosition(file, 3, 1, 4);

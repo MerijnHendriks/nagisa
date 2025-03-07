@@ -13,7 +13,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "*=";
-            var pattern = new MultiplyAssignPattern();
+            var pattern = new TextPattern("*=", TokenType.MULTIPLY_ASSIGN);
 
             var expectedResult = true;
 
@@ -25,7 +25,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "*=";
-            var pattern = new MultiplyAssignPattern();
+            var pattern = new TextPattern("*=", TokenType.MULTIPLY_ASSIGN);
 
             var expectedToken = new Token(file, 0, TokenType.MULTIPLY_ASSIGN, string.Empty);
             var expectedNext = new SourcePosition(file, 2, 1, 3);

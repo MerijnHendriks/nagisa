@@ -13,7 +13,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "nil";
-            var pattern = new NilPattern();
+            var pattern = new TextPattern("nil", TokenType.NIL);
 
             var expectedResult = true;
 
@@ -25,7 +25,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "nil";
-            var pattern = new NilPattern();
+            var pattern = new TextPattern("nil", TokenType.NIL);
 
             var expectedToken = new Token(file, 0, TokenType.NIL, string.Empty);
             var expectedNext = new SourcePosition(file, 3, 1, 4);

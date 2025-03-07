@@ -13,7 +13,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "!";
-            var pattern = new NotPattern();
+            var pattern = new CharacterPattern('!', TokenType.NOT);
 
             var expectedResult = true;
 
@@ -25,7 +25,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "!";
-            var pattern = new NotPattern();
+            var pattern = new CharacterPattern('!', TokenType.NOT);
 
             var expectedToken = new Token(file, 0, TokenType.NOT, string.Empty);
             var expectedNext = new SourcePosition(file, 1, 1, 2);

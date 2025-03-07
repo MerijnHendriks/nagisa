@@ -13,7 +13,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "if";
-            var pattern = new IfPattern();
+            var pattern = new TextPattern("if", TokenType.IF);
 
             var expectedResult = true;
 
@@ -25,7 +25,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "if";
-            var pattern = new IfPattern();
+            var pattern = new TextPattern("if", TokenType.IF);
 
             var expectedToken = new Token(file, 0, TokenType.IF, string.Empty);
             var expectedNext = new SourcePosition(file, 2, 1, 3);

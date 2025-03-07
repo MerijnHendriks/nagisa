@@ -13,7 +13,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = ">=";
-            var pattern = new GreaterEqualPattern();
+            var pattern = new TextPattern(">=", TokenType.GREATER_EQUAL);
 
             var expectedResult = true;
 
@@ -25,7 +25,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = ">=";
-            var pattern = new GreaterEqualPattern();
+            var pattern = new TextPattern(">=", TokenType.GREATER_EQUAL);
 
             var expectedToken = new Token(file, 0, TokenType.GREATER_EQUAL, string.Empty);
             var expectedNext = new SourcePosition(file, 2, 1, 3);

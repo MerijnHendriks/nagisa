@@ -13,7 +13,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "continue";
-            var pattern = new ContinuePattern();
+            var pattern = new TextPattern("continue", TokenType.CONTINUE);
 
             var expectedResult = true;
 
@@ -25,7 +25,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "continue";
-            var pattern = new ContinuePattern();
+            var pattern = new TextPattern("continue", TokenType.CONTINUE);
 
             var expectedToken = new Token(file, 0, TokenType.CONTINUE, string.Empty);
             var expectedNext = new SourcePosition(file, 8, 1, 9);

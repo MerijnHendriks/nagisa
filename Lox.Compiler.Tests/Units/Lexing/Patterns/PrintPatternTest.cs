@@ -13,7 +13,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "print";
-            var pattern = new PrintPattern();
+            var pattern = new TextPattern("print", TokenType.PRINT);
 
             var expectedResult = true;
 
@@ -25,7 +25,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "print";
-            var pattern = new PrintPattern();
+            var pattern = new TextPattern("print", TokenType.PRINT);
 
             var expectedToken = new Token(file, 0, TokenType.PRINT, string.Empty);
             var expectedNext = new SourcePosition(file, 5, 1, 6);

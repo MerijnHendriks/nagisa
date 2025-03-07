@@ -13,7 +13,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "else";
-            var pattern = new ElsePattern();
+            var pattern = new TextPattern("else", TokenType.ELSE);
 
             var expectedResult = true;
 
@@ -25,7 +25,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "else";
-            var pattern = new ElsePattern();
+            var pattern = new TextPattern("else", TokenType.ELSE);
 
             var expectedToken = new Token(file, 0, TokenType.ELSE, string.Empty);
             var expectedNext = new SourcePosition(file, 4, 1, 5);

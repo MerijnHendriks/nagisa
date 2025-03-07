@@ -13,7 +13,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = ";";
-            var pattern = new SemicolonPattern();
+            var pattern = new CharacterPattern(';', TokenType.SEMICOLON);
 
             var expectedResult = true;
 
@@ -25,7 +25,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = ";";
-            var pattern = new SemicolonPattern();
+            var pattern = new CharacterPattern(';', TokenType.SEMICOLON);
 
             var expectedToken = new Token(file, 0, TokenType.SEMICOLON, string.Empty);
             var expectedNext = new SourcePosition(file, 1, 1, 2);

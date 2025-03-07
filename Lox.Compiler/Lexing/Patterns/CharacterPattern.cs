@@ -1,6 +1,6 @@
 namespace Lox.Compiler.Lexing.Patterns
 {
-    public abstract class CharacterPattern : Pattern
+    public class CharacterPattern : Pattern
     {
         private readonly TextHelper _textHelper;
         private readonly char _target;

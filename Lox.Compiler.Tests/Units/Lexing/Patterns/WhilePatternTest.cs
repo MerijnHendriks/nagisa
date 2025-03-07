@@ -13,7 +13,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "while";
-            var pattern = new WhilePattern();
+            var pattern = new TextPattern("while", TokenType.WHILE);
 
             var expectedResult = true;
 
@@ -25,7 +25,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "while";
-            var pattern = new WhilePattern();
+            var pattern = new TextPattern("while", TokenType.WHILE);
 
             var expectedToken = new Token(file, 0, TokenType.WHILE, string.Empty);
             var expectedNext = new SourcePosition(file, 5, 1, 6);

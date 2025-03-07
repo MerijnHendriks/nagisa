@@ -13,7 +13,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "super";
-            var pattern = new SuperPattern();
+            var pattern = new TextPattern("super", TokenType.SUPER);
 
             var expectedResult = true;
 
@@ -25,7 +25,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "super";
-            var pattern = new SuperPattern();
+            var pattern = new TextPattern("super", TokenType.SUPER);
 
             var expectedToken = new Token(file, 0, TokenType.SUPER, string.Empty);
             var expectedNext = new SourcePosition(file, 5, 1, 6);

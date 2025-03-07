@@ -13,7 +13,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "or";
-            var pattern = new OrPattern();
+            var pattern = new TextPattern("or", TokenType.OR);
 
             var expectedResult = true;
 
@@ -25,7 +25,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var file = string.Empty;
             var source = "or";
-            var pattern = new OrPattern();
+            var pattern = new TextPattern("or", TokenType.OR);
 
             var expectedToken = new Token(file, 0, TokenType.OR, string.Empty);
             var expectedNext = new SourcePosition(file, 2, 1, 3);
