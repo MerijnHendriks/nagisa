@@ -8,7 +8,6 @@ namespace Lox.Compiler
 {
     public sealed class Interpreter
     {
-        private readonly Logger _logger;
         private readonly Scanner _scanner;
 
         public Interpreter(Logger logger)
@@ -16,7 +15,6 @@ namespace Lox.Compiler
             PatternProvider patternProvider = new PatternProvider();
             Pattern[] patterns = patternProvider.GetPatterns();
 
-            this._logger = logger;
             this._scanner = new Scanner(logger, patterns);
         }
 
