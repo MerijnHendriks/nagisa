@@ -20,7 +20,7 @@ namespace Lox.Compiler
             this._parser = new Parser(logger);
         }
 
-        public void RunSingle(string file, string source)
+        public void Run(string file, string source)
         {
             // Get tokens
             ScanResult result = this._scanner.Run(file, source);
@@ -42,19 +42,6 @@ namespace Lox.Compiler
 
             // Convert tokens to AST
             this._parser.Run(result);
-        }
-
-        public void RunMulti(string[] files, string[] sources)
-        {
-            if (files.Length != sources.Length)
-            {
-                throw new ArgumentException("files and sources length not equal.");
-            }
-
-            for (int i = 0; i < files.Length; ++i)
-            {
-                RunSingle(files[i], sources[i]);
-            }
         }
     }
 }

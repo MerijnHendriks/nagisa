@@ -12,13 +12,13 @@ namespace Lox.Compiler.App
 
             if (args.Length == 1)
             {
-                RunSingle(args, interpreter);
+                Run(args, interpreter);
                 return;
             }
 
             if (args.Length > 1)
             {
-                RunMulti(args, interpreter);
+                logger.WriteError("Cannot handle multiple files yet.");
                 return;
             }
 
@@ -27,29 +27,12 @@ namespace Lox.Compiler.App
             logger.WriteInfo("Usage: loxc [files]");
         }
 
-        static void RunSingle(string[] args, Interpreter interpreter)
+        static void Run(string[] args, Interpreter interpreter)
         {
             var file = args[0];
             var source = File.ReadAllText(file);
 
-            interpreter.RunSingle(file, source);
-        }
-
-        static void RunMulti(string[] args, Interpreter interpreter)
-        {
-            var files = new string[args.Length];
-            var sources = new string[args.Length];
-
-            for (var i = 0; i < args.Length; ++i)
-            {
-                var file = args[i];
-                var source = File.ReadAllText(file);
-
-                files[i] = file;
-                sources[i] = source;
-            }
-
-            interpreter.RunMulti(files, sources);
+            interpreter.Run(file, source);
         }
     }
 }
