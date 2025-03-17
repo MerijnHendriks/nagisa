@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Lox.Compiler.Common;
 using Lox.Compiler.Lexing;
 using Lox.Compiler.Parsing.Expressions;
@@ -9,7 +8,7 @@ namespace Lox.Compiler.Parsing
     public sealed class Parser
     {
         private int _current;
-        private List<Token> _tokens;
+        private ScanResult _scanResult;
         private readonly Logger _logger;
 
         public Parser(Logger logger)
@@ -17,10 +16,10 @@ namespace Lox.Compiler.Parsing
             this._logger = logger;
         }
 
-        public Expr Run(ScanResult result)
+        public Expr Run(ScanResult scanResult)
         {
             this._current = 0;
-            this._tokens = result.Tokens;
+            this._scanResult = scanResult;
 
             return this.Expression();
         }
@@ -191,8 +190,16 @@ namespace Lox.Compiler.Parsing
 
         private InvalidOperationException ExpressionError()
         {
-            string format = "Expected expression for token {0}.";
-            string message = string.Format(format, this.Peek().Type);
+            SourcePosition position = this._scanResult.Sourcemap[this._current];
+            string format = "[{0}]: Expected expression for token {1} at [idx:{2},ln:{3},col:{4}].";
+            string message = string.Format(
+                format,
+                position.File,
+                this.Peek().Type,
+                position.Index,
+                position.Line,
+                position.Column);
+
             return new InvalidOperationException(message);
         }
 
@@ -259,12 +266,12 @@ namespace Lox.Compiler.Parsing
 
         private Token Peek() 
         {
-            return this._tokens[this._current];
+            return this._scanResult.Tokens[this._current];
         }
 
         private Token Previous()
         {
-            return this._tokens[this._current - 1];
+            return this._scanResult.Tokens[this._current - 1];
         }
     }
 }
