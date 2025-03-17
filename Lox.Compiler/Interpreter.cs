@@ -9,6 +9,7 @@ namespace Lox.Compiler
     public sealed class Interpreter
     {
         private readonly Scanner _scanner;
+        private readonly Parser _parser;
 
         public Interpreter(Logger logger)
         {
@@ -16,6 +17,7 @@ namespace Lox.Compiler
             Pattern[] patterns = patternProvider.GetPatterns();
 
             this._scanner = new Scanner(logger, patterns);
+            this._parser = new Parser(logger);
         }
 
         public void RunSingle(string file, string source)
@@ -31,8 +33,7 @@ namespace Lox.Compiler
                 if (token.Type == TokenType.LINE_COMMENT
                     || token.Type == TokenType.WHITESPACE
                     || token.Type == TokenType.TAB
-                    || token.Type == TokenType.END_OF_LINE
-                    || token.Type == TokenType.END_OF_FILE)
+                    || token.Type == TokenType.END_OF_LINE)
                 {
                     result.Tokens.RemoveAt(i);
                     result.Sourcemap.RemoveAt(i);
@@ -40,8 +41,7 @@ namespace Lox.Compiler
             }
 
             // Convert tokens to AST
-            Parser parser = new Parser();
-            parser.Run(result);
+            this._parser.Run(result);
         }
 
         public void RunMulti(string[] files, string[] sources)
