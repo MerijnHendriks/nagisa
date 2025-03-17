@@ -155,6 +155,13 @@ namespace Lox.Compiler.Parsing
             return this.Primary();
         }
 
+        // PRIMARY:
+        // false
+        // true
+        // nil
+        // 10
+        // text
+        // ( )
         private Expr Primary()
         {
             if (this.Match(TokenType.FALSE))
