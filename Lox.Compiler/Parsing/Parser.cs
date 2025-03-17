@@ -178,7 +178,7 @@ namespace Lox.Compiler.Parsing
                 return new Literal(this.Previous().Value);
             }
 
-            if (this.Match(new int[] { TokenType.LEFT_CIRCLE }))
+            if (this.Match(TokenType.LEFT_CIRCLE))
             {
                 Expr expr = this.Expression();
                 this.Consume(TokenType.RIGHT_CIRCLE, "Expect ')' after expression.");
@@ -209,16 +209,6 @@ namespace Lox.Compiler.Parsing
             {
                 this.Advance();
                 return true;
-            }
-
-            return false;
-        }
-
-        private bool Match(int[] types)
-        {
-            foreach (int type in types)
-            {
-                this.Match(type);
             }
 
             return false;
