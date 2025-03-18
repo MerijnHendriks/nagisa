@@ -96,7 +96,7 @@ namespace Lox.Compiler.Tests.Common
             var current = new SourcePosition(file, 0, 1, 1);
             var result = pattern.IsMatch(source, current);
 
-            Assert.IsTrue(result == expected);
+            Assert.AreEqual(expected, result);
         }
 
         public static void AssertPatternRun(Pattern pattern, string file, string source, Token expectedToken, SourcePosition expectedNext)

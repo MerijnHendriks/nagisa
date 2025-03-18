@@ -13,7 +13,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var helper = new TextHelper();
             var result = helper.IsAtEnd(source, index);
-            Assert.IsTrue(result == expected);
+            Assert.AreEqual(expected, result);
         }
 
         [TestMethod]
@@ -24,7 +24,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var helper = new TextHelper();
             var result = helper.IsMatchChar(source, index, target);
-            Assert.IsTrue(result == expected);
+            Assert.AreEqual(expected, result);
         }
 
         [TestMethod]
@@ -36,7 +36,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var helper = new TextHelper();
             var result = helper.IsMatchString(source, index, target);
-            Assert.IsTrue(result == expected);
+            Assert.AreEqual(expected, result);
         }
 
         [TestMethod]
@@ -47,7 +47,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var helper = new TextHelper();
             var result = helper.IsMatchCharArray(source, index, targets);
-            Assert.IsTrue(result == expected);
+            Assert.AreEqual(expected, result);
         }
 
         [TestMethod]
@@ -59,7 +59,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var helper = new TextHelper();
             var result = helper.IsCarriageReturn(source, index);
-            Assert.IsTrue(result == expected);
+            Assert.AreEqual(expected, result);
         }
 
         [TestMethod]
@@ -71,7 +71,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var helper = new TextHelper();
             var result = helper.IsLineFeed(source, index);
-            Assert.IsTrue(result == expected);
+            Assert.AreEqual(expected, result);
         }
 
         [TestMethod]
@@ -83,7 +83,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var helper = new TextHelper();
             var result = helper.IsNewLine(source, index);
-            Assert.IsTrue(result == expected);
+            Assert.AreEqual(expected, result);
         }
 
         [TestMethod]
@@ -143,7 +143,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var helper = new TextHelper();
             var result = helper.IsAlphaUpper(source, index);
-            Assert.IsTrue(result == expected);
+            Assert.AreEqual(expected, result);
         }
 
         [TestMethod]
@@ -203,9 +203,10 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var helper = new TextHelper();
             var result = helper.IsAlphaLower(source, index);
-            Assert.IsTrue(result == expected);
+            Assert.AreEqual(expected, result);
         }
 
+        [TestMethod]
         [DataRow("0", 0, true)]
         [DataRow("1", 0, true)]
         [DataRow("2", 0, true)]
@@ -221,7 +222,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var helper = new TextHelper();
             var result = helper.IsDigit(source, index);
-            Assert.IsTrue(result == expected);
+            Assert.AreEqual(expected, result);
         }
 
         [TestMethod]
@@ -245,7 +246,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
         {
             var helper = new TextHelper();
             var result = helper.IsIdentifier(source, index);
-            Assert.IsTrue(result == expected);
+            Assert.AreEqual(expected, result);
         }
     }
 }
