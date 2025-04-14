@@ -55,7 +55,6 @@ namespace Lox.Compiler.Lexing.Patterns
 
             // Get position
             next.Column += difference;
-            ++next.Index;
 
             return next;
         }
