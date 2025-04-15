@@ -1,3 +1,5 @@
+using System;
+using System.Globalization;
 using System.IO;
 
 namespace Lox.Compiler.Lexing.Patterns
@@ -50,7 +52,8 @@ namespace Lox.Compiler.Lexing.Patterns
             int difference = next.Index - current.Index;
 
             // Get token
-            string value = source.Substring(current.Index, difference);
+            string text = source.Substring(current.Index, difference);
+            double value = Convert.ToDouble(text, CultureInfo.InvariantCulture);
             token = new Token(file, current.Index, TokenType.NUMBER, value);
 
             // Get position

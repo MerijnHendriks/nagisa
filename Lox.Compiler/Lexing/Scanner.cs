@@ -85,10 +85,10 @@ namespace Lox.Compiler.Lexing
             string format = "[{0}, {1}, {2}] {3}";
             string formatted = string.Format(format, current.Index, current.Line, current.Column, typeName);
 
-            if (!string.IsNullOrEmpty(token.Value))
+            if (token.Value != null)
             {
                 formatted += ", ";
-                formatted += token.Value;
+                formatted += token.Value.ToString();
             }
 
             _logger.WriteInfo(formatted);
@@ -141,7 +141,7 @@ namespace Lox.Compiler.Lexing
             }
 
             // Add End-Of-File token
-            token = new Token(file, current.Index, TokenType.END_OF_FILE, string.Empty);
+            token = new Token(file, current.Index, TokenType.END_OF_FILE, null);
             result.Tokens.Add(token);
             result.Sourcemap.Add(current);
 

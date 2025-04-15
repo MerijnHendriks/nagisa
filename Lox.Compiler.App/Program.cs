@@ -8,11 +8,11 @@ namespace Lox.Compiler.App
         static void Main(string[] args)
         {
             var logger = new AppLogger();
-            var interpreter = new Interpreter(logger);
+            var compiler = new Compiler(logger);
 
             if (args.Length == 1)
             {
-                Run(args, interpreter);
+                Run(args, compiler);
                 return;
             }
 
@@ -27,12 +27,12 @@ namespace Lox.Compiler.App
             logger.WriteInfo("Usage: loxc [files]");
         }
 
-        static void Run(string[] args, Interpreter interpreter)
+        static void Run(string[] args, Compiler compiler)
         {
             var file = args[0];
             var source = File.ReadAllText(file);
 
-            interpreter.Run(file, source);
+            compiler.Run(file, source);
         }
     }
 }

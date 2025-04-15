@@ -1,23 +1,26 @@
-using System;
 using Lox.Compiler.Common;
 using Lox.Compiler.Lexing;
 using Lox.Compiler.Lexing.Patterns;
 using Lox.Compiler.Parsing;
+using Lox.Compiler.Parsing.Expressions;
+using Lox.Compiler.Execution;
 
 namespace Lox.Compiler
 {
-    public sealed class Interpreter
+    public sealed class Compiler
     {
         private readonly Scanner _scanner;
         private readonly Parser _parser;
+        private readonly Interpreter _interpreter;
 
-        public Interpreter(Logger logger)
+        public Compiler(Logger logger)
         {
             PatternProvider patternProvider = new PatternProvider();
             Pattern[] patterns = patternProvider.GetPatterns();
 
             this._scanner = new Scanner(logger, patterns);
             this._parser = new Parser(logger);
+            this._interpreter = new Interpreter(logger);
         }
 
         public void Run(string file, string source)
@@ -41,7 +44,10 @@ namespace Lox.Compiler
             }
 
             // Convert tokens to AST
-            this._parser.Run(result);
+            Expr ast = this._parser.Run(result);
+
+            // Execute code
+            this._interpreter.Interpret(ast);
         }
     }
 }

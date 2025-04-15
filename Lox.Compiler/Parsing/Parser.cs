@@ -22,6 +22,43 @@ namespace Lox.Compiler.Parsing
             return this.Expression();
         }
 
+/*
+        private void Synchronize()
+        {
+            this._parserData.Advance();
+
+            while (!this._parserData.IsAtEnd())
+            {
+                ETokenType currentType = this._parserData.Peek().Type;
+                ETokenType previousType = this._parserData.Previous().Type;
+
+                if (previousType == TokenType.SEMICOLON)
+                {
+                    // end of line
+                    return;
+                }
+
+                switch (currentType)
+                {
+                    case TokenType.CLASS:
+                    case TokenType.FUN:
+                    case TokenType.VAR:
+                    case TokenType.FOR:
+                    case TokenType.IF:
+                    case TokenType.WHILE:
+                    case TokenType.PRINT:
+                    case TokenType.RETURN:
+                        return;
+
+                    default:
+                        break;
+                }
+
+                this._parserData.Advance();
+            }
+        }
+*/
+
         private Expr Expression()
         {
             return this.Equality();
@@ -104,7 +141,7 @@ namespace Lox.Compiler.Parsing
             // -10
             // !10
             if (this._parserData.Match(TokenType.NOT)
-             || this._parserData.Match(TokenType.MINUS))
+                || this._parserData.Match(TokenType.MINUS))
             {
                 Token op = this._parserData.Previous();
                 Expr right = this.Unary();
@@ -137,7 +174,7 @@ namespace Lox.Compiler.Parsing
             // 10
             // text
             if (this._parserData.Match(TokenType.NUMBER)
-             || this._parserData.Match(TokenType.STRING))
+                || this._parserData.Match(TokenType.STRING))
             {
                 return new Literal(this._parserData.Previous().Value);
             }

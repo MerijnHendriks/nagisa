@@ -8,7 +8,7 @@ namespace Lox.Compiler.Lexing.Patterns
         protected SourcePosition RunOffset(string file, string source, SourcePosition current, ref Token token, int type, int offset)
         {
             // Get token
-            token = new Token(file, current.Index, type, string.Empty);
+            token = new Token(file, current.Index, type, null);
 
             // Get position
             int nextIndex = current.Index + offset;
