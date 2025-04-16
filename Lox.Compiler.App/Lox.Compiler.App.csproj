@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <LanguageVersion>3.0</LanguageVersion>
+    <LanguageVersion>3</LanguageVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
