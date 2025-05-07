@@ -91,7 +91,7 @@ namespace Lox.Compiler.Lexing
                 formatted += token.Value.ToString();
             }
 
-            _logger.WriteInfo(formatted);
+            this._logger.WriteInfo(formatted);
         }
 #endif
 
