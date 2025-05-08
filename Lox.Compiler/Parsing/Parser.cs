@@ -218,8 +218,8 @@ namespace Lox.Compiler.Parsing
             }
 
             // No matching expression found
-            Exception ex = this._parserData.ExpressionError();
-            throw ex;
+            string message = this._parserData.ExpressionErrorMessage();
+            throw new InvalidOperationException(message);
         }
     }
 }

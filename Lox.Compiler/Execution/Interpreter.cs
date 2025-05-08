@@ -166,7 +166,7 @@ namespace Lox.Compiler.Execution
 
         public object VisitUnaryExpression(Unary expression)
         {
-            object right = Evaluate(expression.Right);
+            object right = this.Evaluate(expression.Right);
 
             switch (expression.Operator.Type)
             {

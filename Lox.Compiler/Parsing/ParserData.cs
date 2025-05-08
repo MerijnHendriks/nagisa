@@ -75,7 +75,7 @@ namespace Lox.Compiler.Parsing
             return this._scanResult.Tokens[this._current - 1];
         }
 
-        public InvalidOperationException ExpressionError()
+        public string ExpressionErrorMessage()
         {
             SourcePosition position = this._scanResult.Sourcemap[this._current];
             string format = "[{0}]: Expected expression for token {1} at [idx:{2},ln:{3},col:{4}].";
@@ -87,7 +87,7 @@ namespace Lox.Compiler.Parsing
                 position.Line,
                 position.Column);
 
-            return new InvalidOperationException(message);
+            return message;
         }
     }
 }
