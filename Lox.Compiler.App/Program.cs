@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Lox.Compiler.App.Common;
+﻿using Lox.Compiler.App.Common;
 
 namespace Lox.Compiler.App
 {
@@ -8,11 +7,13 @@ namespace Lox.Compiler.App
         static void Main(string[] args)
         {
             var logger = new AppLogger();
+            var vfs = new AppVFS();
             var compiler = new Compiler(logger);
 
-            if (args.Length == 1)
+            if (args.Length == 0)
             {
-                Run(args, compiler);
+                logger.WriteInfo("");
+                logger.WriteInfo("Usage: loxc [files]");
                 return;
             }
 
@@ -22,17 +23,10 @@ namespace Lox.Compiler.App
                 return;
             }
 
-            // Handle no args
-            logger.WriteInfo("");
-            logger.WriteInfo("Usage: loxc [files]");
-        }
-
-        static void Run(string[] args, Compiler compiler)
-        {
             var file = args[0];
-            var source = File.ReadAllText(file);
+            var source = vfs.ReadTextFile(file);
 
-            compiler.Run(file, source);
+            compiler.Run(file, source); 
         }
     }
 }
