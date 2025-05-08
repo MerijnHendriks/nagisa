@@ -116,10 +116,10 @@ namespace Lox.Compiler.Lexing
 
         public ScanResult Run(string file, string source)
         {
+            ScanResult result = new ScanResult();
             Token token = new Token();
             SourcePosition current = new SourcePosition(file, 0, 1, 1);
             SourcePosition next = current;
-            ScanResult result = new ScanResult();
 
             // Tokenize source
             while (!this._textHelper.IsAtEnd(source, current.Index))

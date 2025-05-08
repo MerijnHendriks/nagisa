@@ -43,7 +43,7 @@ namespace Lox.Compiler.Lexing.Patterns
         public override SourcePosition Run(string file, string source, SourcePosition current, ref Token token)
         {
             // Get token
-            token = new Token(file, current.Index, TokenType.END_OF_LINE, string.Empty);
+            token = new Token(file, current.Index, TokenType.END_OF_LINE, null);
 
             // Get position
             int nextIndex = current.Index;

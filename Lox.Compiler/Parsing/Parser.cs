@@ -66,6 +66,11 @@ namespace Lox.Compiler.Parsing
 
         private Expr Equality()
         {
+            if (this._parserData == null)
+            {
+                throw new NullReferenceException("Parser._parserData not initialized.");
+            }
+
             Expr expr = this.Comparison();
 
             // a != b
@@ -83,6 +88,11 @@ namespace Lox.Compiler.Parsing
 
         private Expr Comparison()
         {
+            if (this._parserData == null)
+            {
+                throw new NullReferenceException("Parser._parserData not initialized.");
+            }
+
             Expr expr = this.Term();
 
             // a <= b
@@ -104,6 +114,11 @@ namespace Lox.Compiler.Parsing
 
         private Expr Term()
         {
+            if (this._parserData == null)
+            {
+                throw new NullReferenceException("Parser._parserData not initialized.");
+            }
+
             Expr expr = this.Factor();
 
             // a - b
@@ -121,6 +136,11 @@ namespace Lox.Compiler.Parsing
 
         private Expr Factor()
         {
+            if (this._parserData == null)
+            {
+                throw new NullReferenceException("Parser._parserData not initialized.");
+            }
+
             Expr expr = this.Unary();
 
             // a / b
@@ -138,6 +158,11 @@ namespace Lox.Compiler.Parsing
 
         private Expr Unary()
         {
+            if (this._parserData == null)
+            {
+                throw new NullReferenceException("Parser._parserData not initialized.");
+            }
+
             // -10
             // !10
             if (this._parserData.Match(TokenType.NOT)
@@ -153,6 +178,11 @@ namespace Lox.Compiler.Parsing
 
         private Expr Primary()
         {
+            if (this._parserData == null)
+            {
+                throw new NullReferenceException("Parser._parserData not initialized.");
+            }
+
             // false
             if (this._parserData.Match(TokenType.FALSE))
             {
