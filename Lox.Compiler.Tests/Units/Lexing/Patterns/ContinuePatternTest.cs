@@ -27,7 +27,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
             var source = "continue";
             var pattern = new TextPattern("continue", TokenType.CONTINUE);
 
-            var expectedToken = new Token(file, 0, TokenType.CONTINUE, string.Empty);
+            var expectedToken = new Token(file, 0, TokenType.CONTINUE, null);
             var expectedNext = new SourcePosition(file, 8, 1, 9);
 
             LexingTestHelper.AssertPatternRun(pattern, file, source, expectedToken, expectedNext);

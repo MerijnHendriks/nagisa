@@ -27,7 +27,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
             var source = "==";
             var pattern = new TextPattern("==", TokenType.EQUAL);
 
-            var expectedToken = new Token(file, 0, TokenType.EQUAL, string.Empty);
+            var expectedToken = new Token(file, 0, TokenType.EQUAL, null);
             var expectedNext = new SourcePosition(file, 2, 1, 3);
 
             LexingTestHelper.AssertPatternRun(pattern, file, source, expectedToken, expectedNext);

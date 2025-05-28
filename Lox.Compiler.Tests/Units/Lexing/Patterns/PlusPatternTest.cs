@@ -27,7 +27,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
             var source = "+";
             var pattern = new CharacterPattern('+', TokenType.PLUS);
 
-            var expectedToken = new Token(file, 0, TokenType.PLUS, string.Empty);
+            var expectedToken = new Token(file, 0, TokenType.PLUS, null);
             var expectedNext = new SourcePosition(file, 1, 1, 2);
 
             LexingTestHelper.AssertPatternRun(pattern, file, source, expectedToken, expectedNext);

@@ -27,7 +27,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
             var source = "and";
             var pattern = new TextPattern("and", TokenType.AND);
 
-            var expectedToken = new Token(file, 0, TokenType.AND, string.Empty);
+            var expectedToken = new Token(file, 0, TokenType.AND, null);
             var expectedNext = new SourcePosition(file, 3, 1, 4);
 
             LexingTestHelper.AssertPatternRun(pattern, file, source, expectedToken, expectedNext);

@@ -27,7 +27,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
             var source = "return";
             var pattern = new TextPattern("return", TokenType.RETURN);
 
-            var expectedToken = new Token(file, 0, TokenType.RETURN, string.Empty);
+            var expectedToken = new Token(file, 0, TokenType.RETURN, null);
             var expectedNext = new SourcePosition(file, 6, 1, 7);
 
             LexingTestHelper.AssertPatternRun(pattern, file, source, expectedToken, expectedNext);

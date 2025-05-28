@@ -15,8 +15,8 @@ namespace Lox.Compiler.Tests.Integration.Lexing.Patterns
 
             var expectedTokens = new Token[]
             {
-                new Token(file, 0, TokenType.LESS_EQUAL, string.Empty),
-                new Token(file, 2, TokenType.END_OF_FILE, string.Empty)
+                new Token(file, 0, TokenType.LESS_EQUAL, null),
+                new Token(file, 2, TokenType.END_OF_FILE, null)
             };
             var expectedSourcemap = new SourcePosition[]
             {
@@ -35,10 +35,10 @@ namespace Lox.Compiler.Tests.Integration.Lexing.Patterns
 
             var expectedTokens = new Token[]
             {
-                new Token(file, 0, TokenType.WHITESPACE, string.Empty),
-                new Token(file, 1, TokenType.LESS_EQUAL, string.Empty),
-                new Token(file, 3, TokenType.WHITESPACE, string.Empty),
-                new Token(file, 4, TokenType.END_OF_FILE, string.Empty)
+                new Token(file, 0, TokenType.WHITESPACE, null),
+                new Token(file, 1, TokenType.LESS_EQUAL, null),
+                new Token(file, 3, TokenType.WHITESPACE, null),
+                new Token(file, 4, TokenType.END_OF_FILE, null)
             };
             var expectedSourcemap = new SourcePosition[]
             {

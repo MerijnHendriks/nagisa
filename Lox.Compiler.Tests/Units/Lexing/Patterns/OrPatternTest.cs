@@ -27,7 +27,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
             var source = "or";
             var pattern = new TextPattern("or", TokenType.OR);
 
-            var expectedToken = new Token(file, 0, TokenType.OR, string.Empty);
+            var expectedToken = new Token(file, 0, TokenType.OR, null);
             var expectedNext = new SourcePosition(file, 2, 1, 3);
 
             LexingTestHelper.AssertPatternRun(pattern, file, source, expectedToken, expectedNext);

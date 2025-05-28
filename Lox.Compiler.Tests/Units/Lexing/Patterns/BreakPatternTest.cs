@@ -27,7 +27,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
             var source = "break";
             var pattern = new TextPattern("break", TokenType.BREAK);
 
-            var expectedToken = new Token(file, 0, TokenType.BREAK, string.Empty);
+            var expectedToken = new Token(file, 0, TokenType.BREAK, null);
             var expectedNext = new SourcePosition(file, 5, 1, 6);
 
             LexingTestHelper.AssertPatternRun(pattern, file, source, expectedToken, expectedNext);

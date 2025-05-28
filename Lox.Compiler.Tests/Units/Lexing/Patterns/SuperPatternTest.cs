@@ -27,7 +27,7 @@ namespace Lox.Compiler.Tests.Units.Lexing.Patterns
             var source = "super";
             var pattern = new TextPattern("super", TokenType.SUPER);
 
-            var expectedToken = new Token(file, 0, TokenType.SUPER, string.Empty);
+            var expectedToken = new Token(file, 0, TokenType.SUPER, null);
             var expectedNext = new SourcePosition(file, 5, 1, 6);
 
             LexingTestHelper.AssertPatternRun(pattern, file, source, expectedToken, expectedNext);
