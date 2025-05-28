@@ -1,0 +1,122 @@
+{
+	"version": "2.0.0",
+	"options": {
+		"env": {
+			"DOTNET_CLI_TELEMETRY_OPTOUT": "yes",
+			"DOTNET_NOLOGO": "yes"
+		}
+	},
+	"tasks": [
+		{
+			"label": "dotnet: format",
+			"type": "shell",
+			"command": "dotnet format",
+			"problemMatcher": []
+		},
+		{
+			"label": "dotnet: tool restore",
+			"type": "shell",
+			"command": "dotnet tool restore --configfile Nuget.config",
+			"problemMatcher": []
+		},
+		{
+			"label": "dotnet: restore",
+			"type": "shell",
+			"command": "dotnet restore --nologo --configfile Nuget.config",
+			"problemMatcher": [],
+			"dependsOn": ["dotnet: tool restore"],
+			"dependsOrder": "sequence",
+		},
+		{
+			"label": "dotnet: clean",
+			"type": "shell",
+			"command": "dotnet clean --nologo",
+			"problemMatcher": [],
+			"dependsOn": ["dotnet: restore"],
+			"dependsOrder": "sequence",
+		},
+		{
+			"label": "dotnet: build debug",
+			"type": "shell",
+			"command": "dotnet build --nologo --no-restore --configuration Debug",
+			"dependsOrder": "sequence",
+			"dependsOn": "dotnet: clean",
+			"group": {
+				"kind": "build"
+			}
+		},
+		{
+			"label": "dotnet: build release",
+			"type": "shell",
+			"command": "dotnet build --nologo  --no-restore --configuration Release",
+			"dependsOrder": "sequence",
+			"dependsOn": "dotnet: clean",
+			"group": {
+				"kind": "build"
+			}
+		},
+		{
+			"label": "dotnet: publish",
+			"type": "shell",
+			// Framework version specified because Lox.Compiler targets multiple frameworks
+			"command": "dotnet publish --nologo --no-build --framework net8.0",
+			"dependsOrder": "sequence",
+			"dependsOn": "dotnet: build release",
+			"group": {
+				"kind": "build"
+			}
+		},
+		{
+			"label": "dotnet: test",
+			"type": "shell",
+			"command": "dotnet test --nologo --no-build",
+			"dependsOrder": "sequence",
+			"dependsOn": "dotnet: build debug",
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			}
+		},
+		{
+			"label": "dotnet: test coverage",
+			"type": "shell",
+			"command": "dotnet test --nologo --no-build --results-directory reports/tests/ --collect:'Code Coverage;Format=cobertura'",
+			"problemMatcher": [],
+			"dependsOn": ["dotnet: build debug"],
+			"dependsOrder": "sequence",
+			"group": {
+				"kind": "test"
+			}
+		},
+		{
+			"label": "dotnet: report coverage",
+			"type": "shell",
+			"command": "dotnet reportgenerator -reports:reports/**/*.cobertura.xml -targetdir:reports/ -reporttypes:MarkdownSummaryGithub",
+			"problemMatcher": [],
+			"dependsOn": ["dotnet: test coverage"],
+			"dependsOrder": "sequence",
+			"group": {
+				"kind": "test"
+			}
+		},
+		{
+			"label": "dotnet: test mutation",
+			"type": "shell",
+			"command": "dotnet stryker --config-file .config/stryker.json --output ./",
+			"problemMatcher": [],
+			"dependsOn": ["dotnet: clean"],
+			"dependsOrder": "sequence",
+			"group": {
+				"kind": "test"
+			}
+		},
+		{
+			"label": "dotnet: run",
+			"type": "shell",
+			"command": "dotnet run --no-build --project Lox.Compiler.App -- program.lox",
+			"dependsOrder": "sequence",
+			"dependsOn": "dotnet: build debug",
+			"problemMatcher": []
+		}
+	]
+}
