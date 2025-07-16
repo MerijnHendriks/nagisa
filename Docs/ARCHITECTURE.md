@@ -67,7 +67,7 @@ give them an unique matching ID.
 
 They're used to enforce a minimal subset of the C# language and .NET runtimes.
 This also encourages self-reliance over external package usage and improves
-portability (example: Unity Engine (2017.4 and older)). It is easier to upgrade
+portability (example: Unity Engine 2017.4 and older). It is easier to upgrade
 old code to a newer version than downgrading retroactively.
 
 The following is reduced:
@@ -83,7 +83,8 @@ languages.
 
 - Structs have some odd rules in C# and not supported in languages like
   Lox/JS/Python
-- Enums (as C-like constructs) are not suppored in languages like JS/Python
+- Enums (as C-like constructs) are not supported in languages like
+  Javascript and Python (3.4 and older).
 
 > - Why MSTest v2 over \<_insert unit testing framework here_>
 > - Why Microsoft.CodeCoverage over <_insert code coverage collector here_>
