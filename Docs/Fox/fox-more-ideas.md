@@ -46,7 +46,7 @@ learn, only includes what's required and easy to embed / extend.
 `=`          | Assign
 `==`         | Equals
 `&&`         | And
-`||`         | Or
+`\|\|`       | Or
 `<`          | Less
 `<=`         | Less equal
 `>`          | Greater
@@ -66,9 +66,9 @@ learn, only includes what's required and easy to embed / extend.
 `void`    | `void`
 `number`  | `float64_t`
 `char`    | `uint32_t`
-`string`  | `char[]`
-`bool`    | `bool`
+`string`  | `uint32_[]`
 `byte`    | `uint8_t`
+`bool`    | `bool`
 `func`    | function
 `type`    | `struct`
 `arr<T>`  | `T[]`
