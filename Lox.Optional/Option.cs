@@ -7,7 +7,7 @@ namespace Lox.Optional
     {
         protected readonly T _value;
 
-        private Option()
+        protected Option()
         {
             this._value = null;
         }

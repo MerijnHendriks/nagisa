@@ -5,7 +5,7 @@ namespace Lox.Optional
     public class Some<T> : Option<T>
         where T : class
     {
-        protected Some(T value)
+        protected Some(T value) : base()
         {
             this._value = value;
         }
