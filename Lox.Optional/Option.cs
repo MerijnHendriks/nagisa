@@ -36,14 +36,14 @@ namespace Lox.Optional
             return Option<TResult>.None();
         }
 
-        public T Reduce(T else)
+        public T Reduce(T other)
         {
             if (this._content != null)
             {
                 return this._content;
             }
 
-            return else;
+            return other;
         }
     }
 }
