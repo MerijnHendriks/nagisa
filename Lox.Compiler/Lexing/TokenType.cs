@@ -29,7 +29,7 @@ namespace Lox.Compiler.Lexing
         public const int MULTIPLY_ASSIGN = 25;      // *=
         public const int DIVIDE_ASSIGN = 26;        // /=
         public const int IDENTIFIER = 27;           // foo
-        public const int NUMBER = 28;     	        // 1 or 1.0
+        public const int NUMBER = 28;               // 1 or 1.0
         public const int STRING = 29;               // "Hello; world!"
         public const int TRUE = 30;                 // true
         public const int FALSE = 31;                // false
