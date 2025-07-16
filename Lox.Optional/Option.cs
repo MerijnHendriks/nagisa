@@ -1,49 +1,33 @@
+using System;
+
 namespace Lox.Optional
 {
     public class Option<T>
         where T : class
     {
-        private readonly T _content;
+        protected readonly T _value;
 
         private Option()
         {
-            this._content = null;
+            this._value = null;
         }
 
-        private Option(T content)
+        public static Option<T> Some(T value)
         {
-            this._content = content;
-        }
-
-        public static Option<T> Some(T content)
-        {
-            return new Option<T>(content);
+            return new Some<T>(value);
         }
 
         public static Option<T> None()
         {
-            return new Option<T>();
+            return new None<T>();
         }
 
-        public Option<TResult> Map<TResult>(OptionMap<T, TResult> map)
-            where TResult : class
+        public static void Match(OptionResult<T> match)
         {
-            if (this._content != null)
+            if (this.GetType() == typeof(Some))
             {
-                return Option<TResult>.Some(map(this._content));
+                match(this.value);
             }
-
-            return Option<TResult>.None();
-        }
-
-        public T Reduce(T other)
-        {
-            if (this._content != null)
-            {
-                return this._content;
-            }
-
-            return other;
         }
     }
 }
