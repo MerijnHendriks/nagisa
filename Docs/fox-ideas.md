@@ -60,6 +60,7 @@ learn, only includes what's required and easy to embed / extend.
 `for`         | `for`
 `switch`      | `switch`
 `case`        | `case`
+`option<T>`   | ...
 
 **Types** | **C type**
 --------- | ---------------
@@ -99,3 +100,8 @@ In c, `char` is an `int8_t`. But since the modern standard is unicode
 You can use UTF-8 to calculate the codepoints but that means working directly
 with strings would be a hassle to implement. I opted to go for the easiest
 route at the expense of size.
+
+> Why no `null`?
+
+I want to see if I can avoid it where possible, `option<T>` seems like a nice
+way to do it.
