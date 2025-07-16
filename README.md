@@ -18,4 +18,5 @@ Run       | `dotnet run --project Lox.Compiler.App -- program.lox`
 
 ## Requirements
 
-- .NET 9 SDK
+- Visual Studio Code
+- .NET 8 SDK
