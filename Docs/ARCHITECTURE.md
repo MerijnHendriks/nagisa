@@ -18,6 +18,7 @@
 - Do NOT use the following language features:
   - `enum` (use `int`/`string` table instead)
   - method overloading
+  - `++` / `--`
 - Only use the following when there are no better options:
   - `static`
   - `interface`
@@ -85,6 +86,10 @@ languages.
   Lox/JS/Python
 - Enums (as C-like constructs) are not supported in languages like
   Javascript and Python (3.4 and older).
+
+> - Why no `++` / `--`
+
+Not all languages I want to port the project to support this.
 
 > - Why MSTest v2 over \<_insert unit testing framework here_>
 > - Why Microsoft.CodeCoverage over <_insert code coverage collector here_>

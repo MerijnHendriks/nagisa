@@ -97,7 +97,7 @@ namespace Lox.Compiler.Lexing
 
         private SourcePosition ScanToken(string file, string source, SourcePosition current, ref Token token)
         {
-            for (int i = 0; i < this._patterns.Length; ++i)
+            for (int i = 0; i < this._patterns.Length; i += 1)
             {
                 Pattern pattern = this._patterns[i];
 

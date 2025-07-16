@@ -32,7 +32,7 @@ namespace Lox.Compiler.Lexing.Patterns
                     break;
                 }
 
-                ++next.Index;
+                next.Index += 1;
             }
 
             int difference = next.Index - startIndex;
@@ -43,7 +43,7 @@ namespace Lox.Compiler.Lexing.Patterns
 
             // Get position
             next.Column += difference;
-            ++next.Index;
+            next.Index += 1;
 
             return next;
         }

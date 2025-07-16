@@ -29,7 +29,7 @@ namespace Lox.Compiler
             ScanResult result = this._scanner.Run(file, source);
 
             // Remove tokens unused by parser (reverse order)
-            for (int i = result.Tokens.Count - 1; i >= 0; --i)
+            for (int i = result.Tokens.Count - 1; i >= 0; i -= 1)
             {
                 Token token = result.Tokens[i];
 

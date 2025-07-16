@@ -39,7 +39,7 @@ namespace Lox.Compiler.Parsing
         {
             if (!this.IsAtEnd())
             {
-                ++this._current;
+                this._current  += 1;
             }
 
             return this.Previous();

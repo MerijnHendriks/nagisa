@@ -45,7 +45,7 @@ namespace Lox.Compiler.Lexing
 
         public bool IsMatchString(string source, int start, string target)
         {
-            for (int i = 0; i < target.Length; ++i)
+            for (int i = 0; i < target.Length; i += 1)
             {
                 if (!this.IsMatchChar(source, start + i, target[i]))
                 {
@@ -58,7 +58,7 @@ namespace Lox.Compiler.Lexing
 
         public bool IsMatchCharArray(string source, int index, char[] targets)
         {
-            for (int i = 0; i < targets.Length; ++i)
+            for (int i = 0; i < targets.Length; i += 1)
             {
                 if (this.IsMatchChar(source, index, targets[i]))
                 {

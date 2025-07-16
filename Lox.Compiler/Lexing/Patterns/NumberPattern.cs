@@ -36,10 +36,10 @@ namespace Lox.Compiler.Lexing.Patterns
 
                 if (this._textHelper.IsMatchChar(source, next.Index, DELIMITER))
                 {
-                    ++delimiter;
+                    delimiter += 1;
                 }
 
-                ++next.Index;
+                next.Index += 1;
             }
 
             if (delimiter > 1)

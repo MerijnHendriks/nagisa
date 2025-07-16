@@ -172,12 +172,12 @@ namespace Lox.Compiler.Tests.Common
                 Assert.Fail("Result tokens and sourcemap not of equal length.");
             }
 
-            for (var i = 0; i < expectedTokens.Length; ++i)
+            for (var i = 0; i < expectedTokens.Length; i += 1)
             {
                 AssertToken(expectedTokens[i], result.Tokens[i]);
             }
 
-            for (var i = 0; i < expectedSourcemap.Length; ++i)
+            for (var i = 0; i < expectedSourcemap.Length; i += 1)
             {
                 AssertSourcePosition(expectedSourcemap[i], result.Sourcemap[i]);
             }
