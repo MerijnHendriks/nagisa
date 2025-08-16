@@ -13,10 +13,5 @@ namespace Lox.Compiler.Parsing.Statements
             this.Keyword = keyword;
             this.Value = value;
         }
-
-        public override T Accept<T>(IStatementVisitor<T> visitor)
-        {
-            return visitor.VisitReturnStmt(this);
-        }
     }
 }

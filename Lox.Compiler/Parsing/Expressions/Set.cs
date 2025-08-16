@@ -8,16 +8,11 @@ namespace Lox.Compiler.Parsing.Expressions
         public readonly Token Name;
         public readonly Expr Value;
 
-        public Set(Expr obj, Token name, Expr value)
+        public Set(Expr obj, Token name, Expr value) : base(EExpr.SET)
         {
             this.Object = obj;
             this.Name = name;
             this.Value = value;
-        }
-
-        public override T Accept<T>(IExpressionVisitor<T> visitor)
-        {
-            return visitor.VisitSetExpression(this);
         }
     }
 }

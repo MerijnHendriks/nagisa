@@ -12,10 +12,5 @@ namespace Lox.Compiler.Parsing.Statements
             this.Condition = condition;
             this.Body = body;
         }
-
-        public override T Accept<T>(IStatementVisitor<T> visitor)
-        {
-            return visitor.VisitWhileStmt(this);
-        }
     }
 }

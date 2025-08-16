@@ -6,14 +6,9 @@ namespace Lox.Compiler.Parsing.Expressions
     {
         public readonly Token Name;
 
-        public Variable(Token name)
+        public Variable(Token name) : base(EExpr.VARIABLE)
         {
             this.Name = name;
-        }
-
-        public override T Accept<T>(IExpressionVisitor<T> visitor)
-        {
-            return visitor.VisitVariableExpression(this);
         }
     }
 }

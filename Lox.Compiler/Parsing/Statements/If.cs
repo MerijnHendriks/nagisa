@@ -14,10 +14,5 @@ namespace Lox.Compiler.Parsing.Statements
             this.ThenBranch = thenBranch;
             this.ElseBranch = elseBranch;
         }
-
-        public override T Accept<T>(IStatementVisitor<T> visitor)
-        {
-            return visitor.VisitIfStmt(this);
-        }
     }
 }

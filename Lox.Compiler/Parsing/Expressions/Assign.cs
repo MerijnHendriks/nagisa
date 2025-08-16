@@ -7,15 +7,10 @@ namespace Lox.Compiler.Parsing.Expressions
         public readonly Token Name;
         public readonly Expr Value;
 
-        public Assign(Token name, Expr value)
+        public Assign(Token name, Expr value) : base (EExpr.ASSIGN)
         {
             this.Name = name;
             this.Value = value;
-        }
-
-        public override T Accept<T>(IExpressionVisitor<T> visitor)
-        {
-            return visitor.VisitAssignExpression(this);
         }
     }
 }

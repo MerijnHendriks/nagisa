@@ -16,10 +16,5 @@ namespace Lox.Compiler.Parsing.Statements
             this.Superclass = superclass;
             this.Methods = methods;
         }
-
-        public override T Accept<T>(IStatementVisitor<T> visitor)
-        {
-            return visitor.VisitClassStmt(this);
-        }
     }
 }

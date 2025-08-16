@@ -10,10 +10,5 @@ namespace Lox.Compiler.Parsing.Statements
         {
             this.Expr = expr;
         }
-
-        public override T Accept<T>(IStatementVisitor<T> visitor)
-        {
-            return visitor.VisitExpressionStmt(this);
-        }
     }
 }

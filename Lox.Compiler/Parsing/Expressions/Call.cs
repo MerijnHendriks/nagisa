@@ -9,16 +9,11 @@ namespace Lox.Compiler.Parsing.Expressions
         public Token Paren;
         public List<Expr> Arguments;
 
-        public Call(Expr callee, Token paren, List<Expr> arguments)
+        public Call(Expr callee, Token paren, List<Expr> arguments) : base(EExpr.CALL)
         {
             this.Callee = callee;
             this.Paren = paren;
             this.Arguments = arguments;
-        }
-
-        public override T Accept<T>(IExpressionVisitor<T> visitor)
-        {
-            return visitor.VisitCallExpression(this);
         }
     }
 }

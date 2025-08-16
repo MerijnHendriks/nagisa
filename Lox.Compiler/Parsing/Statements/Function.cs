@@ -15,10 +15,5 @@ namespace Lox.Compiler.Parsing.Statements
             this.Parameters = parameters;
             this.Body = body;
         }
-
-        public override T Accept<T>(IStatementVisitor<T> visitor)
-        {
-            return visitor.VisitFunctionStmt(this);
-        }
     }
 }

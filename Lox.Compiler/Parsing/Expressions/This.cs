@@ -6,14 +6,9 @@ namespace Lox.Compiler.Parsing.Expressions
     {
         public readonly Token Keyword;
 
-        public This(Token keyword)
+        public This(Token keyword) : base(EExpr.THIS)
         {
             this.Keyword = keyword;
-        }
-
-        public override T Accept<T>(IExpressionVisitor<T> visitor)
-        {
-            return visitor.VisitThisExpression(this);
         }
     }
 }

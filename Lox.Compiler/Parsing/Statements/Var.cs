@@ -13,10 +13,5 @@ namespace Lox.Compiler.Parsing.Statements
             this.Name = name;
             this.Initializer = initializer;
         }
-
-        public override T Accept<T>(IStatementVisitor<T> visitor)
-        {
-            return visitor.VisitVarStmt(this);
-        }
     }
 }

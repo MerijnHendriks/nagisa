@@ -7,15 +7,10 @@ namespace Lox.Compiler.Parsing.Expressions
         public readonly Token Keyword;
         public readonly Token Method;
 
-        public Super(Token keyword, Token method)
+        public Super(Token keyword, Token method) : base(EExpr.SUPER)
         {
             this.Keyword = keyword;
             this.Method = method;
-        }
-
-        public override T Accept<T>(IExpressionVisitor<T> visitor)
-        {
-            return visitor.VisitSuperExpression(this);
         }
     }
 }

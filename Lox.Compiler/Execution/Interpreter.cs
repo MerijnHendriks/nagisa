@@ -5,7 +5,7 @@ using Lox.Compiler.Parsing.Expressions;
 
 namespace Lox.Compiler.Execution
 {
-    public sealed class Interpreter : IExpressionVisitor<object>
+    public sealed class Interpreter
     {
         private readonly Logger _logger;
 
@@ -23,7 +23,48 @@ namespace Lox.Compiler.Execution
 
         private object Evaluate(Expr expression)
         {
-            return expression.Accept(this);
+            switch (expression.Type)
+            {
+                case EExpr.ASSIGN:
+                    return this.VisitAssignExpression((Assign)expression);
+
+                case EExpr.BINARY:
+                    return this.VisitBinaryExpression((Binary)expression);
+
+                case EExpr.CALL:
+                    return this.VisitCallExpression((Call)expression);
+
+                case EExpr.GET:
+                    return this.VisitGetExpression((Get)expression);
+
+                case EExpr.GROUPING:
+                    return this.VisitGroupingExpression((Grouping)expression);
+
+                case EExpr.LITERAL:
+                    return this.VisitLiteralExpression((Literal)expression);
+
+                case EExpr.LOGICAL:
+                    return this.VisitLogicalExpression((Logical)expression);
+
+                case EExpr.SET:
+                    return this.VisitSetExpression((Set)expression);
+
+                case EExpr.SUPER:
+                    return this.VisitSuperExpression((Super)expression);
+
+                case EExpr.THIS:
+                    return this.VisitThisExpression((This)expression);
+
+                case EExpr.UNARY:
+                    return this.VisitUnaryExpression((Unary)expression);
+
+                case EExpr.VARIABLE:
+                    return this.VisitVariableExpression((Variable)expression);
+
+                default:
+                    // OOPS ALL ERRORS
+                    return null;
+            }
         }
 
         private string Stringify(object o)

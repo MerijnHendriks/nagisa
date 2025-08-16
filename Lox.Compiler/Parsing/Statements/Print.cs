@@ -12,10 +12,5 @@ namespace Lox.Compiler.Parsing.Statements
         {
             this.Expression = expression;
         }
-
-        public override T Accept<T>(IStatementVisitor<T> visitor)
-        {
-            return visitor.VisitPrintStmt(this);
-        }
     }
 }

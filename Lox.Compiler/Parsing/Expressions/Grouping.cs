@@ -4,14 +4,9 @@ namespace Lox.Compiler.Parsing.Expressions
     {
         public readonly Expr Expression;
 
-        public Grouping(Expr expression)
+        public Grouping(Expr expression) : base(EExpr.GROUPING)
         {
             this.Expression = expression;
-        }
-
-        public override T Accept<T>(IExpressionVisitor<T> visitor)
-        {
-            return visitor.VisitGroupingExpression(this);
         }
     }
 }
