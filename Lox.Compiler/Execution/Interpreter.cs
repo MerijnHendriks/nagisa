@@ -23,6 +23,8 @@ namespace Lox.Compiler.Execution
 
         private object Evaluate(Expr expression)
         {
+            this._logger.WriteInfo("[EVAL] type: " + expression.Type);
+
             switch (expression.Type)
             {
                 case EExpr.ASSIGN:
@@ -62,8 +64,7 @@ namespace Lox.Compiler.Execution
                     return this.VisitVariableExpression((Variable)expression);
 
                 default:
-                    // OOPS ALL ERRORS
-                    return null;
+                    throw new InvalidOperationException("Expression not implemented.");
             }
         }
 
