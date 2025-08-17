@@ -7,7 +7,7 @@ namespace Lox.Compiler.Parsing.Statements
         public readonly Expr Condition;
         public readonly Stmt Body;
 
-        public While(Expr condition, Stmt body)
+        public While(Expr condition, Stmt body) : base(StmtType.WHILE)
         {
             this.Condition = condition;
             this.Body = body;

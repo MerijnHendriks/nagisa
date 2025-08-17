@@ -4,7 +4,7 @@ namespace Lox.Compiler.Parsing.Expressions
     {
         public readonly object Value;
 
-        public Literal(object value) : base(EExpr.LITERAL)
+        public Literal(object value) : base(ExprType.LITERAL)
         {
             this.Value = value;
         }

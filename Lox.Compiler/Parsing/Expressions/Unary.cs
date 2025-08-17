@@ -7,7 +7,7 @@ namespace Lox.Compiler.Parsing.Expressions
         public readonly Token Operator;
         public readonly Expr Right;
 
-        public Unary(Token op, Expr right) : base(EExpr.UNARY)
+        public Unary(Token op, Expr right) : base(ExprType.UNARY)
         {
             this.Operator = op;
             this.Right = right;

@@ -2,9 +2,9 @@ namespace Lox.Compiler.Parsing.Expressions
 {
     public abstract class Expr
     {
-        public EExpr Type;
+        public readonly int Type;
 
-        public Expr(EExpr type)
+        public Expr(int type)
         {
             this.Type = type;
         }

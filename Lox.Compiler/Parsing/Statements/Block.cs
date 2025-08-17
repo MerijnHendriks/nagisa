@@ -6,7 +6,7 @@ namespace Lox.Compiler.Parsing.Statements
     {
         public readonly List<Stmt> Statements;
 
-        public Block(List<Stmt> statements)
+        public Block(List<Stmt> statements) : base(StmtType.BLOCK)
         {
             this.Statements = statements;
         }

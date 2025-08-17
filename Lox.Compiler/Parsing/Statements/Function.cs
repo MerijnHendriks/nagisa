@@ -9,7 +9,7 @@ namespace Lox.Compiler.Parsing.Statements
         public readonly List<Token> Parameters;
         public readonly List<Stmt> Body;
 
-        public Function(Token name, List<Token> parameters, List<Stmt> body)
+        public Function(Token name, List<Token> parameters, List<Stmt> body) : base(StmtType.FUNCTION)
         {
             this.Name = name;
             this.Parameters = parameters;

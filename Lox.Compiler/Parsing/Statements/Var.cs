@@ -8,7 +8,7 @@ namespace Lox.Compiler.Parsing.Statements
         public readonly Token Name;
         public readonly Expr Initializer;
 
-        public Var(Token name, Expr initializer)
+        public Var(Token name, Expr initializer) : base(StmtType.VAR)
         {
             this.Name = name;
             this.Initializer = initializer;

@@ -6,7 +6,7 @@ namespace Lox.Compiler.Parsing.Statements
     {
         public readonly Expr Expr;
 
-        public Expression(Expr expr)
+        public Expression(Expr expr) : base(StmtType.EXPRESSION)
         {
             this.Expr = expr;
         }

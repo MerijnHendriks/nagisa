@@ -8,7 +8,7 @@ namespace Lox.Compiler.Parsing.Statements
         public readonly Stmt ThenBranch;
         public readonly Stmt ElseBranch;
 
-        public If(Expr condition, Stmt thenBranch, Stmt elseBranch)
+        public If(Expr condition, Stmt thenBranch, Stmt elseBranch) : base(StmtType.IF)
         {
             this.Condition = condition;
             this.ThenBranch = thenBranch;

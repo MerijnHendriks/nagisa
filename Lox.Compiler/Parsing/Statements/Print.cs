@@ -8,7 +8,7 @@ namespace Lox.Compiler.Parsing.Statements
     {
         public readonly Expr Expression;
 
-        public Print(Expr expression)
+        public Print(Expr expression) : base(StmtType.PRINT)
         {
             this.Expression = expression;
         }

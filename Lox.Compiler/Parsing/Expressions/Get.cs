@@ -7,7 +7,7 @@ namespace Lox.Compiler.Parsing.Expressions
         public readonly Expr Object;
         public readonly Token Name;
 
-        public Get(Expr obj, Token name) : base(EExpr.GET)
+        public Get(Expr obj, Token name) : base(ExprType.GET)
         {
             this.Object = obj;
             this.Name = name;

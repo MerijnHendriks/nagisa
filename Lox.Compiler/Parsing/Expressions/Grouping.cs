@@ -4,7 +4,7 @@ namespace Lox.Compiler.Parsing.Expressions
     {
         public readonly Expr Expression;
 
-        public Grouping(Expr expression) : base(EExpr.GROUPING)
+        public Grouping(Expr expression) : base(ExprType.GROUPING)
         {
             this.Expression = expression;
         }

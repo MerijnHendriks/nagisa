@@ -9,7 +9,7 @@ namespace Lox.Compiler.Parsing.Expressions
         public Token Paren;
         public List<Expr> Arguments;
 
-        public Call(Expr callee, Token paren, List<Expr> arguments) : base(EExpr.CALL)
+        public Call(Expr callee, Token paren, List<Expr> arguments) : base(ExprType.CALL)
         {
             this.Callee = callee;
             this.Paren = paren;

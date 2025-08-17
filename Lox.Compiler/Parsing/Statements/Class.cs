@@ -10,7 +10,7 @@ namespace Lox.Compiler.Parsing.Statements
         public readonly Variable Superclass;
         public readonly List<Function> Methods;
 
-        public Class(Token name, Variable superclass, List<Function> methods)
+        public Class(Token name, Variable superclass, List<Function> methods) : base(StmtType.CLASS)
         {
             this.Name = name;
             this.Superclass = superclass;

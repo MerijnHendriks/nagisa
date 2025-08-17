@@ -6,7 +6,7 @@ namespace Lox.Compiler.Parsing.Expressions
     {
         public readonly Token Keyword;
 
-        public This(Token keyword) : base(EExpr.THIS)
+        public This(Token keyword) : base(ExprType.THIS)
         {
             this.Keyword = keyword;
         }

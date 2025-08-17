@@ -8,7 +8,7 @@ namespace Lox.Compiler.Parsing.Statements
         public readonly Token Keyword;
         public readonly Expr Value;
 
-        public Return(Token keyword, Expr value)
+        public Return(Token keyword, Expr value) : base(StmtType.RETURN)
         {
             this.Keyword = keyword;
             this.Value = value;

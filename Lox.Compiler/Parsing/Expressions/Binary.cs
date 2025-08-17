@@ -8,7 +8,7 @@ namespace Lox.Compiler.Parsing.Expressions
         public readonly Token Operator;
         public readonly Expr Right;
 
-        public Binary(Expr left, Token op, Expr right) : base(EExpr.BINARY)
+        public Binary(Expr left, Token op, Expr right) : base(ExprType.BINARY)
         {
             this.Left = left;
             this.Operator = op;
