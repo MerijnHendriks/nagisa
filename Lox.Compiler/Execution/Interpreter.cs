@@ -27,41 +27,41 @@ namespace Lox.Compiler.Execution
 
             switch (expression.Type)
             {
-                case EExpr.ASSIGN:
+                case ExprType.ASSIGN:
                     return this.VisitAssignExpression((Assign)expression);
 
-                case EExpr.BINARY:
+                case ExprType.BINARY:
                     return this.VisitBinaryExpression((Binary)expression);
 
-                case EExpr.CALL:
+                case ExprType.CALL:
                     return this.VisitCallExpression((Call)expression);
 
-                case EExpr.GET:
+                case ExprType.GET:
                     return this.VisitGetExpression((Get)expression);
 
-                case EExpr.GROUPING:
+                case ExprType.GROUPING:
                     return this.VisitGroupingExpression((Grouping)expression);
 
-                case EExpr.LITERAL:
+                case ExprType.LITERAL:
                     return this.VisitLiteralExpression((Literal)expression);
 
-                case EExpr.LOGICAL:
+                case ExprType.LOGICAL:
                     return this.VisitLogicalExpression((Logical)expression);
 
-                case EExpr.SET:
+                case ExprType.SET:
                     return this.VisitSetExpression((Set)expression);
 
-                case EExpr.SUPER:
+                case ExprType.SUPER:
                     return this.VisitSuperExpression((Super)expression);
 
-                case EExpr.THIS:
+                case ExprType.THIS:
                     return this.VisitThisExpression((This)expression);
 
-                case EExpr.UNARY:
+                case ExprType.UNARY:
                     return this.VisitUnaryExpression((Unary)expression);
 
-                case EExpr.VARIABLE:
-                    return this.VisitVariableExpression((Variable)expression);
+                case ExprType.VARIABLE:
+                    return this.VisitVariablExprTypeession((Variable)expression);
 
                 default:
                     throw new InvalidOperationException("Expression not implemented.");
@@ -223,7 +223,7 @@ namespace Lox.Compiler.Execution
             return null;
         }
 
-        public object VisitVariableExpression(Variable expression)
+        public object VisitVariablExprTypeession(Variable expression)
         {
             throw new NotImplementedException();
         }
