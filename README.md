@@ -1,4 +1,9 @@
-# Nagisa (汀) <div style="float:right;">🌊🏝️</div>
+<h1 style="text-align:left;">
+    Nagisa (汀)
+    <span style="float:right;">
+        🌊🏝️
+    </span>
+</h1>
 
 > Lasciate ogne speranza, voi ch'intrate.
 
