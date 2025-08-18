@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Lox.Compiler.Lexing;
+using Lox.Compiler.Language.Lexing;
 using Lox.Compiler.Tests.Common;
 
 namespace Lox.Compiler.Tests.Integration.Lexing.Patterns

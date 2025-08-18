@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <projectReference Include="../Lox.Compiler/Lox.Compiler.csproj" />
+    <projectReference Include="../Lox.Compiler.Language/Lox.Compiler.Language.csproj" />
   </ItemGroup>
 
 </Project>

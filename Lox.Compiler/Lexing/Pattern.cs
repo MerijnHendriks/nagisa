@@ -1,4 +1,4 @@
-namespace Lox.Compiler.Lexing.Patterns
+namespace Lox.Compiler.Lexing
 {
     public abstract class Pattern
     {

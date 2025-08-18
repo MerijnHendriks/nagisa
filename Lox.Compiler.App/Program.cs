@@ -1,4 +1,5 @@
 ﻿using Lox.Compiler.App.Common;
+using Lox.Compiler.Language.Lexing;
 
 namespace Lox.Compiler.App
 {
@@ -8,7 +9,9 @@ namespace Lox.Compiler.App
         {
             var logger = new AppLogger();
             var vfs = new AppVFS();
-            var compiler = new Compiler(logger);
+
+            var patterns = new LoxPatterns().Patterns;
+            var compiler = new Compiler(logger, patterns);
 
             if (args.Length == 0)
             {

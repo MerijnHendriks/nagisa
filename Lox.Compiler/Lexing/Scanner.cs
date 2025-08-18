@@ -1,6 +1,6 @@
 using System;
+using System.Collections.Generic;
 using Lox.Compiler.Common;
-using Lox.Compiler.Lexing.Patterns;
 
 namespace Lox.Compiler.Lexing
 {
@@ -8,9 +8,9 @@ namespace Lox.Compiler.Lexing
     {
         private readonly Logger _logger;
         private readonly TextHelper _textHelper;
-        private readonly Pattern[] _patterns;
+        private readonly List<Pattern> _patterns;
 
-        public Scanner(Logger logger, Pattern[] patterns)
+        public Scanner(Logger logger, List<Pattern> patterns)
         {
             this._logger = logger;
             this._textHelper = new TextHelper();
@@ -97,7 +97,7 @@ namespace Lox.Compiler.Lexing
 
         private MatchResult ScanToken(string file, string source, SourcePosition position)
         {
-            for (int i = 0; i < this._patterns.Length; i += 1)
+            for (int i = 0; i < this._patterns.Count; i += 1)
             {
                 Pattern pattern = this._patterns[i];
 

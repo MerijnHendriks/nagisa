@@ -5,7 +5,9 @@
     LF   | \n   | Unix
 */
 
-namespace Lox.Compiler.Lexing.Patterns
+using Lox.Compiler.Lexing;
+
+namespace Lox.Compiler.Language.Lexing
 {
     public sealed class NewlinePattern : Pattern
     {

@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Lox.Compiler.Common;
 using Lox.Compiler.Lexing;
-using Lox.Compiler.Lexing.Patterns;
+using Lox.Compiler.Language.Lexing;
 
 namespace Lox.Compiler.Tests.Common
 {
@@ -12,8 +12,7 @@ namespace Lox.Compiler.Tests.Common
 
         static LexingTestHelper()
         {
-            var patternProvider = new PatternProvider();
-            var patterns = patternProvider.GetPatterns();
+            var patterns = new LoxPatterns().Patterns;
 
             _logger = new TestLogger();
             _scanner = new Scanner(_logger, patterns);

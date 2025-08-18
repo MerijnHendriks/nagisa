@@ -1,8 +1,9 @@
 using System;
 using System.Globalization;
 using System.IO;
+using Lox.Compiler.Lexing;
 
-namespace Lox.Compiler.Lexing.Patterns
+namespace Lox.Compiler.Language.Lexing
 {
     public sealed class NumberPattern : Pattern
     {

@@ -1,9 +1,9 @@
 using Lox.Compiler.Common;
 using Lox.Compiler.Lexing;
-using Lox.Compiler.Lexing.Patterns;
 using Lox.Compiler.Parsing;
 using Lox.Compiler.Parsing.Expressions;
 using Lox.Compiler.Execution;
+using System.Collections.Generic;
 
 namespace Lox.Compiler
 {
@@ -13,11 +13,8 @@ namespace Lox.Compiler
         private readonly Parser _parser;
         private readonly Interpreter _interpreter;
 
-        public Compiler(Logger logger)
+        public Compiler(Logger logger, List<Pattern> patterns)
         {
-            PatternProvider patternProvider = new PatternProvider();
-            Pattern[] patterns = patternProvider.GetPatterns();
-
             this._scanner = new Scanner(logger, patterns);
             this._parser = new Parser(logger);
             this._interpreter = new Interpreter(logger);

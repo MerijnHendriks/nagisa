@@ -1,6 +1,7 @@
 using System.IO;
+using Lox.Compiler.Lexing;
 
-namespace Lox.Compiler.Lexing.Patterns
+namespace Lox.Compiler.Language.Lexing
 {
     public sealed class StringPattern : Pattern
     {
