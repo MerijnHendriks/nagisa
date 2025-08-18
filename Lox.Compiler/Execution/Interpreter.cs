@@ -61,7 +61,7 @@ namespace Lox.Compiler.Execution
                     return this.UnaryExpression(expression);
 
                 case ExprType.VARIABLE:
-                    return this.VariablExprTypeession(expression);
+                    return this.VariableExpression(expression);
 
                 default:
                     throw new InvalidOperationException("Expression not implemented.");
@@ -247,7 +247,7 @@ namespace Lox.Compiler.Execution
             throw new InvalidOperationException("How?");
         }
 
-        public object VariablExprTypeession(Expr expression)
+        public object VariableExpression(Expr expression)
         {
             Variable expr = (Variable)expression;
 
