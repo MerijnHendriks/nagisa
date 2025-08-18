@@ -28,40 +28,40 @@ namespace Lox.Compiler.Execution
             switch (expression.Type)
             {
                 case ExprType.ASSIGN:
-                    return this.VisitAssignExpression((Assign)expression);
+                    return this.AssignExpression(expression);
 
                 case ExprType.BINARY:
-                    return this.VisitBinaryExpression((Binary)expression);
+                    return this.BinaryExpression(expression);
 
                 case ExprType.CALL:
-                    return this.VisitCallExpression((Call)expression);
+                    return this.CallExpression(expression);
 
                 case ExprType.GET:
-                    return this.VisitGetExpression((Get)expression);
+                    return this.GetExpression(expression);
 
                 case ExprType.GROUPING:
-                    return this.VisitGroupingExpression((Grouping)expression);
+                    return this.GroupingExpression(expression);
 
                 case ExprType.LITERAL:
-                    return this.VisitLiteralExpression((Literal)expression);
+                    return this.LiteralExpression(expression);
 
                 case ExprType.LOGICAL:
-                    return this.VisitLogicalExpression((Logical)expression);
+                    return this.LogicalExpression(expression);
 
                 case ExprType.SET:
-                    return this.VisitSetExpression((Set)expression);
+                    return this.SetExpression(expression);
 
                 case ExprType.SUPER:
-                    return this.VisitSuperExpression((Super)expression);
+                    return this.SuperExpression(expression);
 
                 case ExprType.THIS:
-                    return this.VisitThisExpression((This)expression);
+                    return this.ThisExpression(expression);
 
                 case ExprType.UNARY:
-                    return this.VisitUnaryExpression((Unary)expression);
+                    return this.UnaryExpression(expression);
 
                 case ExprType.VARIABLE:
-                    return this.VisitVariablExprTypeession((Variable)expression);
+                    return this.VariablExprTypeession(expression);
 
                 default:
                     throw new InvalidOperationException("Expression not implemented.");
@@ -95,31 +95,37 @@ namespace Lox.Compiler.Execution
 
         private bool IsEqual(object left, object right)
         {
+            // If both are null, they are equal
             if (left == null && right == null)
             {
                 return true;
             }
 
-            // second check to prevent NullRefEx in Equals
+            // Second null check to prevent NullRefEx in type Equals
             if (left == null)
             {
                 return false;
             }
 
+            // Handle equality by type
             return left.Equals(right);
         }
 
-        public object VisitAssignExpression(Assign expression)
+        public object AssignExpression(Expr expression)
         {
+            Assign expr = (Assign)expression;
+
             throw new NotImplementedException();
         }
 
-        public object VisitBinaryExpression(Binary expression)
+        public object BinaryExpression(Expr expression)
         {
-            object left = this.Evaluate(expression.Left);
-            object right = this.Evaluate(expression.Right); 
+            Binary expr = (Binary)expression;
 
-            switch (expression.Operator.Type)
+            object left = this.Evaluate(expr.Left);
+            object right = this.Evaluate(expr.Right); 
+
+            switch (expr.Operator.Type)
             {
                 case TokenType.RIGHT_ARROW:
                     return (double)left > (double)right;
@@ -148,7 +154,7 @@ namespace Lox.Compiler.Execution
                         return (string)left + (string)right;
                     }
                     break;
-            
+
                 case TokenType.SLASH:
                     return (double)left / (double)right;
             
@@ -166,51 +172,69 @@ namespace Lox.Compiler.Execution
             return null;
         }
 
-        public object VisitCallExpression(Call expression)
+        public object CallExpression(Expr expression)
         {
+            Call expr = (Call)expression;
+
             throw new NotImplementedException();
         }
 
-        public object VisitGetExpression(Get expression)
+        public object GetExpression(Expr expression)
         {
+            Get expr = (Get)expression;
+
             throw new NotImplementedException();
         }
 
-        public object VisitGroupingExpression(Grouping expression)
+        public object GroupingExpression(Expr expression)
         {
+            Grouping expr = (Grouping)expression;
+
             return this.Evaluate(expression);
         }
 
-        public object VisitLiteralExpression(Literal expression)
+        public object LiteralExpression(Expr expression)
         {
-            return expression.Value;
+            Literal expr = (Literal)expression;
+
+            return expr.Value;
         }
 
-        public object VisitLogicalExpression(Logical expression)
+        public object LogicalExpression(Expr expression)
         {
+            Logical expr = (Logical)expression;
+
             throw new NotImplementedException();
         }
 
-        public object VisitSetExpression(Set expression)
+        public object SetExpression(Expr expression)
         {
+            Set expr = (Set)expression;
+
             throw new NotImplementedException();
         }
 
-        public object VisitSuperExpression(Super expression)
+        public object SuperExpression(Expr expression)
         {
+            Super expr = (Super)expression;
+
             throw new NotImplementedException();
         }
 
-        public object VisitThisExpression(This expression)
+        public object ThisExpression(Expr expression)
         {
+            This expr = (This)expression;
+
             throw new NotImplementedException();
         }
 
-        public object VisitUnaryExpression(Unary expression)
+        public object UnaryExpression(Expr expression)
         {
-            object right = this.Evaluate(expression.Right);
+            Unary expr = (Unary)expression;
 
-            switch (expression.Operator.Type)
+            object right = this.Evaluate(expr.Right);
+
+            switch (expr.Operator.Type)
             {
                 case TokenType.NOT:
                     return !this.IsTruthy(right);
@@ -220,11 +244,13 @@ namespace Lox.Compiler.Execution
             }
 
             // Unreachable.
-            return null;
+            throw new InvalidOperationException("How?");
         }
 
-        public object VisitVariablExprTypeession(Variable expression)
+        public object VariablExprTypeession(Expr expression)
         {
+            Variable expr = (Variable)expression;
+
             throw new NotImplementedException();
         }
     }
