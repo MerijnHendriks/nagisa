@@ -27,17 +27,8 @@ namespace Lox.Compiler.Execution
 
             switch (expression.Type)
             {
-                case ExprType.ASSIGN:
-                    return this.AssignExpression(expression);
-
                 case ExprType.BINARY:
                     return this.BinaryExpression(expression);
-
-                case ExprType.CALL:
-                    return this.CallExpression(expression);
-
-                case ExprType.GET:
-                    return this.GetExpression(expression);
 
                 case ExprType.GROUPING:
                     return this.GroupingExpression(expression);
@@ -45,23 +36,8 @@ namespace Lox.Compiler.Execution
                 case ExprType.LITERAL:
                     return this.LiteralExpression(expression);
 
-                case ExprType.LOGICAL:
-                    return this.LogicalExpression(expression);
-
-                case ExprType.SET:
-                    return this.SetExpression(expression);
-
-                case ExprType.SUPER:
-                    return this.SuperExpression(expression);
-
-                case ExprType.THIS:
-                    return this.ThisExpression(expression);
-
                 case ExprType.UNARY:
                     return this.UnaryExpression(expression);
-
-                case ExprType.VARIABLE:
-                    return this.VariableExpression(expression);
 
                 default:
                     throw new InvalidOperationException("Expression not implemented.");
@@ -109,13 +85,6 @@ namespace Lox.Compiler.Execution
 
             // Handle equality by type
             return left.Equals(right);
-        }
-
-        public object AssignExpression(Expr expression)
-        {
-            Assign expr = (Assign)expression;
-
-            throw new NotImplementedException();
         }
 
         public object BinaryExpression(Expr expression)
@@ -172,20 +141,6 @@ namespace Lox.Compiler.Execution
             return null;
         }
 
-        public object CallExpression(Expr expression)
-        {
-            Call expr = (Call)expression;
-
-            throw new NotImplementedException();
-        }
-
-        public object GetExpression(Expr expression)
-        {
-            Get expr = (Get)expression;
-
-            throw new NotImplementedException();
-        }
-
         public object GroupingExpression(Expr expression)
         {
             Grouping expr = (Grouping)expression;
@@ -198,34 +153,6 @@ namespace Lox.Compiler.Execution
             Literal expr = (Literal)expression;
 
             return expr.Value;
-        }
-
-        public object LogicalExpression(Expr expression)
-        {
-            Logical expr = (Logical)expression;
-
-            throw new NotImplementedException();
-        }
-
-        public object SetExpression(Expr expression)
-        {
-            Set expr = (Set)expression;
-
-            throw new NotImplementedException();
-        }
-
-        public object SuperExpression(Expr expression)
-        {
-            Super expr = (Super)expression;
-
-            throw new NotImplementedException();
-        }
-
-        public object ThisExpression(Expr expression)
-        {
-            This expr = (This)expression;
-
-            throw new NotImplementedException();
         }
 
         public object UnaryExpression(Expr expression)
@@ -245,13 +172,6 @@ namespace Lox.Compiler.Execution
 
             // Unreachable.
             throw new InvalidOperationException("How?");
-        }
-
-        public object VariableExpression(Expr expression)
-        {
-            Variable expr = (Variable)expression;
-
-            throw new NotImplementedException();
         }
     }
 }
