@@ -40,10 +40,10 @@ namespace Lox.Compiler.Lexing.Patterns
             return false;
         }
 
-        public override SourcePosition Run(string file, string source, SourcePosition current, ref Token token)
+        public override MatchResult Run(string file, string source, SourcePosition current)
         {
             // Get token
-            token = new Token(file, current.Index, TokenType.END_OF_LINE, null);
+            Token token = new Token(file, current.Index, TokenType.END_OF_LINE, null);
 
             // Get position
             int nextIndex = current.Index;
@@ -61,7 +61,8 @@ namespace Lox.Compiler.Lexing.Patterns
 
             SourcePosition next = new SourcePosition(file, nextIndex, current.Line + 1, 1);
 
-            return next;
+            MatchResult result = new MatchResult(token, next);
+            return result;
         }
     }
 }

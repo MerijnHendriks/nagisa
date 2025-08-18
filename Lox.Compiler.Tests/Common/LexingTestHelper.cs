@@ -122,11 +122,10 @@ namespace Lox.Compiler.Tests.Common
             }
 
             var current = new SourcePosition(file, 0, 1, 1);
-            var resultToken = new Token();
-            var resultNext = pattern.Run(file, source, current, ref resultToken);
+            var match = pattern.Run(file, source, current);
 
-            AssertToken(expectedToken, resultToken);
-            AssertSourcePosition(expectedNext, resultNext);
+            AssertToken(expectedToken, match.Token);
+            AssertSourcePosition(expectedNext, match.Position);
         }
 
         public static void AssertScanner(string source, Token[] expectedTokens, SourcePosition[] expectedSourcemap)

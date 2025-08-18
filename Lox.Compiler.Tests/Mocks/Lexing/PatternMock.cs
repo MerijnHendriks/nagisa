@@ -20,9 +20,9 @@ namespace Lox.Compiler.Tests.Mocks.Lexing
             throw new NotImplementedException();
         }
 
-        public override SourcePosition Run(string file, string source, SourcePosition current, ref Token token)
+        public override MatchResult Run(string file, string source, SourcePosition current)
         {
-            return this.RunOffset(file, source, current, ref token, this._type, this._offset);
+            return this.RunOffset(file, source, current, this._type, this._offset);
         }
     }
 }

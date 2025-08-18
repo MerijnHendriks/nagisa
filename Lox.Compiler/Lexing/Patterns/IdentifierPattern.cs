@@ -19,7 +19,7 @@ namespace Lox.Compiler.Lexing.Patterns
                 && !this._textHelper.IsDigit(source, current.Index);
         }
 
-        public override SourcePosition Run(string file, string source, SourcePosition current, ref Token token)
+        public override MatchResult Run(string file, string source, SourcePosition current)
         {
             SourcePosition next = new SourcePosition(file, current.Index, current.Line, current.Column);
 
@@ -45,13 +45,14 @@ namespace Lox.Compiler.Lexing.Patterns
 
             // Get token
             string value = source.Substring(current.Index, difference);
-            token = new Token(file, current.Index, TokenType.IDENTIFIER, value);
+            Token token = new Token(file, current.Index, TokenType.IDENTIFIER, value);
 
             // Get position
             next.Column += difference;
             next.Index += 1;
             
-            return next;
+            MatchResult result = new MatchResult(token, next);
+            return result;
         }
     }
 }

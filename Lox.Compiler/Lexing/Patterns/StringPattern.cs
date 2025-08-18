@@ -18,7 +18,7 @@ namespace Lox.Compiler.Lexing.Patterns
             return this._textHelper.IsMatchChar(source, current.Index, DELIMITER);
         }
 
-        public override SourcePosition Run(string file, string source, SourcePosition current, ref Token token)
+        public override MatchResult Run(string file, string source, SourcePosition current)
         {
             bool foundDelimiter = false;
             int startIndex = current.Index + 1;
@@ -55,13 +55,14 @@ namespace Lox.Compiler.Lexing.Patterns
 
             // Get token
             string value = source.Substring(startIndex, difference);
-            token = new Token(file, current.Index, TokenType.STRING, value);
+            Token token = new Token(file, current.Index, TokenType.STRING, value);
 
             // Get position
             next.Column += difference;
             next.Index += 1;
 
-            return next;
+            MatchResult result = new MatchResult(token, next);
+            return result;
         }
     }
 }

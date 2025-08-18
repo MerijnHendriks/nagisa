@@ -18,9 +18,9 @@ namespace Lox.Compiler.Lexing.Patterns
             return this._textHelper.IsMatchString(source, current.Index, this._target);
         }
 
-        public override SourcePosition Run(string file, string source, SourcePosition current, ref Token token)
+        public override MatchResult Run(string file, string source, SourcePosition current)
         {
-            return this.RunOffset(file, source, current, ref token, this._type, this._target.Length);
+            return this.RunOffset(file, source, current, this._type, this._target.Length);
         }
     }
 }

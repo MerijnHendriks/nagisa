@@ -18,7 +18,7 @@ namespace Lox.Compiler.Lexing.Patterns
             return this._textHelper.IsMatchString(source, current.Index, TARGET);
         }
 
-        public override SourcePosition Run(string file, string source, SourcePosition current, ref Token token)
+        public override MatchResult Run(string file, string source, SourcePosition current)
         {
             int startIndex = current.Index + TARGET.Length;
             int startColumn = current.Column + TARGET.Length;
@@ -39,13 +39,14 @@ namespace Lox.Compiler.Lexing.Patterns
 
             // Get token
             string value = source.Substring(startIndex, difference);
-            token = new Token(file, current.Index, TokenType.LINE_COMMENT, value);
+            Token token = new Token(file, current.Index, TokenType.LINE_COMMENT, value);
 
             // Get position
             next.Column += difference;
             next.Index += 1;
 
-            return next;
+            MatchResult result = new MatchResult(token, next);
+            return result;
         }
     }
 }

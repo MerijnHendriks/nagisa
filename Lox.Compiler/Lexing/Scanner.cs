@@ -95,58 +95,57 @@ namespace Lox.Compiler.Lexing
         }
 #endif
 
-        private SourcePosition ScanToken(string file, string source, SourcePosition current, ref Token token)
+        private MatchResult ScanToken(string file, string source, SourcePosition position)
         {
             for (int i = 0; i < this._patterns.Length; i += 1)
             {
                 Pattern pattern = this._patterns[i];
 
-                if (!pattern.IsMatch(source, current))
+                if (!pattern.IsMatch(source, position))
                 {
                     continue;
                 }
 
-                return pattern.Run(file, source, current, ref token);
+                return pattern.Run(file, source, position);
             }
 
             string format = "[{0}]: No matching pattern for {1} at [idx:{2},ln:{3},col:{4}].";
-            string message = string.Format(format, file, source[current.Index], current.Index, current.Line, current.Column);
+            string message = string.Format(format, file, source[position.Index], position.Index, position.Line, position.Column);
             throw new PatternMatchingException(message);
         }
 
         public ScanResult Run(string file, string source)
         {
             ScanResult result = new ScanResult();
-            Token token = new Token();
-            SourcePosition current = new SourcePosition(file, 0, 1, 1);
-            SourcePosition next = current;
+            SourcePosition position = new SourcePosition(file, 0, 1, 1);
 
+            // TODO: Rewrite as for loop!
             // Tokenize source
-            while (!this._textHelper.IsAtEnd(source, current.Index))
+            while (!this._textHelper.IsAtEnd(source, position.Index))
             {
-                next = this.ScanToken(file, source, current, ref token);
+                MatchResult match = this.ScanToken(file, source, position);
 
-                if (token.Type != TokenType.INVALID)
+                if (match.Token.Type != TokenType.INVALID)
                 {
                     // Add to result
-                    result.Tokens.Add(token);
-                    result.Sourcemap.Add(current);
+                    result.Tokens.Add(match.Token);
+                    result.Sourcemap.Add(position);
 
 #if DEBUG
-                    this.PrintToken(token, current);
+                    this.PrintToken(match.Token, position);
 #endif
                 }
 
-                current = next;
+                position = match.Position;
             }
 
             // Add End-Of-File token
-            token = new Token(file, current.Index, TokenType.END_OF_FILE, null);
-            result.Tokens.Add(token);
-            result.Sourcemap.Add(current);
+            Token eofToken = new Token(file, position.Index, TokenType.END_OF_FILE, null);
+            result.Tokens.Add(eofToken);
+            result.Sourcemap.Add(position);
 
 #if DEBUG
-            this.PrintToken(token, current);
+            this.PrintToken(eofToken, position);
 #endif
 
             return result;
