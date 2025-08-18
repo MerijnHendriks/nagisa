@@ -111,7 +111,7 @@ namespace Lox.Compiler.Lexing
 
             string format = "[{0}]: No matching pattern for {1} at [idx:{2},ln:{3},col:{4}].";
             string message = string.Format(format, file, source[position.Index], position.Index, position.Line, position.Column);
-            throw new PatternMatchingException(message);
+            throw new ArgumentOutOfRangeException(message);
         }
 
         public ScanResult Run(string file, string source)
