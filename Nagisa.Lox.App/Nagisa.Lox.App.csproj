@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LanguageVersion>3</LanguageVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>loxc</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PublishSingleFile>true</PublishSingleFile>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>false</SelfContained>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <projectReference Include="../Nagisa.Core/Nagisa.Core.csproj" />
+    <projectReference Include="../Nagisa.Lox/Nagisa.Lox.csproj" />
+  </ItemGroup>
+
+</Project>

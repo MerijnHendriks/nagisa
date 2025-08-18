@@ -1,0 +1,36 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Nagisa.Core.Lexing;
+using Nagisa.Lox.Lexing;
+using Nagisa.Lox.Tests.Common;
+
+namespace Nagisa.Lox.Tests.Units.Lexing.Patterns
+{
+    [TestClass]
+    public sealed class ElsePatternTest
+    {
+        [TestMethod]
+        public void TestIsMatch()
+        {
+            var file = string.Empty;
+            var source = "else";
+            var pattern = new TextPattern("else", TokenType.ELSE);
+
+            var expectedResult = true;
+
+            LexingTestHelper.AssertPatternIsMatch(pattern, file, source, expectedResult);
+        }
+
+        [TestMethod]
+        public void TestRun()
+        {
+            var file = string.Empty;
+            var source = "else";
+            var pattern = new TextPattern("else", TokenType.ELSE);
+
+            var expectedToken = new Token(file, 0, TokenType.ELSE, null);
+            var expectedNext = new SourcePosition(file, 4, 1, 5);
+
+            LexingTestHelper.AssertPatternRun(pattern, file, source, expectedToken, expectedNext);
+        }
+    }
+}

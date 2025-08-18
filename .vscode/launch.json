@@ -1,11 +1,11 @@
 {
     "configurations": [
         {
-            "name": "Lox.Compiler.App",
+            "name": "Nagisa.App",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "dotnet: build debug",
-            "program": "${workspaceFolder}/Lox.Compiler.App/bin/Debug/net8.0/win-x64/loxc.dll",
+            "program": "${workspaceFolder}/Nagisa.Lox.App/bin/Debug/net8.0/win-x64/loxc.dll",
             "args": [
                 "program.lox"
             ],

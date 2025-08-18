@@ -58,7 +58,7 @@
 		{
 			"label": "dotnet: publish",
 			"type": "shell",
-			// Framework version specified because Lox.Compiler targets multiple frameworks
+			// Framework version specified because Nagisa targets multiple frameworks
 			"command": "dotnet publish --nologo --no-build --framework net8.0",
 			"dependsOrder": "sequence",
 			"dependsOn": "dotnet: build release",
@@ -113,7 +113,7 @@
 		{
 			"label": "dotnet: run",
 			"type": "shell",
-			"command": "dotnet run --no-build --project Lox.Compiler.App -- program.lox",
+			"command": "dotnet run --no-build --project Nagisa.App -- program.lox",
 			"dependsOrder": "sequence",
 			"dependsOn": "dotnet: build debug",
 			"problemMatcher": []
