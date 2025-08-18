@@ -1,4 +1,4 @@
-# Nagisa
+# Nagisa (汀) <div style="float:right;">🌊🏝️</div>
 
 > Lasciate ogne speranza, voi ch'intrate.
 
