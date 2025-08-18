@@ -1,5 +1,3 @@
-using System;
-
 namespace Lox.Compiler.Lexing
 {
     public sealed class TextHelper
