@@ -7,7 +7,7 @@
 
 > Lasciate ogne speranza, voi ch'intrate.
 
-Generic interpreter infrastructure in a very limited subset of C# 2.
+Generic interpreter infrastructure written in a very limited subset of C#.
 Works with almost every C# version and .NET framework.
 
 **Project**        | **Description**

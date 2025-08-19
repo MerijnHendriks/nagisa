@@ -27,8 +27,9 @@ namespace Nagisa.Lox.Tests.Units.Lexing.Patterns
             var source = "super";
             var pattern = new TextPattern("super", TokenType.SUPER);
 
-            var expectedToken = new Token(file, 0, TokenType.SUPER, null);
-            var expectedNext = new SourcePosition(file, 5, 1, 6);
+            var position = new SourcePosition(0, 1, 1);
+            var expectedToken = new Token(file, position, TokenType.SUPER, null);
+            var expectedNext = new SourcePosition(5, 1, 6);
 
             LexingTestHelper.AssertPatternRun(pattern, file, source, expectedToken, expectedNext);
         }

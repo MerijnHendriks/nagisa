@@ -79,11 +79,11 @@ namespace Nagisa.Core.Lexing
 #endif
 
 #if DEBUG
-        private void PrintToken(Token token, SourcePosition current)
+        private void PrintToken(Token token)
         {
             string typeName = this.GetTokenName(token.Type);
             string format = "[{0}, {1}, {2}] {3}";
-            string formatted = string.Format(format, current.Index, current.Line, current.Column, typeName);
+            string formatted = string.Format(format, token.Index, token.Line, token.Column, typeName);
 
             if (token.Value != null)
             {
@@ -114,10 +114,10 @@ namespace Nagisa.Core.Lexing
             throw new ArgumentOutOfRangeException(message);
         }
 
-        public ScanResult Run(string file, string source)
+        public List<Token> Run(string file, string source)
         {
-            ScanResult result = new ScanResult();
-            SourcePosition position = new SourcePosition(file, 0, 1, 1);
+            List<Token> result = new List<Token>();
+            SourcePosition position = new SourcePosition(0, 1, 1);
 
             // TODO: Rewrite as for loop!
             // Tokenize source
@@ -128,11 +128,10 @@ namespace Nagisa.Core.Lexing
                 if (match.Token.Type != TokenType.INVALID)
                 {
                     // Add to result
-                    result.Tokens.Add(match.Token);
-                    result.Sourcemap.Add(position);
+                    result.Add(match.Token);
 
 #if DEBUG
-                    this.PrintToken(match.Token, position);
+                    this.PrintToken(match.Token);
 #endif
                 }
 
@@ -140,12 +139,11 @@ namespace Nagisa.Core.Lexing
             }
 
             // Add End-Of-File token
-            Token eofToken = new Token(file, position.Index, TokenType.END_OF_FILE, null);
-            result.Tokens.Add(eofToken);
-            result.Sourcemap.Add(position);
+            Token eofToken = new Token(file, position, TokenType.END_OF_FILE, null);
+            result.Add(eofToken);
 
 #if DEBUG
-            this.PrintToken(eofToken, position);
+            this.PrintToken(eofToken);
 #endif
 
             return result;

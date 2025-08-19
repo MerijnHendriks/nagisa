@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Nagisa.Core.Common;
 using Nagisa.Core.Lexing;
 using Nagisa.Core.Parsing.Expressions;
@@ -15,9 +16,9 @@ namespace Nagisa.Core.Parsing
             this._logger = logger;
         }
 
-        public Expr Run(ScanResult scanResult)
+        public Expr Run(List<Token> tokens)
         {
-            this._parserData = new ParserData(scanResult);
+            this._parserData = new ParserData(tokens);
 
             return this.Expression();
         }

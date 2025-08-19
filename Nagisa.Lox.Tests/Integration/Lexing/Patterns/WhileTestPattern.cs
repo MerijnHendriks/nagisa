@@ -14,18 +14,18 @@ namespace Nagisa.Lox.Tests.Integration.Lexing.Patterns
             var file = string.Empty;
             var source = "while";
 
+            var positions = new SourcePosition[]
+            {
+                new SourcePosition(0, 1, 1),
+                new SourcePosition(5, 1, 6)
+            };
             var expectedTokens = new Token[]
             {
-                new Token(file, 0, TokenType.WHILE,       null),
-                new Token(file, 5, TokenType.END_OF_FILE, null)
-            };
-            var expectedSourcemap = new SourcePosition[]
-            {
-                new SourcePosition(file, 0, 1, 1),
-                new SourcePosition(file, 5, 1, 6)
+                new Token(file, positions[0], TokenType.WHILE,       null),
+                new Token(file, positions[1], TokenType.END_OF_FILE, null)
             };
 
-            LexingTestHelper.AssertScanner(source, expectedTokens, expectedSourcemap);
+            LexingTestHelper.AssertScanner(source, expectedTokens);
         }
 
         [TestMethod]
@@ -34,22 +34,22 @@ namespace Nagisa.Lox.Tests.Integration.Lexing.Patterns
             var file = string.Empty;
             var source = " while ";
 
+            var positions = new SourcePosition[]
+            {
+                new SourcePosition(0, 1, 1),
+                new SourcePosition(1, 1, 2),
+                new SourcePosition(6, 1, 7),
+                new SourcePosition(7, 1, 8)
+            };
             var expectedTokens = new Token[]
             {
-                new Token(file, 0, TokenType.WHITESPACE,  null),
-                new Token(file, 1, TokenType.WHILE,       null),
-                new Token(file, 6, TokenType.WHITESPACE,  null),
-                new Token(file, 7, TokenType.END_OF_FILE, null)
-            };
-            var expectedSourcemap = new SourcePosition[]
-            {
-                new SourcePosition(file, 0, 1, 1),
-                new SourcePosition(file, 1, 1, 2),
-                new SourcePosition(file, 6, 1, 7),
-                new SourcePosition(file, 7, 1, 8)
+                new Token(file, positions[0], TokenType.WHITESPACE,  null),
+                new Token(file, positions[1], TokenType.WHILE,       null),
+                new Token(file, positions[2], TokenType.WHITESPACE,  null),
+                new Token(file, positions[3], TokenType.END_OF_FILE, null)
             };
 
-            LexingTestHelper.AssertScanner(source, expectedTokens, expectedSourcemap);
+            LexingTestHelper.AssertScanner(source, expectedTokens);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Nagisa.Lox.Lexing
             bool foundDelimiter = false;
             int startIndex = current.Index + 1;
             int startColumn = current.Column + 1;
-            SourcePosition next = new SourcePosition(file, startIndex, current.Line, startColumn);
+            SourcePosition next = new SourcePosition(startIndex, current.Line, startColumn);
 
             while (!this._textHelper.IsAtEnd(source, next.Index))
             {
@@ -56,7 +56,7 @@ namespace Nagisa.Lox.Lexing
 
             // Get token
             string value = source.Substring(startIndex, difference);
-            Token token = new Token(file, current.Index, TokenType.STRING, value);
+            Token token = new Token(file, current, TokenType.STRING, value);
 
             // Get position
             next.Column += difference;

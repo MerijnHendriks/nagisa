@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Nagisa.Core.Lexing;
 
 namespace Nagisa.Core.Parsing
@@ -6,12 +7,12 @@ namespace Nagisa.Core.Parsing
     public sealed class ParserData
     {
         private int _current;
-        private readonly ScanResult _scanResult;
+        private readonly List<Token> _tokens;
 
-        public ParserData(ScanResult scanResult)
+        public ParserData(List<Token> tokens)
         {
             this._current = 0;
-            this._scanResult = scanResult;
+            this._tokens = tokens;
         }
 
         public bool Match(int type)
@@ -65,29 +66,29 @@ namespace Nagisa.Core.Parsing
             return false;
         }
 
-        public Token Peek() 
+        public string ExpressionErrorMessage()
         {
-            return this._scanResult.Tokens[this._current];
+            Token token = this.Peek();
+            string format = "[{0}]: Expected expression for token {1} at [idx:{2},ln:{3},col:{4}].";
+            string message = string.Format(
+                format,
+                token.File,
+                token.Type,
+                token.Index,
+                token.Line,
+                token.Column);
+
+            return message;
+        }
+
+        public Token Peek()
+        {
+            return this._tokens[this._current];
         }
 
         public Token Previous()
         {
-            return this._scanResult.Tokens[this._current - 1];
-        }
-
-        public string ExpressionErrorMessage()
-        {
-            SourcePosition position = this._scanResult.Sourcemap[this._current];
-            string format = "[{0}]: Expected expression for token {1} at [idx:{2},ln:{3},col:{4}].";
-            string message = string.Format(
-                format,
-                position.File,
-                this.Peek().Type,
-                position.Index,
-                position.Line,
-                position.Column);
-
-            return message;
+            return this._tokens[this._current - 1];
         }
     }
 }

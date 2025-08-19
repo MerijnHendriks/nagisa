@@ -27,8 +27,9 @@ namespace Nagisa.Lox.Tests.Units.Lexing.Patterns
             var source = "\t";
             var pattern = new CharacterPattern('\t', TokenType.TAB);
 
-            var expectedToken = new Token(file, 0, TokenType.TAB, null);
-            var expectedNext = new SourcePosition(file, 1, 1, 2);
+            var position = new SourcePosition(0, 1, 1);
+            var expectedToken = new Token(file, position, TokenType.TAB, null);
+            var expectedNext = new SourcePosition(1, 1, 2);
 
             LexingTestHelper.AssertPatternRun(pattern, file, source, expectedToken, expectedNext);
         }

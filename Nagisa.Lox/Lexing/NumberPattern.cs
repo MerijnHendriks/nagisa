@@ -24,7 +24,7 @@ namespace Nagisa.Lox.Lexing
         public override MatchResult Run(string file, string source, SourcePosition current)
         {
             int delimiter = 0;
-            SourcePosition next = new SourcePosition(file, current.Index, current.Line, current.Column);
+            SourcePosition next = new SourcePosition(current.Index, current.Line, current.Column);
 
             while (!this._textHelper.IsAtEnd(source, next.Index))
             {
@@ -55,7 +55,7 @@ namespace Nagisa.Lox.Lexing
             // Get token
             string text = source.Substring(current.Index, difference);
             double value = Convert.ToDouble(text, CultureInfo.InvariantCulture);
-            Token token = new Token(file, current.Index, TokenType.NUMBER, value);
+            Token token = new Token(file, current, TokenType.NUMBER, value);
 
             // Get position
             next.Column += difference;

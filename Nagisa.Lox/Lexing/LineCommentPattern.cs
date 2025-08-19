@@ -24,7 +24,7 @@ namespace Nagisa.Lox.Lexing
         {
             int startIndex = current.Index + TARGET.Length;
             int startColumn = current.Column + TARGET.Length;
-            SourcePosition next = new SourcePosition(file, startIndex, current.Line, startColumn);
+            SourcePosition next = new SourcePosition(startIndex, current.Line, startColumn);
 
             while (!this._textHelper.IsAtEnd(source, next.Index))
             {
@@ -41,7 +41,7 @@ namespace Nagisa.Lox.Lexing
 
             // Get token
             string value = source.Substring(startIndex, difference);
-            Token token = new Token(file, current.Index, TokenType.LINE_COMMENT, value);
+            Token token = new Token(file, current, TokenType.LINE_COMMENT, value);
 
             // Get position
             next.Column += difference;

@@ -2,8 +2,6 @@ namespace Nagisa.Core.Lexing
 {
     public sealed class SourcePosition
     {
-        public readonly string File;
-
         // Mutated in Scanner,Pattern
         public int Index;
 
@@ -13,9 +11,8 @@ namespace Nagisa.Core.Lexing
         // Mutated in Scanner,Pattern        
         public int Column;
 
-        public SourcePosition(string file, int index, int line, int column)
+        public SourcePosition(int index, int line, int column)
         {
-            this.File = file;
             this.Index = index;
             this.Line = line;
             this.Column = column;

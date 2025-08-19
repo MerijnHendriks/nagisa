@@ -1,9 +1,9 @@
+using System.Collections.Generic;
 using Nagisa.Core.Common;
 using Nagisa.Core.Lexing;
 using Nagisa.Core.Parsing;
 using Nagisa.Core.Parsing.Expressions;
 using Nagisa.Core.Execution;
-using System.Collections.Generic;
 
 namespace Nagisa.Core
 {
@@ -23,25 +23,24 @@ namespace Nagisa.Core
         public void Run(string file, string source)
         {
             // Get tokens
-            ScanResult result = this._scanner.Run(file, source);
+            List<Token> tokens = this._scanner.Run(file, source);
 
             // Remove tokens unused by parser (reverse order)
-            for (int i = result.Tokens.Count - 1; i >= 0; i -= 1)
+            for (int i = tokens.Count - 1; i >= 0; i -= 1)
             {
-                Token token = result.Tokens[i];
+                Token token = tokens[i];
 
                 if (token.Type == TokenType.LINE_COMMENT
                     || token.Type == TokenType.WHITESPACE
                     || token.Type == TokenType.TAB
                     || token.Type == TokenType.END_OF_LINE)
                 {
-                    result.Tokens.RemoveAt(i);
-                    result.Sourcemap.RemoveAt(i);
+                    tokens.RemoveAt(i);
                 }
             }
 
             // Convert tokens to AST
-            Expr ast = this._parser.Run(result);
+            Expr ast = this._parser.Run(tokens);
 
             // Execute code
             this._interpreter.Interpret(ast);

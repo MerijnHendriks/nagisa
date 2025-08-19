@@ -22,7 +22,7 @@ namespace Nagisa.Lox.Lexing
 
         public override MatchResult Run(string file, string source, SourcePosition current)
         {
-            SourcePosition next = new SourcePosition(file, current.Index, current.Line, current.Column);
+            SourcePosition next = new SourcePosition(current.Index, current.Line, current.Column);
 
             while (!this._textHelper.IsAtEnd(source, next.Index))
             {
@@ -46,7 +46,7 @@ namespace Nagisa.Lox.Lexing
 
             // Get token
             string value = source.Substring(current.Index, difference);
-            Token token = new Token(file, current.Index, TokenType.IDENTIFIER, value);
+            Token token = new Token(file, current, TokenType.IDENTIFIER, value);
 
             // Get position
             next.Column += difference;

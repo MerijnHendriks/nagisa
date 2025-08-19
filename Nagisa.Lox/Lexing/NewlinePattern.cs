@@ -45,7 +45,7 @@ namespace Nagisa.Lox.Lexing
         public override MatchResult Run(string file, string source, SourcePosition current)
         {
             // Get token
-            Token token = new Token(file, current.Index, TokenType.END_OF_LINE, null);
+            Token token = new Token(file, current, TokenType.END_OF_LINE, null);
 
             // Get position
             int nextIndex = current.Index;
@@ -61,7 +61,7 @@ namespace Nagisa.Lox.Lexing
                 nextIndex += 1;
             }
 
-            SourcePosition next = new SourcePosition(file, nextIndex, current.Line + 1, 1);
+            SourcePosition next = new SourcePosition(nextIndex, current.Line + 1, 1);
 
             MatchResult result = new MatchResult(token, next);
             return result;

@@ -3,7 +3,9 @@ namespace Nagisa.Core.Lexing
     public sealed class Token
     {
         public readonly string File;
-        public readonly int Index;
+        public readonly int Index;            
+        public readonly int Line;     
+        public readonly int Column;
         public readonly int Type;
         public readonly object Value;
 
@@ -11,14 +13,18 @@ namespace Nagisa.Core.Lexing
         {
             this.File = string.Empty;
             this.Index = 0;
+            this.Line = 0;
+            this.Column = 0;
             this.Type = TokenType.INVALID;
             this.Value = null;
         }
 
-        public Token(string file, int index, int type, object value)
+        public Token(string file, SourcePosition position, int type, object value)
         {
             this.File = file;
-            this.Index = index;
+            this.Index = position.Index;
+            this.Line = position.Line;
+            this.Column = position.Column;
             this.Type = type;
             this.Value = value;
         }

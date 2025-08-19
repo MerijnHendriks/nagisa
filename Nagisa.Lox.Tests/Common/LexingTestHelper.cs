@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nagisa.Core.Common;
 using Nagisa.Core.Lexing;
@@ -34,6 +35,20 @@ namespace Nagisa.Lox.Tests.Common
                 Assert.Fail(message);
             }
 
+            if (result.Line != expected.Line)
+            {
+                var format = "Token.Line is incorrect. Expected {0}, got {1}.";
+                var message = string.Format(format, expected.Line, result.Line);
+                Assert.Fail(message);
+            }
+
+            if (result.Column != expected.Column)
+            {
+                var format = "Token.Column is incorrect. Expected {0}, got {1}.";
+                var message = string.Format(format, expected.Column, result.Column);
+                Assert.Fail(message);
+            }
+
             if (result.Type != expected.Type)
             {
                 var format = "Token.Type is incorrect. Expected {0}, got {1}.";
@@ -51,13 +66,6 @@ namespace Nagisa.Lox.Tests.Common
 
         public static void AssertSourcePosition(SourcePosition expected, SourcePosition result)
         {
-            if (result.File != expected.File)
-            {
-                var format = "SourcePosition.File is incorrect. Expected {0}, got {1}.";
-                var message = string.Format(format, expected.File, result.File);
-                Assert.Fail(message);
-            }
-
             if (result.Index != expected.Index)
             {
                 var format = "SourcePosition.Index is incorrect. Expected {0}, got {1}.";
@@ -92,7 +100,7 @@ namespace Nagisa.Lox.Tests.Common
                 Assert.Fail("No input source.");
             }
 
-            var current = new SourcePosition(file, 0, 1, 1);
+            var current = new SourcePosition(0, 1, 1);
             var result = pattern.IsMatch(source, current);
 
             Assert.AreEqual(expected, result);
@@ -120,14 +128,14 @@ namespace Nagisa.Lox.Tests.Common
                 Assert.Fail("No input next.");
             }
 
-            var current = new SourcePosition(file, 0, 1, 1);
+            var current = new SourcePosition(0, 1, 1);
             var match = pattern.Run(file, source, current);
 
             AssertToken(expectedToken, match.Token);
             AssertSourcePosition(expectedNext, match.Position);
         }
 
-        public static void AssertScanner(string source, Token[] expectedTokens, SourcePosition[] expectedSourcemap)
+        public static void AssertScanner(string source, Token[] expectedTokens)
         {
             if (string.IsNullOrEmpty(source))
             {
@@ -139,45 +147,18 @@ namespace Nagisa.Lox.Tests.Common
                 Assert.Fail("No input tokens.");
             }
 
-            if (expectedSourcemap == null || expectedSourcemap.Length == 0)
-            {
-                Assert.Fail("No input sourcemap.");
-            }
-
-            if (expectedTokens.Length != expectedSourcemap.Length)
-            {
-                Assert.Fail("Input tokens and sourcemap not of equal length.");
-            }
-
             var result = _scanner.Run(string.Empty, source);
 
-            if (result.Tokens.Count != expectedTokens.Length)
+            if (result.Count != expectedTokens.Length)
             {
                 var format = "result.Tokens.Count incorrect. Expected {0}, got {1}.";
-                var message = string.Format(format, expectedTokens.Length, result.Tokens.Count);
+                var message = string.Format(format, expectedTokens.Length, result.Count);
                 Assert.Fail(message);
-            }
-
-            if (result.Sourcemap.Count != expectedSourcemap.Length)
-            {
-                var format = "result.Sourcemap.Count incorrect. Expected {0}, got {1}.";
-                var message = string.Format(format, expectedSourcemap.Length, result.Sourcemap.Count);
-                Assert.Fail(message);
-            }
-
-            if (result.Tokens.Count != result.Sourcemap.Count)
-            {
-                Assert.Fail("Result tokens and sourcemap not of equal length.");
             }
 
             for (var i = 0; i < expectedTokens.Length; i += 1)
             {
-                AssertToken(expectedTokens[i], result.Tokens[i]);
-            }
-
-            for (var i = 0; i < expectedSourcemap.Length; i += 1)
-            {
-                AssertSourcePosition(expectedSourcemap[i], result.Sourcemap[i]);
+                AssertToken(expectedTokens[i], result[i]);
             }
         }
     }
