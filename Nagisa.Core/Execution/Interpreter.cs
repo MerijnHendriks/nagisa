@@ -145,7 +145,7 @@ namespace Nagisa.Core.Execution
         {
             Grouping expr = (Grouping)expression;
 
-            return this.Evaluate(expression);
+            return this.Evaluate(expr.Expression);
         }
 
         public object LiteralExpression(Expr expression)
