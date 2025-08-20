@@ -9,14 +9,18 @@ namespace Nagisa.Core
 {
     public sealed class Compiler
     {
+        private readonly Logger _logger;
         private readonly Scanner _scanner;
         private readonly Parser _parser;
+        private readonly MermaidGenerator _mermaidGenerator;
         private readonly Interpreter _interpreter;
 
         public Compiler(Logger logger, List<Pattern> patterns)
         {
+            this._logger = logger;
             this._scanner = new Scanner(logger, patterns);
             this._parser = new Parser(logger);
+            this._mermaidGenerator = new MermaidGenerator(logger);
             this._interpreter = new Interpreter(logger);
         }
 
@@ -42,8 +46,13 @@ namespace Nagisa.Core
             // Convert tokens to AST
             Expr ast = this._parser.Run(tokens);
 
+            // Print mermaid diagram
+            string diagram = this._mermaidGenerator.Generate(ast);
+            this._logger.WriteInfo(diagram);
+
             // Execute code
-            this._interpreter.Interpret(ast);
+            string log = this._interpreter.Interpret(ast);
+            this._logger.WriteInfo(log);
         }
     }
 }

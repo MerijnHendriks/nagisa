@@ -14,17 +14,16 @@ namespace Nagisa.Core.Execution
             this._logger = logger;
         }
 
-        public void Interpret(Expr expr)
+        public string Interpret(Expr expr)
         {
             object value = this.Evaluate(expr);
             string text = this.Stringify(value);
-            this._logger.WriteInfo(text);
+
+            return text;
         }
 
         private object Evaluate(Expr expression)
         {
-            this._logger.WriteInfo("[EVAL] type: " + expression.Type);
-
             switch (expression.Type)
             {
                 case ExprType.BINARY:

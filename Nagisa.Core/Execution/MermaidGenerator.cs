@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Nagisa.Core.Common;
 using Nagisa.Core.Lexing;
 using Nagisa.Core.Parsing.Expressions;
@@ -21,9 +22,12 @@ namespace Nagisa.Core.Execution
             _index = 0;
         }
 
-        public int AddNode(string text)
+        public int AddNode(string description)
         {
-            this._nodes.Add("    n" + this._index + "[" + text + "]");
+            string format = "    n{0}[{1}]\n";
+            string text = string.Format(format, this._index, description);
+            this._nodes.Add(text);
+
             this._index += 1;
 
             return this._index - 1;
@@ -31,7 +35,9 @@ namespace Nagisa.Core.Execution
 
         public void AddConnection(int root, int child)
         {
-            this._connections.Add("    n" + root + "--->" + "n" + child);
+            string format = "    n{0}--->n{1}\n";
+            string text = string.Format(format, root, child);
+            this._connections.Add(text);
         }
 
         public string Generate(Expr expr)
@@ -39,12 +45,23 @@ namespace Nagisa.Core.Execution
             this.Evaluate(expr);
 
             StringBuilder sb = new StringBuilder();
-            sb.Add("flowchart TD");
-            sb.AddRange(this._nodes);
-            sb.AddRange(this._connections);
+            sb.Append("```mermaid\n");
+            sb.Append("flowchart TD\n");
+
+            for (int i = 0; i < this._nodes.Count; i += 1)
+            {
+                sb.Append(this._nodes[i]);
+            }
+
+            for (int i = 0; i < this._connections.Count; i += 1)
+            {
+                sb.Append(this._connections[i]);
+            }
+
+            sb.Append("```");
 
             string text = sb.ToString();
-            this._logger.WriteInfo(text);
+            return text;
         }
 
         private int Evaluate(Expr expression)
@@ -82,7 +99,7 @@ namespace Nagisa.Core.Execution
             return root;
         }
 
-        public object GroupingExpression(Expr expression)
+        public int GroupingExpression(Expr expression)
         {
             Grouping expr = (Grouping)expression;
 
@@ -94,14 +111,14 @@ namespace Nagisa.Core.Execution
             return root;
         }
 
-        public object LiteralExpression(Expr expression)
+        public int LiteralExpression(Expr expression)
         {
             int root = this.AddNode("expr literal");
 
             return root;
         }
 
-        public object UnaryExpression(Expr expression)
+        public int UnaryExpression(Expr expression)
         {
             Unary expr = (Unary)expression;
 
