@@ -2,42 +2,23 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Nagisa.Core.Common;
-using Nagisa.Core.Lexing;
 using Nagisa.Core.Parsing.Expressions;
 
 namespace Nagisa.Core.Execution
 {
-    public sealed class MermaidGenerator
+    public sealed class Mermaid
     {
         private readonly Logger _logger;
         private readonly List<string> _nodes;
         private readonly List<string> _connections;
         private int _index;
 
-        public MermaidGenerator(Logger logger)
+        public Mermaid(Logger logger)
         {
             this._logger = logger;
             this._nodes = new List<string>();
             this._connections = new List<string>();
             _index = 0;
-        }
-
-        public int AddNode(string description)
-        {
-            string format = "    n{0}[{1}]\n";
-            string text = string.Format(format, this._index, description);
-            this._nodes.Add(text);
-
-            this._index += 1;
-
-            return this._index - 1;
-        }
-
-        public void AddConnection(int root, int child)
-        {
-            string format = "    n{0}--->n{1}\n";
-            string text = string.Format(format, root, child);
-            this._connections.Add(text);
         }
 
         public string Generate(Expr expr)
@@ -64,6 +45,24 @@ namespace Nagisa.Core.Execution
             return text;
         }
 
+        private int AddNode(string description)
+        {
+            string format = "    n{0}[{1}]\n";
+            string text = string.Format(format, this._index, description);
+            this._nodes.Add(text);
+
+            this._index += 1;
+
+            return this._index - 1;
+        }
+
+        private void AddConnection(int root, int child)
+        {
+            string format = "    n{0}--->n{1}\n";
+            string text = string.Format(format, root, child);
+            this._connections.Add(text);
+        }
+
         private int Evaluate(Expr expression)
         {
             switch (expression.Type)
@@ -85,13 +84,13 @@ namespace Nagisa.Core.Execution
             }
         }
 
-        public int BinaryExpression(Expr expression)
+        private int BinaryExpression(Expr expression)
         {
             Binary expr = (Binary)expression;
 
             int left = this.Evaluate(expr.Left);
             int right = this.Evaluate(expr.Right);
-            int root = this.AddNode("expr binary");
+            int root = this.AddNode("binary " + expr.Operator.Type);
 
             this.AddConnection(root, left);
             this.AddConnection(root, right);
@@ -99,31 +98,33 @@ namespace Nagisa.Core.Execution
             return root;
         }
 
-        public int GroupingExpression(Expr expression)
+        private int GroupingExpression(Expr expression)
         {
             Grouping expr = (Grouping)expression;
 
             int child = this.Evaluate(expr.Expression);
-            int root = this.AddNode("expr grouping");
+            int root = this.AddNode("grouping");
 
             this.AddConnection(root, child);
 
             return root;
         }
 
-        public int LiteralExpression(Expr expression)
+        private int LiteralExpression(Expr expression)
         {
-            int root = this.AddNode("expr literal");
+            Literal expr = (Literal)expression;
+
+            int root = this.AddNode("literal " + expr.Value.ToString());
 
             return root;
         }
 
-        public int UnaryExpression(Expr expression)
+        private int UnaryExpression(Expr expression)
         {
             Unary expr = (Unary)expression;
 
             int child = this.Evaluate(expr.Right);
-            int root = this.AddNode("expr unary");
+            int root = this.AddNode("unary " + expr.Operator.Type);
 
             this.AddConnection(root, child);
 

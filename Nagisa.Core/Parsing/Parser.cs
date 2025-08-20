@@ -23,6 +23,14 @@ namespace Nagisa.Core.Parsing
             return this.Expression();
         }
 
+        private void IsInitialized()
+        {
+            if (this._parserData == null)
+            {
+                throw new NullReferenceException("Parser._parserData not initialized.");
+            }
+        }
+
         private Expr Expression()
         {
             return this.Equality();
@@ -30,10 +38,7 @@ namespace Nagisa.Core.Parsing
 
         private Expr Equality()
         {
-            if (this._parserData == null)
-            {
-                throw new NullReferenceException("Parser._parserData not initialized.");
-            }
+            this.IsInitialized();
 
             Expr expr = this.Comparison();
 
@@ -52,10 +57,7 @@ namespace Nagisa.Core.Parsing
 
         private Expr Comparison()
         {
-            if (this._parserData == null)
-            {
-                throw new NullReferenceException("Parser._parserData not initialized.");
-            }
+            this.IsInitialized();
 
             Expr expr = this.Term();
 
@@ -78,10 +80,7 @@ namespace Nagisa.Core.Parsing
 
         private Expr Term()
         {
-            if (this._parserData == null)
-            {
-                throw new NullReferenceException("Parser._parserData not initialized.");
-            }
+            this.IsInitialized();
 
             Expr expr = this.Factor();
 
@@ -100,10 +99,7 @@ namespace Nagisa.Core.Parsing
 
         private Expr Factor()
         {
-            if (this._parserData == null)
-            {
-                throw new NullReferenceException("Parser._parserData not initialized.");
-            }
+            this.IsInitialized();
 
             Expr expr = this.Unary();
 
@@ -122,10 +118,7 @@ namespace Nagisa.Core.Parsing
 
         private Expr Unary()
         {
-            if (this._parserData == null)
-            {
-                throw new NullReferenceException("Parser._parserData not initialized.");
-            }
+            this.IsInitialized();
 
             // -10
             // !10
@@ -142,35 +135,36 @@ namespace Nagisa.Core.Parsing
 
         private Expr Primary()
         {
-            if (this._parserData == null)
-            {
-                throw new NullReferenceException("Parser._parserData not initialized.");
-            }
+            this.IsInitialized();
 
             // false
             if (this._parserData.Match(TokenType.FALSE))
             {
-                return new Literal(false);
+                return new Literal(TokenType.FALSE, false);
             }
 
             // true
             if (this._parserData.Match(TokenType.TRUE))
             {
-                return new Literal(true);
+                return new Literal(TokenType.TRUE, true);
             }
 
             // nil
             if (this._parserData.Match(TokenType.NIL))
             {
-                return new Literal(null);
+                return new Literal(TokenType.NIL, null);
             }
 
             // 10
-            // text
-            if (this._parserData.Match(TokenType.NUMBER)
-                || this._parserData.Match(TokenType.STRING))
+            if (this._parserData.Match(TokenType.NUMBER))
             {
-                return new Literal(this._parserData.Previous().Value);
+                return new Literal(TokenType.NUMBER, this._parserData.Previous().Value);
+            }
+
+            // text
+            if (this._parserData.Match(TokenType.STRING))
+            {
+                return new Literal(TokenType.STRING, this._parserData.Previous().Value);
             }
 
             // ( )

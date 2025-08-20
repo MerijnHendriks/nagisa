@@ -86,7 +86,7 @@ namespace Nagisa.Core.Execution
             return left.Equals(right);
         }
 
-        public object BinaryExpression(Expr expression)
+        private object BinaryExpression(Expr expression)
         {
             Binary expr = (Binary)expression;
 
@@ -140,21 +140,21 @@ namespace Nagisa.Core.Execution
             return null;
         }
 
-        public object GroupingExpression(Expr expression)
+        private object GroupingExpression(Expr expression)
         {
             Grouping expr = (Grouping)expression;
 
             return this.Evaluate(expr.Expression);
         }
 
-        public object LiteralExpression(Expr expression)
+        private object LiteralExpression(Expr expression)
         {
             Literal expr = (Literal)expression;
 
             return expr.Value;
         }
 
-        public object UnaryExpression(Expr expression)
+        private object UnaryExpression(Expr expression)
         {
             Unary expr = (Unary)expression;
 

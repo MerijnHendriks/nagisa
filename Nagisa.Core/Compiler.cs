@@ -12,7 +12,7 @@ namespace Nagisa.Core
         private readonly Logger _logger;
         private readonly Scanner _scanner;
         private readonly Parser _parser;
-        private readonly MermaidGenerator _mermaidGenerator;
+        private readonly Mermaid _mermaid;
         private readonly Interpreter _interpreter;
 
         public Compiler(Logger logger, List<Pattern> patterns)
@@ -20,7 +20,7 @@ namespace Nagisa.Core
             this._logger = logger;
             this._scanner = new Scanner(logger, patterns);
             this._parser = new Parser(logger);
-            this._mermaidGenerator = new MermaidGenerator(logger);
+            this._mermaid = new Mermaid(logger);
             this._interpreter = new Interpreter(logger);
         }
 
@@ -47,7 +47,7 @@ namespace Nagisa.Core
             Expr ast = this._parser.Run(tokens);
 
             // Print mermaid diagram
-            string diagram = this._mermaidGenerator.Generate(ast);
+            string diagram = this._mermaid.Generate(ast);
             this._logger.WriteInfo(diagram);
 
             // Execute code
