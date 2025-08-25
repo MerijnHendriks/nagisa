@@ -114,7 +114,14 @@ namespace Nagisa.Core.Execution
         {
             Literal expr = (Literal)expression;
 
-            int root = this.AddNode("literal " + expr.Value.ToString());
+            string text = "literal " + expr.ValueType;
+
+            if (!string.IsNullOrEmpty(expr.Value))
+            {
+                text += "\nvalue: " + expr.Value;
+            }
+
+            int root = this.AddNode(text);
 
             return root;
         }

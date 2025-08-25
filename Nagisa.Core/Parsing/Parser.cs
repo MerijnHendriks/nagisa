@@ -140,19 +140,19 @@ namespace Nagisa.Core.Parsing
             // false
             if (this._parserData.Match(TokenType.FALSE))
             {
-                return new Literal(TokenType.FALSE, false);
+                return new Literal(TokenType.FALSE, string.Empty);
             }
 
             // true
             if (this._parserData.Match(TokenType.TRUE))
             {
-                return new Literal(TokenType.TRUE, true);
+                return new Literal(TokenType.TRUE, string.Empty);
             }
 
             // nil
             if (this._parserData.Match(TokenType.NIL))
             {
-                return new Literal(TokenType.NIL, null);
+                return new Literal(TokenType.NIL, string.Empty);
             }
 
             // 10

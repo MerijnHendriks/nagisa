@@ -54,8 +54,7 @@ namespace Nagisa.Lox.Lexing
 
             // Get token
             string text = source.Substring(current.Index, difference);
-            double value = Convert.ToDouble(text, CultureInfo.InvariantCulture);
-            Token token = new Token(file, current, TokenType.NUMBER, value);
+            Token token = new Token(file, current, TokenType.NUMBER, text);
 
             // Get position
             next.Column += difference;

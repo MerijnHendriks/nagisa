@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Nagisa.Core.Common;
 using Nagisa.Core.Lexing;
 using Nagisa.Core.Parsing.Expressions;
@@ -151,7 +152,26 @@ namespace Nagisa.Core.Execution
         {
             Literal expr = (Literal)expression;
 
-            return expr.Value;
+            switch (expr.ValueType)
+            {
+                case TokenType.NUMBER:
+                    return Convert.ToDouble(expr.Value, CultureInfo.InvariantCulture);
+
+                case TokenType.STRING:
+                    return expr.Value;
+
+                case TokenType.FALSE:
+                    return false;
+
+                case TokenType.TRUE:
+                    return true;
+
+                case TokenType.NIL:
+                    return null;
+
+                default:
+                    throw new InvalidOperationException("How? - Literal.");
+            }
         }
 
         private object UnaryExpression(Expr expression)
@@ -170,7 +190,7 @@ namespace Nagisa.Core.Execution
             }
 
             // Unreachable.
-            throw new InvalidOperationException("How?");
+            throw new InvalidOperationException("How? - Unary.");
         }
     }
 }

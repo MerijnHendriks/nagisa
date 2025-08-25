@@ -7,7 +7,7 @@ namespace Nagisa.Core.Lexing
         public readonly int Line;     
         public readonly int Column;
         public readonly int Type;
-        public readonly object Value;
+        public readonly string Value;
 
         public Token()
         {
@@ -19,7 +19,7 @@ namespace Nagisa.Core.Lexing
             this.Value = null;
         }
 
-        public Token(string file, SourcePosition position, int type, object value)
+        public Token(string file, SourcePosition position, int type, string value)
         {
             this.File = file;
             this.Index = position.Index;
