@@ -13,10 +13,10 @@ namespace Nagisa.Lox.Tests.Common
 
         static LexingTestHelper()
         {
-            var patterns = new LoxPatterns().Patterns;
+            var language = new LoxLanguage();
 
             _logger = new TestLogger();
-            _scanner = new Scanner(_logger, patterns);
+            _scanner = new Scanner(_logger, language);
         }
 
         public static void AssertToken(Token expected, Token result)

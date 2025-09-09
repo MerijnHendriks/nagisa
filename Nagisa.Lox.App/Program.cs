@@ -10,8 +10,8 @@ namespace Nagisa.App
             var logger = new AppLogger();
             var vfs = new AppVFS();
 
-            var patterns = new LoxPatterns().Patterns;
-            var compiler = new Compiler(logger, patterns);
+            var language = new LoxLanguage();
+            var compiler = new Compiler(logger, language);
 
             if (args.Length == 0)
             {

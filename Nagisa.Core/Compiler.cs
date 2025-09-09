@@ -15,10 +15,10 @@ namespace Nagisa.Core
         private readonly Mermaid _mermaid;
         private readonly Interpreter _interpreter;
 
-        public Compiler(Logger logger, List<Pattern> patterns)
+        public Compiler(Logger logger, LanguageData language)
         {
             this._logger = logger;
-            this._scanner = new Scanner(logger, patterns);
+            this._scanner = new Scanner(logger, language);
             this._parser = new Parser(logger);
             this._mermaid = new Mermaid(logger);
             this._interpreter = new Interpreter(logger);
