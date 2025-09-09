@@ -19,6 +19,16 @@ namespace Nagisa.Core.Lexing
             this.Value = null;
         }
 
+        public Token(string file, int index, int line, int column, int type, string value)
+        {
+            this.File = file;
+            this.Index = index;
+            this.Line = line;
+            this.Column = column;
+            this.Type = type;
+            this.Value = value;
+        }
+
         public Token(string file, SourcePosition position, int type, string value)
         {
             this.File = file;
