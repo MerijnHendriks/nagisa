@@ -1,21 +1,24 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Nagisa.Core;
 using Nagisa.Core.Common;
 using Nagisa.Core.Parsing.Expressions;
 
-namespace Nagisa.Core.Execution
+namespace Nagisa.Core.Parsing
 {
     public sealed class Mermaid
     {
         private readonly Logger _logger;
+        private readonly LanguageData _language;
         private readonly List<string> _nodes;
         private readonly List<string> _connections;
         private int _index;
 
-        public Mermaid(Logger logger)
+        public Mermaid(Logger logger, LanguageData language)
         {
             this._logger = logger;
+            this._language = language;
             this._nodes = new List<string>();
             this._connections = new List<string>();
             _index = 0;
@@ -90,7 +93,9 @@ namespace Nagisa.Core.Execution
 
             int left = this.Evaluate(expr.Left);
             int right = this.Evaluate(expr.Right);
-            int root = this.AddNode("binary " + expr.Operator.Type);
+
+            string name = this._language.GetTokenName(expr.Operator.Type);
+            int root = this.AddNode("binary " + name);
 
             this.AddConnection(root, left);
             this.AddConnection(root, right);
@@ -114,7 +119,8 @@ namespace Nagisa.Core.Execution
         {
             Literal expr = (Literal)expression;
 
-            string text = "literal " + expr.ValueType;
+            string name = this._language.GetTokenName(expr.ValueType);
+            string text = "literal " + name;
 
             if (!string.IsNullOrEmpty(expr.Value))
             {
@@ -131,7 +137,9 @@ namespace Nagisa.Core.Execution
             Unary expr = (Unary)expression;
 
             int child = this.Evaluate(expr.Right);
-            int root = this.AddNode("unary " + expr.Operator.Type);
+
+            string name = this._language.GetTokenName(expr.Operator.Type);
+            int root = this.AddNode("unary " + name);
 
             this.AddConnection(root, child);
 

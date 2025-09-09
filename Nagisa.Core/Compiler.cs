@@ -20,7 +20,7 @@ namespace Nagisa.Core
             this._logger = logger;
             this._scanner = new Scanner(logger, language);
             this._parser = new Parser(logger);
-            this._mermaid = new Mermaid(logger);
+            this._mermaid = new Mermaid(logger, language);
             this._interpreter = new Interpreter(logger);
         }
 

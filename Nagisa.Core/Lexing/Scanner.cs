@@ -7,14 +7,14 @@ namespace Nagisa.Core.Lexing
     public sealed class Scanner
     {
         private readonly Logger _logger;
-        private readonly TextHelper _textHelper;
         private readonly LanguageData _language;
+        private readonly TextHelper _textHelper;
 
         public Scanner(Logger logger,LanguageData language)
         {
             this._logger = logger;
-            this._textHelper = new TextHelper();
             this._language = language;
+            this._textHelper = new TextHelper();
         }
 
 #if DEBUG
