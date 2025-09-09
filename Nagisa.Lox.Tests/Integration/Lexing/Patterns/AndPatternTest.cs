@@ -14,15 +14,10 @@ namespace Nagisa.Lox.Tests.Integration.Lexing.Patterns
             var file = string.Empty;
             var source = "and";
 
-            var positions = new SourcePosition[]
-            {
-                new SourcePosition(0, 1, 1),
-                new SourcePosition(3, 1, 4)
-            };
             var expectedTokens = new Token[]
             {
-                new Token(file, positions[0], TokenType.AND,         null),
-                new Token(file, positions[1], TokenType.END_OF_FILE, null)
+                new Token(file, 0, 1, 1, TokenType.AND,         null),
+                new Token(file, 3, 1, 4, TokenType.END_OF_FILE, null)
             };
 
             LexingTestHelper.AssertScanner(source, expectedTokens);

@@ -14,15 +14,10 @@ namespace Nagisa.Lox.Tests.Integration.Lexing.Patterns
             var file = string.Empty;
             var source = "return";
 
-            var positions = new SourcePosition[]
-            {
-                new SourcePosition(0, 1, 1),
-                new SourcePosition(6, 1, 7)
-            };
             var expectedTokens = new Token[]
             {
-                new Token(file, positions[0], TokenType.RETURN,      null),
-                new Token(file, positions[1], TokenType.END_OF_FILE, null)
+                new Token(file, 0, 1, 1, TokenType.RETURN,      null),
+                new Token(file, 6, 1, 7, TokenType.END_OF_FILE, null)
             };
 
             LexingTestHelper.AssertScanner(source, expectedTokens);
@@ -34,19 +29,12 @@ namespace Nagisa.Lox.Tests.Integration.Lexing.Patterns
             var file = string.Empty;
             var source = " return ";
 
-            var positions = new SourcePosition[]
-            {
-                new SourcePosition(0, 1, 1),
-                new SourcePosition(1, 1, 2),
-                new SourcePosition(7, 1, 8),
-                new SourcePosition(8, 1, 9)
-            };
             var expectedTokens = new Token[]
             {
-                new Token(file, positions[0], TokenType.WHITESPACE,  null),
-                new Token(file, positions[1], TokenType.RETURN,      null),
-                new Token(file, positions[2], TokenType.WHITESPACE,  null),
-                new Token(file, positions[3], TokenType.END_OF_FILE, null)
+                new Token(file, 0, 1, 1, TokenType.WHITESPACE,  null),
+                new Token(file, 1, 1, 2, TokenType.RETURN,      null),
+                new Token(file, 7, 1, 8, TokenType.WHITESPACE,  null),
+                new Token(file, 8, 1, 9, TokenType.END_OF_FILE, null)
             };
 
             LexingTestHelper.AssertScanner(source, expectedTokens);
