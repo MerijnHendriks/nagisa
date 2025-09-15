@@ -21,7 +21,7 @@ namespace Nagisa.Core
             this._scanner = new Scanner(logger, language);
             this._parser = new Parser(logger);
             this._mermaid = new Mermaid(logger, language);
-            this._interpreter = new Interpreter(logger);
+            this._interpreter = new Interpreter(logger, language);
         }
 
         public void Run(string file, string source)

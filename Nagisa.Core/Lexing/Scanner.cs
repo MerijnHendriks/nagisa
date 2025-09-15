@@ -20,17 +20,17 @@ namespace Nagisa.Core.Lexing
 #if DEBUG
         private void PrintToken(Token token)
         {
-            string typeName = this._language.GetTokenName(token.Type);
+            string name = this._language.GetTokenName(token.Type);
             string format = "[{0}, {1}, {2}] {3}";
-            string formatted = string.Format(format, token.Index, token.Line, token.Column, typeName);
+            string message = string.Format(format, token.Index, token.Line, token.Column, name);
 
             if (token.Value != null)
             {
-                formatted += ", ";
-                formatted += token.Value.ToString();
+                message += ", ";
+                message += token.Value.ToString();
             }
 
-            this._logger.WriteInfo(formatted);
+            this._logger.WriteInfo(message);
         }
 #endif
 

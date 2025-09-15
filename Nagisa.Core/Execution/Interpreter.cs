@@ -9,10 +9,12 @@ namespace Nagisa.Core.Execution
     public sealed class Interpreter
     {
         private readonly Logger _logger;
+        private readonly LanguageData _language;
 
-        public Interpreter(Logger logger)
+        public Interpreter(Logger logger, LanguageData language)
         {
             this._logger = logger;
+            this._language = language;
         }
 
         public string Interpret(Expr expr)
@@ -38,10 +40,9 @@ namespace Nagisa.Core.Execution
 
                 case ExprType.UNARY:
                     return this.UnaryExpression(expression);
-
-                default:
-                    throw new InvalidOperationException("Expression not implemented.");
             }
+
+            throw new InvalidOperationException("Expression not implemented.");
         }
 
         private string Stringify(object o)
@@ -87,6 +88,34 @@ namespace Nagisa.Core.Execution
             return left.Equals(right);
         }
 
+        private void CheckNumberOperand(Token op, object operand)
+        {
+            if (operand.GetType() == typeof(double))
+            {
+                return;
+            }
+
+            string name = this._language.GetTokenName(op.Type);
+            string format = "{0} operand must be a number.";
+            string message = string.Format(format, name);
+
+            throw new InvalidOperationException(message);
+        }
+
+        private void CheckNumberOperands(Token op, object left, object right)
+        {
+            if (left.GetType() == typeof(double) && right.GetType() == typeof(double))
+            {
+                return;
+            }
+
+            string name = this._language.GetTokenName(op.Type);
+            string format = "{0} operands must be numbers.";
+            string message = string.Format(format, name);
+
+            throw new InvalidOperationException(message);
+        }
+
         private object BinaryExpression(Expr expression)
         {
             Binary expr = (Binary)expression;
@@ -97,18 +126,23 @@ namespace Nagisa.Core.Execution
             switch (expr.Operator.Type)
             {
                 case TokenType.RIGHT_ARROW:
+                    this.CheckNumberOperands(expr.Operator, left, right);
                     return (double)left > (double)right;
 
                 case TokenType.GREATER_EQUAL:
+                    this.CheckNumberOperands(expr.Operator, left, right);
                     return (double)left >= (double)right;
 
                 case TokenType.LEFT_ARROW:
+                    this.CheckNumberOperands(expr.Operator, left, right);
                     return (double)left < (double)right;
 
                 case TokenType.LESS_EQUAL:
+                    this.CheckNumberOperands(expr.Operator, left, right);
                     return (double)left <= (double)right;
 
                 case TokenType.MINUS:
+                    this.CheckNumberOperands(expr.Operator, left, right);
                     return (double)left - (double)right;
 
                 case TokenType.PLUS:
@@ -122,12 +156,15 @@ namespace Nagisa.Core.Execution
                     {
                         return (string)left + (string)right;
                     }
-                    break;
+
+                    throw new InvalidOperationException(expr.Operator + " operands must be two numbers or two strings.");
 
                 case TokenType.SLASH:
+                    this.CheckNumberOperands(expr.Operator, left, right);
                     return (double)left / (double)right;
             
                 case TokenType.STAR:
+                    this.CheckNumberOperands(expr.Operator, left, right);
                     return (double)left * (double)right;
 
                 case TokenType.NOT_EQUAL:
@@ -168,10 +205,9 @@ namespace Nagisa.Core.Execution
 
                 case TokenType.NIL:
                     return null;
-
-                default:
-                    throw new InvalidOperationException("How? - Literal.");
             }
+
+            throw new InvalidOperationException("Unreachable - Literal.");
         }
 
         private object UnaryExpression(Expr expression)
@@ -186,11 +222,11 @@ namespace Nagisa.Core.Execution
                     return !this.IsTruthy(right);
 
                 case TokenType.MINUS:
+                    this.CheckNumberOperand(expr.Operator, right);
                     return -(double)right;
             }
 
-            // Unreachable.
-            throw new InvalidOperationException("How? - Unary.");
+            throw new InvalidOperationException("Unreachable - Unary.");
         }
     }
 }
