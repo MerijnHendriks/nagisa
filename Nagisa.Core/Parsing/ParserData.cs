@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Nagisa.Core.Common;
 using Nagisa.Core.Lexing;
+using Nagisa.Core.Parsing.Expressions;
 
 namespace Nagisa.Core.Parsing
 {
@@ -13,6 +14,16 @@ namespace Nagisa.Core.Parsing
 
         public ParserData(Logger logger, List<Token> tokens)
         {
+            if (logger == null)
+            {
+                throw new ArgumentNullException("logger");
+            }
+
+            if (tokens == null)
+            {
+                throw new ArgumentNullException("tokens");
+            }
+
             this._logger = logger;
             this._tokens = tokens;
             this._current = 0;
@@ -94,5 +105,17 @@ namespace Nagisa.Core.Parsing
         {
             return this._tokens[this._current - 1];
         }
+
+        // --- TODO: REMOVE THIS
+        public void PrintExpr(Expr expr)
+        {
+            this._logger.WriteInfo(expr.Type.ToString());
+        }
+
+        public void PrintCurrentToken()
+        {
+            this._logger.WriteInfo(this.Peek().Type.ToString());
+        }
+        // ---
     }
 }

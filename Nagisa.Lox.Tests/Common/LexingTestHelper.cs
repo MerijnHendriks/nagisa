@@ -147,7 +147,7 @@ namespace Nagisa.Lox.Tests.Common
                 Assert.Fail("No input tokens.");
             }
 
-            var result = _scanner.Run(string.Empty, source);
+            var result = _scanner.ScanFile(string.Empty, source);
 
             if (result.Count != expectedTokens.Length)
             {

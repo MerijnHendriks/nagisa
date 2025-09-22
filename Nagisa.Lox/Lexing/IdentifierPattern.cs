@@ -50,7 +50,6 @@ namespace Nagisa.Lox.Lexing
 
             // Get position
             next.Column += difference;
-            next.Index += 1;
             
             MatchResult result = new MatchResult(token, next);
             return result;

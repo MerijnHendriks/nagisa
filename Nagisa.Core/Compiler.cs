@@ -27,7 +27,7 @@ namespace Nagisa.Core
         public void Run(string file, string source)
         {
             // Get tokens
-            List<Token> tokens = this._scanner.Run(file, source);
+            List<Token> tokens = this._scanner.ScanFile(file, source);
 
             // Remove tokens unused by parser (reverse order)
             for (int i = tokens.Count - 1; i >= 0; i -= 1)
@@ -44,7 +44,7 @@ namespace Nagisa.Core
             }
 
             // Convert tokens to AST
-            List<Stmt> ast = this._parser.Run(this._logger, tokens);
+            List<Stmt> ast = this._parser.Parse(this._logger, tokens);
 
             // Print mermaid diagram
             string diagram = this._mermaid.Generate(ast);

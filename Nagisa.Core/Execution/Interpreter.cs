@@ -12,11 +12,13 @@ namespace Nagisa.Core.Execution
     {
         private readonly Logger _logger;
         private readonly LanguageData _language;
+        private readonly Environment _environment;
 
         public Interpreter(Logger logger, LanguageData language)
         {
             this._logger = logger;
             this._language = language;
+            this._environment = new Environment();
         }
 
         public void Execute(List<Stmt> statements)
@@ -42,6 +44,10 @@ namespace Nagisa.Core.Execution
                 case StmtType.PRINT:
                     PrintStmt(statement);
                     return;
+
+                case StmtType.VAR:
+                    VarStmt(statement);
+                    return;
             }
 
             throw new InvalidOperationException("Statement not implemented.");
@@ -64,6 +70,15 @@ namespace Nagisa.Core.Execution
             this._logger.Write(text);
         }
 
+        private void VarStmt(Stmt statement)
+        {
+            Var stmt = (Var)statement;
+
+            object value = this.EvaluateExpression(stmt.Expr);
+
+            this._environment.DefineMutable(stmt.Identifier.Value, value);
+        }
+
         // Expressions
 
         private object EvaluateExpression(Expr expression)
@@ -81,6 +96,9 @@ namespace Nagisa.Core.Execution
 
                 case ExprType.UNARY:
                     return this.UnaryExpression(expression);
+
+                case ExprType.VARIABLE:
+                    return this.VariableExpression(expression);
             }
 
             throw new InvalidOperationException("Expression not implemented.");
@@ -159,13 +177,13 @@ namespace Nagisa.Core.Execution
         {
             Literal expr = (Literal)expression;
 
-            switch (expr.ValueType)
+            switch (expr.Value.Type)
             {
                 case TokenType.NUMBER:
-                    return Convert.ToDouble(expr.Value, CultureInfo.InvariantCulture);
+                    return Convert.ToDouble(expr.Value.Value, CultureInfo.InvariantCulture);
 
                 case TokenType.STRING:
-                    return expr.Value;
+                    return expr.Value.Value;
 
                 case TokenType.FALSE:
                     return false;
@@ -197,6 +215,13 @@ namespace Nagisa.Core.Execution
             }
 
             throw new InvalidOperationException("Unreachable - Unary.");
+        }
+
+        private object VariableExpression(Expr expression)
+        {
+            Variable expr = (Variable)expression;
+
+            return this._environment.Get(expr.Identifier.Value);
         }
 
         private string Stringify(object o)

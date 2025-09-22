@@ -9,32 +9,49 @@ namespace Nagisa.Core.Parsing
 {
     public sealed class Parser
     {
-        public List<Stmt> Run(Logger logger, List<Token> tokens)
+        public List<Stmt> Parse(Logger logger, List<Token> tokens)
         {
             ParserData parserData = new ParserData(logger, tokens);
-
-            return this.Parse(parserData);
-        }
-
-        // Statements
-
-        public List<Stmt> Parse(ParserData parserData)
-        {
-            if (parserData == null)
-            {
-                throw new NullReferenceException("Parser._parserData not initialized.");
-            }
-
             List<Stmt> statements = new List<Stmt>();
 
             while (!parserData.IsAtEnd())
             {
-                Stmt statement = this.Statement(parserData);
+                Stmt statement = this.Declaration(parserData);
                 statements.Add(statement);
             }
 
             return statements;
         }
+
+        // Declarations
+
+        private Stmt Declaration(ParserData parserData)
+        {
+            if (parserData.Match(TokenType.VAR))
+            {
+                return this.VarDeclaration(parserData);
+            }
+
+            return this.Statement(parserData);
+        }
+
+        private Stmt VarDeclaration(ParserData parserData)
+        {
+            Token identifier = parserData.Consume(TokenType.IDENTIFIER, "Expect variable identifier.");
+
+            if (!parserData.Match(TokenType.ASSIGN))
+            {
+                throw new InvalidOperationException("Variable must be initialized.");
+            }
+
+            Expr initializer = this.Expression(parserData);
+
+            parserData.Consume(TokenType.SEMICOLON, "Expect ';' after variable declaration.");
+
+            return new Var(identifier, initializer);
+        }
+
+        // Statements
 
         private Stmt Statement(ParserData parserData)
         {
@@ -163,31 +180,37 @@ namespace Nagisa.Core.Parsing
             // false
             if (parserData.Match(TokenType.FALSE))
             {
-                return new Literal(TokenType.FALSE, string.Empty);
+                return new Literal(parserData.Previous());
             }
 
             // true
             if (parserData.Match(TokenType.TRUE))
             {
-                return new Literal(TokenType.TRUE, string.Empty);
+                return new Literal(parserData.Previous());
             }
 
             // nil
             if (parserData.Match(TokenType.NIL))
             {
-                return new Literal(TokenType.NIL, string.Empty);
+                return new Literal(parserData.Previous());
             }
 
             // 10
             if (parserData.Match(TokenType.NUMBER))
             {
-                return new Literal(TokenType.NUMBER, parserData.Previous().Value);
+                return new Literal(parserData.Previous());
             }
 
             // text
             if (parserData.Match(TokenType.STRING))
             {
-                return new Literal(TokenType.STRING, parserData.Previous().Value);
+                return new Literal(parserData.Previous());
+            }
+
+            // identifier
+            if (parserData.Match(TokenType.IDENTIFIER))
+            {
+                return new Variable(parserData.Previous());
             }
 
             // ( )

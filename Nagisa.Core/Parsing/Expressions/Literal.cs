@@ -1,13 +1,13 @@
+using Nagisa.Core.Lexing;
+
 namespace Nagisa.Core.Parsing.Expressions
 {
     public sealed class Literal : Expr
     {
-        public readonly int ValueType;
-        public readonly string Value;
+        public readonly Token Value;
 
-        public Literal(int valueType, string value) : base(ExprType.LITERAL)
+        public Literal(Token value) : base(ExprType.LITERAL)
         {
-            this.ValueType = valueType;
             this.Value = value;
         }
     }

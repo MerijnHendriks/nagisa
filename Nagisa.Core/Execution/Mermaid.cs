@@ -101,6 +101,9 @@ namespace Nagisa.Core.Execution
 
                 case StmtType.PRINT:
                     return PrintStmt(statement);
+
+                case StmtType.VAR:
+                    return VarStmt(statement);
             }
 
             throw new InvalidOperationException("Statement not implemented.");
@@ -130,6 +133,21 @@ namespace Nagisa.Core.Execution
             return root;
         }
 
+        private int VarStmt(Stmt statement)
+        {
+            Var stmt = (Var)statement;
+
+            string name = stmt.Identifier.Value;
+            string text = "var " + name;
+
+            int child = this.EvaluateExpression(stmt.Expr);
+            int root = this.AddNode(text);
+
+            this.AddConnection(root, child);
+
+            return root;
+        }
+
         // Expressions
 
         private int EvaluateExpression(Expr expression)
@@ -148,9 +166,11 @@ namespace Nagisa.Core.Execution
                 case ExprType.UNARY:
                     return this.UnaryExpression(expression);
 
-                default:
-                    throw new InvalidOperationException("Expression not implemented.");
+                case ExprType.VARIABLE:
+                    return this.VariableExpression(expression);
             }
+            
+            throw new InvalidOperationException("Expression not implemented.");
         }
 
         private int BinaryExpression(Expr expression)
@@ -185,12 +205,12 @@ namespace Nagisa.Core.Execution
         {
             Literal expr = (Literal)expression;
 
-            string name = this._language.GetTokenName(expr.ValueType);
+            string name = this._language.GetTokenName(expr.Value.Type);
             string text = "literal " + name;
 
-            if (!string.IsNullOrEmpty(expr.Value))
+            if (!string.IsNullOrEmpty(expr.Value.Value))
             {
-                text += "\nvalue: " + expr.Value;
+                text += "\nvalue: " + expr.Value.Value;
             }
 
             int root = this.AddNode(text);
@@ -208,6 +228,17 @@ namespace Nagisa.Core.Execution
             int root = this.AddNode("unary " + name);
 
             this.AddConnection(root, child);
+
+            return root;
+        }
+
+        private int VariableExpression(Expr expression)
+        {
+            Variable expr = (Variable)expression;
+
+            string name = expr.Identifier.Value;
+            string text = "variable " + name;
+            int root = this.AddNode(text);
 
             return root;
         }

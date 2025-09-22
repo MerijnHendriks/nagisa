@@ -55,8 +55,18 @@ namespace Nagisa.Core.Lexing
             throw new ArgumentOutOfRangeException(message);
         }
 
-        public List<Token> Run(string file, string source)
+        public List<Token> ScanFile(string file, string source)
         {
+            if (file == null)
+            {
+                throw new ArgumentNullException("file");
+            }
+
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
             List<Token> result = new List<Token>();
             SourcePosition position = new SourcePosition(0, 1, 1);
 

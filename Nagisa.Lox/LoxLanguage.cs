@@ -69,7 +69,7 @@ namespace Nagisa.Lox.Lexing
             this.PatternNames.Add(TokenType.END_OF_LINE,       "EOL");
             this.PatternNames.Add(TokenType.DOT,               ".");
             this.PatternNames.Add(TokenType.COMMA,             ",");
-            this.PatternNames.Add(TokenType.SEMICOLON,         ");");
+            this.PatternNames.Add(TokenType.SEMICOLON,         ";");
             this.PatternNames.Add(TokenType.LEFT_CURLY,        "{");
             this.PatternNames.Add(TokenType.RIGHT_CURLY,       "}");
             this.PatternNames.Add(TokenType.LEFT_CIRCLE,       "(");
