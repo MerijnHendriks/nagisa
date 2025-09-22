@@ -65,7 +65,14 @@ namespace Nagisa.Core.Execution
             return this._index - 1;
         }
 
-        private void AddConnection(int root, int child)
+        private void AddLineConnection(int root, int child)
+        {
+            string format = "    n{0}-.->n{1}\n";
+            string text = string.Format(format, root, child);
+            this._connections.Add(text);
+        }
+
+        private void AddDottedConnection(int root, int child)
         {
             string format = "    n{0}--->n{1}\n";
             string text = string.Format(format, root, child);
@@ -83,7 +90,7 @@ namespace Nagisa.Core.Execution
 
                 if (root != 0)
                 {
-                    this.AddConnection(root, child);
+                    this.AddDottedConnection(root, child);
                 }
 
                 root = child;
@@ -116,7 +123,7 @@ namespace Nagisa.Core.Execution
             int child = this.EvaluateExpression(stmt.Expr);
             int root = this.AddNode("expression");
 
-            this.AddConnection(root, child);
+            this.AddLineConnection(root, child);
 
             return root;
         }
@@ -128,7 +135,7 @@ namespace Nagisa.Core.Execution
             int child = this.EvaluateExpression(stmt.Expr);
             int root = this.AddNode("print");
 
-            this.AddConnection(root, child);
+            this.AddLineConnection(root, child);
 
             return root;
         }
@@ -143,7 +150,7 @@ namespace Nagisa.Core.Execution
             int child = this.EvaluateExpression(stmt.Expr);
             int root = this.AddNode(text);
 
-            this.AddConnection(root, child);
+            this.AddLineConnection(root, child);
 
             return root;
         }
@@ -183,8 +190,8 @@ namespace Nagisa.Core.Execution
             string name = this._language.GetTokenName(expr.Operator.Type);
             int root = this.AddNode("binary " + name);
 
-            this.AddConnection(root, left);
-            this.AddConnection(root, right);
+            this.AddLineConnection(root, left);
+            this.AddLineConnection(root, right);
 
             return root;
         }
@@ -196,7 +203,7 @@ namespace Nagisa.Core.Execution
             int child = this.EvaluateExpression(expr.Expression);
             int root = this.AddNode("grouping");
 
-            this.AddConnection(root, child);
+            this.AddLineConnection(root, child);
 
             return root;
         }
@@ -227,7 +234,7 @@ namespace Nagisa.Core.Execution
             string name = this._language.GetTokenName(expr.Operator.Type);
             int root = this.AddNode("unary " + name);
 
-            this.AddConnection(root, child);
+            this.AddLineConnection(root, child);
 
             return root;
         }
