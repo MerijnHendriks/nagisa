@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Nagisa.Core;
-using Nagisa.Core.Common;
 using Nagisa.Core.Parsing.Expressions;
 using Nagisa.Core.Parsing.Statements;
 
@@ -10,15 +9,13 @@ namespace Nagisa.Core.Execution
 {
     public sealed class Mermaid
     {
-        private readonly Logger _logger;
         private readonly LanguageData _language;
         private readonly List<string> _nodes;
         private readonly List<string> _connections;
         private int _index;
 
-        public Mermaid(Logger logger, LanguageData language)
+        public Mermaid(LanguageData language)
         {
-            this._logger = logger;
             this._language = language;
             this._nodes = new List<string>();
             this._connections = new List<string>();

@@ -9,220 +9,197 @@ namespace Nagisa.Core.Parsing
 {
     public sealed class Parser
     {
-        private readonly Logger _logger;
-        private ParserData _parserData;
-
-        public Parser(Logger logger)
+        public List<Stmt> Run(Logger logger, List<Token> tokens)
         {
-            this._logger = logger;
-        }
+            ParserData parserData = new ParserData(logger, tokens);
 
-        public List<Stmt> Run(List<Token> tokens)
-        {
-            this._parserData = new ParserData(this._logger, tokens);
-
-            return this.Parse();
-        }
-
-        private void IsInitialized()
-        {
-            if (this._parserData == null)
-            {
-                throw new NullReferenceException("Parser._parserData not initialized.");
-            }
+            return this.Parse(parserData);
         }
 
         // Statements
 
-        public List<Stmt> Parse()
+        public List<Stmt> Parse(ParserData parserData)
         {
+            if (parserData == null)
+            {
+                throw new NullReferenceException("Parser._parserData not initialized.");
+            }
+
             List<Stmt> statements = new List<Stmt>();
 
-            while (!this._parserData.IsAtEnd())
+            while (!parserData.IsAtEnd())
             {
-                Stmt statement = this.Statement();
+                Stmt statement = this.Statement(parserData);
                 statements.Add(statement);
             }
 
             return statements;
         }
 
-        private Stmt Statement()
+        private Stmt Statement(ParserData parserData)
         {
-            if (this._parserData.Match(TokenType.PRINT))
+            if (parserData.Match(TokenType.PRINT))
             {
-                return this.PrintStatement();
+                return this.PrintStatement(parserData);
             }
 
-            return this.ExpressionStatement();
+            return this.ExpressionStatement(parserData);
         }
 
-        private Stmt PrintStatement()
+        private Stmt PrintStatement(ParserData parserData)
         {
-            Expr value = this.Expression();
+            Expr value = this.Expression(parserData);
 
-            this._parserData.Consume(TokenType.SEMICOLON, "Expect ';' after value.");
+            parserData.Consume(TokenType.SEMICOLON, "Expect ';' after value.");
 
             return new Print(value);
         }
 
-        private Stmt ExpressionStatement()
+        private Stmt ExpressionStatement(ParserData parserData)
         {
-            Expr value = this.Expression();
+            Expr value = this.Expression(parserData);
 
-            this._parserData.Consume(TokenType.SEMICOLON, "Expect ';' after expression.");
+            parserData.Consume(TokenType.SEMICOLON, "Expect ';' after expression.");
 
             return new Expression(value);
         }
 
         // Expressions
 
-        private Expr Expression()
+        private Expr Expression(ParserData parserData)
         {
-            return this.Equality();
+            return this.Equality(parserData);
         }
 
-        private Expr Equality()
+        private Expr Equality(ParserData parserData)
         {
-            this.IsInitialized();
-
-            Expr expr = this.Comparison();
+            Expr expr = this.Comparison(parserData);
 
             // a != b
             // a == b
-            while (this._parserData.Match(TokenType.EQUAL)
-                || this._parserData.Match(TokenType.NOT_EQUAL))
+            while (parserData.Match(TokenType.EQUAL)
+                || parserData.Match(TokenType.NOT_EQUAL))
             {
-                Token op = this._parserData.Previous();
-                Expr right = this.Comparison();
+                Token op = parserData.Previous();
+                Expr right = this.Comparison(parserData);
                 expr = new Binary(expr, op, right);
             }
 
             return expr;
         }
 
-        private Expr Comparison()
+        private Expr Comparison(ParserData parserData)
         {
-            this.IsInitialized();
-
-            Expr expr = this.Term();
+            Expr expr = this.Term(parserData);
 
             // a <= b
             // a < b
             // a >= b
             // a > b
-            while (this._parserData.Match(TokenType.GREATER_EQUAL)
-                || this._parserData.Match(TokenType.RIGHT_ARROW)
-                || this._parserData.Match(TokenType.LESS_EQUAL)
-                || this._parserData.Match(TokenType.LEFT_ARROW))
+            while (parserData.Match(TokenType.GREATER_EQUAL)
+                || parserData.Match(TokenType.RIGHT_ARROW)
+                || parserData.Match(TokenType.LESS_EQUAL)
+                || parserData.Match(TokenType.LEFT_ARROW))
             {
-                Token op = this._parserData.Previous();
-                Expr right = this.Term();
+                Token op = parserData.Previous();
+                Expr right = this.Term(parserData);
                 expr = new Binary(expr, op, right);
             }
 
             return expr;
         }
 
-        private Expr Term()
+        private Expr Term(ParserData parserData)
         {
-            this.IsInitialized();
-
-            Expr expr = this.Factor();
+            Expr expr = this.Factor(parserData);
 
             // a - b
             // a + b
-            while (this._parserData.Match(TokenType.MINUS)
-                || this._parserData.Match(TokenType.PLUS))
+            while (parserData.Match(TokenType.MINUS)
+                || parserData.Match(TokenType.PLUS))
             {
-                Token op = this._parserData.Previous();
-                Expr right = this.Factor();
+                Token op = parserData.Previous();
+                Expr right = this.Factor(parserData);
                 expr = new Binary(expr, op, right);
             }
 
             return expr;
         }
 
-        private Expr Factor()
+        private Expr Factor(ParserData parserData)
         {
-            this.IsInitialized();
-
-            Expr expr = this.Unary();
+            Expr expr = this.Unary(parserData);
 
             // a / b
             // a * b
-            while (this._parserData.Match(TokenType.SLASH)
-                || this._parserData.Match(TokenType.STAR))
+            while (parserData.Match(TokenType.SLASH)
+                || parserData.Match(TokenType.STAR))
             {
-                Token op = this._parserData.Previous();
-                Expr right = this.Unary();
+                Token op = parserData.Previous();
+                Expr right = this.Unary(parserData);
                 expr = new Binary(expr, op, right);
             }
 
             return expr;
         }
 
-        private Expr Unary()
+        private Expr Unary(ParserData parserData)
         {
-            this.IsInitialized();
-
             // -10
             // !10
-            if (this._parserData.Match(TokenType.NOT)
-                || this._parserData.Match(TokenType.MINUS))
+            if (parserData.Match(TokenType.NOT)
+                || parserData.Match(TokenType.MINUS))
             {
-                Token op = this._parserData.Previous();
-                Expr right = this.Unary();
+                Token op = parserData.Previous();
+                Expr right = this.Unary(parserData);
                 return new Unary(op, right);
             }
 
-            return this.Primary();
+            return this.Primary(parserData);
         }
 
-        private Expr Primary()
+        private Expr Primary(ParserData parserData)
         {
-            this.IsInitialized();
-
             // false
-            if (this._parserData.Match(TokenType.FALSE))
+            if (parserData.Match(TokenType.FALSE))
             {
                 return new Literal(TokenType.FALSE, string.Empty);
             }
 
             // true
-            if (this._parserData.Match(TokenType.TRUE))
+            if (parserData.Match(TokenType.TRUE))
             {
                 return new Literal(TokenType.TRUE, string.Empty);
             }
 
             // nil
-            if (this._parserData.Match(TokenType.NIL))
+            if (parserData.Match(TokenType.NIL))
             {
                 return new Literal(TokenType.NIL, string.Empty);
             }
 
             // 10
-            if (this._parserData.Match(TokenType.NUMBER))
+            if (parserData.Match(TokenType.NUMBER))
             {
-                return new Literal(TokenType.NUMBER, this._parserData.Previous().Value);
+                return new Literal(TokenType.NUMBER, parserData.Previous().Value);
             }
 
             // text
-            if (this._parserData.Match(TokenType.STRING))
+            if (parserData.Match(TokenType.STRING))
             {
-                return new Literal(TokenType.STRING, this._parserData.Previous().Value);
+                return new Literal(TokenType.STRING, parserData.Previous().Value);
             }
 
             // ( )
-            if (this._parserData.Match(TokenType.LEFT_CIRCLE))
+            if (parserData.Match(TokenType.LEFT_CIRCLE))
             {
-                Expr expr = this.Expression();
-                this._parserData.Consume(TokenType.RIGHT_CIRCLE, "Expect ')' after expression.");
+                Expr expr = this.Expression(parserData);
+                parserData.Consume(TokenType.RIGHT_CIRCLE, "Expect ')' after expression.");
                 return new Grouping(expr);
             }
 
             // No matching expression found
-            string message = this._parserData.ExpressionErrorMessage();
+            string message = parserData.ExpressionErrorMessage();
             throw new InvalidOperationException(message);
         }
     }
