@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using Nagisa.Core.Common;
 using Nagisa.Core.Lexing;
 using Nagisa.Core.Parsing;
-using Nagisa.Core.Parsing.Expressions;
 using Nagisa.Core.Execution;
+using Nagisa.Core.Parsing.Statements;
 
 namespace Nagisa.Core
 {
@@ -44,15 +44,14 @@ namespace Nagisa.Core
             }
 
             // Convert tokens to AST
-            Expr ast = this._parser.Run(tokens);
+            List<Stmt> ast = this._parser.Run(tokens);
 
             // Print mermaid diagram
             string diagram = this._mermaid.Generate(ast);
-            this._logger.WriteInfo(diagram);
+            this._logger.Write(diagram);
 
             // Execute code
-            string log = this._interpreter.Interpret(ast);
-            this._logger.WriteInfo(log);
+            this._interpreter.Execute(ast);
         }
     }
 }

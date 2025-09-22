@@ -4,8 +4,9 @@ using System.Text;
 using Nagisa.Core;
 using Nagisa.Core.Common;
 using Nagisa.Core.Parsing.Expressions;
+using Nagisa.Core.Parsing.Statements;
 
-namespace Nagisa.Core.Parsing
+namespace Nagisa.Core.Execution
 {
     public sealed class Mermaid
     {
@@ -21,13 +22,21 @@ namespace Nagisa.Core.Parsing
             this._language = language;
             this._nodes = new List<string>();
             this._connections = new List<string>();
-            _index = 0;
+            this._index = 0;
         }
 
-        public string Generate(Expr expr)
+        public string Generate(List<Stmt> statements)
         {
-            this.Evaluate(expr);
+            string text = string.Empty;
 
+            this.Execute(statements);
+            text = this.ToMermaid();
+
+            return text;
+        }
+
+        private string ToMermaid()
+        {
             StringBuilder sb = new StringBuilder();
             sb.Append("```mermaid\n");
             sb.Append("flowchart TD\n");
@@ -66,7 +75,67 @@ namespace Nagisa.Core.Parsing
             this._connections.Add(text);
         }
 
-        private int Evaluate(Expr expression)
+        public void Execute(List<Stmt> statements)
+        {
+            int root = 0;
+
+            for (int i = 0; i < statements.Count; i += 1)
+            {
+                Stmt statement = statements[i];
+                int child = this.EvaluateStatement(statement);
+
+                if (root != 0)
+                {
+                    this.AddConnection(root, child);
+                }
+
+                root = child;
+            }
+        }
+
+        // Statements
+
+        private int EvaluateStatement(Stmt statement)
+        {
+            switch (statement.Type)
+            {
+                case StmtType.EXPRESSION:
+                    return ExpressionStmt(statement);
+
+                case StmtType.PRINT:
+                    return PrintStmt(statement);
+            }
+
+            throw new InvalidOperationException("Statement not implemented.");
+        }
+
+        private int ExpressionStmt(Stmt statement)
+        {
+            Expression stmt = (Expression)statement;
+
+            int child = this.EvaluateExpression(stmt.Expr);
+            int root = this.AddNode("expression");
+
+            this.AddConnection(root, child);
+
+            return root;
+        }
+
+        private int PrintStmt(Stmt statement)
+        {
+            Print stmt = (Print)statement;
+
+            int child = this.EvaluateExpression(stmt.Expr);
+            int root = this.AddNode("print");
+
+            this.AddConnection(root, child);
+
+            return root;
+        }
+
+        // Expressions
+
+        private int EvaluateExpression(Expr expression)
         {
             switch (expression.Type)
             {
@@ -91,8 +160,8 @@ namespace Nagisa.Core.Parsing
         {
             Binary expr = (Binary)expression;
 
-            int left = this.Evaluate(expr.Left);
-            int right = this.Evaluate(expr.Right);
+            int left = this.EvaluateExpression(expr.Left);
+            int right = this.EvaluateExpression(expr.Right);
 
             string name = this._language.GetTokenName(expr.Operator.Type);
             int root = this.AddNode("binary " + name);
@@ -107,7 +176,7 @@ namespace Nagisa.Core.Parsing
         {
             Grouping expr = (Grouping)expression;
 
-            int child = this.Evaluate(expr.Expression);
+            int child = this.EvaluateExpression(expr.Expression);
             int root = this.AddNode("grouping");
 
             this.AddConnection(root, child);
@@ -136,7 +205,7 @@ namespace Nagisa.Core.Parsing
         {
             Unary expr = (Unary)expression;
 
-            int child = this.Evaluate(expr.Right);
+            int child = this.EvaluateExpression(expr.Right);
 
             string name = this._language.GetTokenName(expr.Operator.Type);
             int root = this.AddNode("unary " + name);

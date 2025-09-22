@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Nagisa.Core.Common;
 using Nagisa.Core.Lexing;
 using Nagisa.Core.Parsing.Expressions;
+using Nagisa.Core.Parsing.Statements;
 
 namespace Nagisa.Core.Parsing
 {
@@ -16,11 +17,11 @@ namespace Nagisa.Core.Parsing
             this._logger = logger;
         }
 
-        public Expr Run(List<Token> tokens)
+        public List<Stmt> Run(List<Token> tokens)
         {
-            this._parserData = new ParserData(tokens);
+            this._parserData = new ParserData(this._logger, tokens);
 
-            return this.Expression();
+            return this.Parse();
         }
 
         private void IsInitialized()
@@ -30,6 +31,51 @@ namespace Nagisa.Core.Parsing
                 throw new NullReferenceException("Parser._parserData not initialized.");
             }
         }
+
+        // Statements
+
+        public List<Stmt> Parse()
+        {
+            List<Stmt> statements = new List<Stmt>();
+
+            while (!this._parserData.IsAtEnd())
+            {
+                Stmt statement = this.Statement();
+                statements.Add(statement);
+            }
+
+            return statements;
+        }
+
+        private Stmt Statement()
+        {
+            if (this._parserData.Match(TokenType.PRINT))
+            {
+                return this.PrintStatement();
+            }
+
+            return this.ExpressionStatement();
+        }
+
+        private Stmt PrintStatement()
+        {
+            Expr value = this.Expression();
+
+            this._parserData.Consume(TokenType.SEMICOLON, "Expect ';' after value.");
+
+            return new Print(value);
+        }
+
+        private Stmt ExpressionStatement()
+        {
+            Expr value = this.Expression();
+
+            this._parserData.Consume(TokenType.SEMICOLON, "Expect ';' after expression.");
+
+            return new Expression(value);
+        }
+
+        // Expressions
 
         private Expr Expression()
         {

@@ -1,18 +1,21 @@
 using System;
 using System.Collections.Generic;
+using Nagisa.Core.Common;
 using Nagisa.Core.Lexing;
 
 namespace Nagisa.Core.Parsing
 {
     public sealed class ParserData
     {
-        private int _current;
+        private readonly Logger _logger;
         private readonly List<Token> _tokens;
+        private int _current;
 
-        public ParserData(List<Token> tokens)
+        public ParserData(Logger logger, List<Token> tokens)
         {
-            this._current = 0;
+            this._logger = logger;
             this._tokens = tokens;
+            this._current = 0;
         }
 
         public bool Match(int type)
@@ -33,14 +36,15 @@ namespace Nagisa.Core.Parsing
                 return this.Advance();
             }
 
-            throw new InvalidOperationException(this.Peek() + message);
+            this._logger.WriteError(message);
+            throw new InvalidOperationException(message);
         }
 
         public Token Advance()
         {
             if (!this.IsAtEnd())
             {
-                this._current  += 1;
+                this._current += 1;
             }
 
             return this.Previous();

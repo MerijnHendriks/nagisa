@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Nagisa.Core.Common;
 using Nagisa.Core.Lexing;
 using Nagisa.Core.Parsing.Expressions;
+using Nagisa.Core.Parsing.Statements;
 
 namespace Nagisa.Core.Execution
 {
@@ -17,15 +19,54 @@ namespace Nagisa.Core.Execution
             this._language = language;
         }
 
-        public string Interpret(Expr expr)
+        public void Execute(List<Stmt> statements)
         {
-            object value = this.Evaluate(expr);
-            string text = this.Stringify(value);
+            for (int i = 0; i < statements.Count; i += 1)
+            {
+                Stmt statement = statements[i];
 
-            return text;
+                this.EvaluateStatement(statement);
+            }
         }
 
-        private object Evaluate(Expr expression)
+        // Statements
+
+        private void EvaluateStatement(Stmt statement)
+        {
+            switch (statement.Type)
+            {
+                case StmtType.EXPRESSION:
+                    ExpressionStmt(statement);
+                    return;
+
+                case StmtType.PRINT:
+                    PrintStmt(statement);
+                    return;
+            }
+
+            throw new InvalidOperationException("Statement not implemented.");
+        }
+
+        private void ExpressionStmt(Stmt statement)
+        {
+            Expression stmt = (Expression)statement;
+
+            this.EvaluateExpression(stmt.Expr);
+        }
+
+        private void PrintStmt(Stmt statement)
+        {
+            Print stmt = (Print)statement;
+
+            object value = this.EvaluateExpression(stmt.Expr);
+            string text = this.Stringify(value);
+
+            this._logger.Write(text);
+        }
+
+        // Expressions
+
+        private object EvaluateExpression(Expr expression)
         {
             switch (expression.Type)
             {
@@ -43,6 +84,119 @@ namespace Nagisa.Core.Execution
             }
 
             throw new InvalidOperationException("Expression not implemented.");
+        }
+
+        private object BinaryExpression(Expr expression)
+        {
+            Binary expr = (Binary)expression;
+
+            object left = this.EvaluateExpression(expr.Left);
+            object right = this.EvaluateExpression(expr.Right);
+
+            switch (expr.Operator.Type)
+            {
+                case TokenType.RIGHT_ARROW:
+                    this.CheckNumberOperands(expr.Operator, left, right);
+                    return (double)left > (double)right;
+
+                case TokenType.GREATER_EQUAL:
+                    this.CheckNumberOperands(expr.Operator, left, right);
+                    return (double)left >= (double)right;
+
+                case TokenType.LEFT_ARROW:
+                    this.CheckNumberOperands(expr.Operator, left, right);
+                    return (double)left < (double)right;
+
+                case TokenType.LESS_EQUAL:
+                    this.CheckNumberOperands(expr.Operator, left, right);
+                    return (double)left <= (double)right;
+
+                case TokenType.MINUS:
+                    this.CheckNumberOperands(expr.Operator, left, right);
+                    return (double)left - (double)right;
+
+                case TokenType.PLUS:
+                    if (left.GetType() == typeof(double) && right.GetType() == typeof(double))
+                    {
+                        return (double)left + (double)right;
+                    }
+
+                    // concat strings
+                    if (left.GetType() == typeof(string) && right.GetType() == typeof(string))
+                    {
+                        return (string)left + (string)right;
+                    }
+
+                    throw new InvalidOperationException(expr.Operator + " operands must be two numbers or two strings.");
+
+                case TokenType.SLASH:
+                    this.CheckNumberOperands(expr.Operator, left, right);
+                    return (double)left / (double)right;
+
+                case TokenType.STAR:
+                    this.CheckNumberOperands(expr.Operator, left, right);
+                    return (double)left * (double)right;
+
+                case TokenType.NOT_EQUAL:
+                    return !this.IsEqual(left, right);
+
+                case TokenType.EQUAL:
+                    return this.IsEqual(left, right);
+            }
+
+            // Unreachable.
+            return null;
+        }
+
+        private object GroupingExpression(Expr expression)
+        {
+            Grouping expr = (Grouping)expression;
+
+            return this.EvaluateExpression(expr.Expression);
+        }
+
+        private object LiteralExpression(Expr expression)
+        {
+            Literal expr = (Literal)expression;
+
+            switch (expr.ValueType)
+            {
+                case TokenType.NUMBER:
+                    return Convert.ToDouble(expr.Value, CultureInfo.InvariantCulture);
+
+                case TokenType.STRING:
+                    return expr.Value;
+
+                case TokenType.FALSE:
+                    return false;
+
+                case TokenType.TRUE:
+                    return true;
+
+                case TokenType.NIL:
+                    return null;
+            }
+
+            throw new InvalidOperationException("Unreachable - Literal.");
+        }
+
+        private object UnaryExpression(Expr expression)
+        {
+            Unary expr = (Unary)expression;
+
+            object right = this.EvaluateExpression(expr.Right);
+
+            switch (expr.Operator.Type)
+            {
+                case TokenType.NOT:
+                    return !this.IsTruthy(right);
+
+                case TokenType.MINUS:
+                    this.CheckNumberOperand(expr.Operator, right);
+                    return -(double)right;
+            }
+
+            throw new InvalidOperationException("Unreachable - Unary.");
         }
 
         private string Stringify(object o)
@@ -114,119 +268,6 @@ namespace Nagisa.Core.Execution
             string message = string.Format(format, name);
 
             throw new InvalidOperationException(message);
-        }
-
-        private object BinaryExpression(Expr expression)
-        {
-            Binary expr = (Binary)expression;
-
-            object left = this.Evaluate(expr.Left);
-            object right = this.Evaluate(expr.Right); 
-
-            switch (expr.Operator.Type)
-            {
-                case TokenType.RIGHT_ARROW:
-                    this.CheckNumberOperands(expr.Operator, left, right);
-                    return (double)left > (double)right;
-
-                case TokenType.GREATER_EQUAL:
-                    this.CheckNumberOperands(expr.Operator, left, right);
-                    return (double)left >= (double)right;
-
-                case TokenType.LEFT_ARROW:
-                    this.CheckNumberOperands(expr.Operator, left, right);
-                    return (double)left < (double)right;
-
-                case TokenType.LESS_EQUAL:
-                    this.CheckNumberOperands(expr.Operator, left, right);
-                    return (double)left <= (double)right;
-
-                case TokenType.MINUS:
-                    this.CheckNumberOperands(expr.Operator, left, right);
-                    return (double)left - (double)right;
-
-                case TokenType.PLUS:
-                    if (left.GetType() == typeof(double) && right.GetType() == typeof(double))
-                    {
-                        return (double)left + (double)right;
-                    }
-
-                    // concat strings
-                    if (left.GetType() == typeof(string) && right.GetType() == typeof(string))
-                    {
-                        return (string)left + (string)right;
-                    }
-
-                    throw new InvalidOperationException(expr.Operator + " operands must be two numbers or two strings.");
-
-                case TokenType.SLASH:
-                    this.CheckNumberOperands(expr.Operator, left, right);
-                    return (double)left / (double)right;
-            
-                case TokenType.STAR:
-                    this.CheckNumberOperands(expr.Operator, left, right);
-                    return (double)left * (double)right;
-
-                case TokenType.NOT_EQUAL:
-                    return !this.IsEqual(left, right);
-
-                case TokenType.EQUAL:
-                    return this.IsEqual(left, right);
-            }
-
-            // Unreachable.
-            return null;
-        }
-
-        private object GroupingExpression(Expr expression)
-        {
-            Grouping expr = (Grouping)expression;
-
-            return this.Evaluate(expr.Expression);
-        }
-
-        private object LiteralExpression(Expr expression)
-        {
-            Literal expr = (Literal)expression;
-
-            switch (expr.ValueType)
-            {
-                case TokenType.NUMBER:
-                    return Convert.ToDouble(expr.Value, CultureInfo.InvariantCulture);
-
-                case TokenType.STRING:
-                    return expr.Value;
-
-                case TokenType.FALSE:
-                    return false;
-
-                case TokenType.TRUE:
-                    return true;
-
-                case TokenType.NIL:
-                    return null;
-            }
-
-            throw new InvalidOperationException("Unreachable - Literal.");
-        }
-
-        private object UnaryExpression(Expr expression)
-        {
-            Unary expr = (Unary)expression;
-
-            object right = this.Evaluate(expr.Right);
-
-            switch (expr.Operator.Type)
-            {
-                case TokenType.NOT:
-                    return !this.IsTruthy(right);
-
-                case TokenType.MINUS:
-                    this.CheckNumberOperand(expr.Operator, right);
-                    return -(double)right;
-            }
-
-            throw new InvalidOperationException("Unreachable - Unary.");
         }
     }
 }

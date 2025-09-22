@@ -6,11 +6,11 @@ namespace Nagisa.Core.Parsing.Statements
 {
     public sealed class Print : Stmt
     {
-        public readonly Expr Expression;
+        public readonly Expr Expr;
 
-        public Print(Expr expression) : base(StmtType.PRINT)
+        public Print(Expr expr) : base(StmtType.PRINT)
         {
-            this.Expression = expression;
+            this.Expr = expr;
         }
     }
 }
