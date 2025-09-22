@@ -90,9 +90,9 @@ namespace Nagisa.Lox.Lexing
             this.PatternNames.Add(TokenType.SUBSTRACT_ASSIGN,  "-=");
             this.PatternNames.Add(TokenType.MULTIPLY_ASSIGN,   "*=");
             this.PatternNames.Add(TokenType.DIVIDE_ASSIGN,     "/=");
-            this.PatternNames.Add(TokenType.IDENTIFIER,        "IDENTIFIER");
-            this.PatternNames.Add(TokenType.NUMBER,            "NUMBER");
-            this.PatternNames.Add(TokenType.STRING,            "STRING");
+            this.PatternNames.Add(TokenType.IDENTIFIER,        "identifier");
+            this.PatternNames.Add(TokenType.NUMBER,            "number");
+            this.PatternNames.Add(TokenType.STRING,            "string");
             this.PatternNames.Add(TokenType.TRUE,              "true");
             this.PatternNames.Add(TokenType.FALSE,             "false");
             this.PatternNames.Add(TokenType.NIL,               "nil");
