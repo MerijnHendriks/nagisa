@@ -12,5 +12,6 @@ namespace Nagisa.Core.Parsing.Statements
         public const int RETURN = 7;
         public const int VAR = 8;
         public const int WHILE = 9;
+        public const int ASSIGN = 10;
     }
 }

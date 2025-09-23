@@ -1,15 +1,18 @@
+using Nagisa.Core.Lexing;
 using Nagisa.Core.Parsing.Expressions;
 
 namespace Nagisa.Core.Parsing.Statements
 {
-    public sealed class Var : Stmt
+    public sealed class Assign : Stmt
     {
         public readonly Variable Variable;
+        public readonly Token Operator;
         public readonly Expr Value;
 
-        public Var(Variable variable, Expr value) : base(StmtType.VAR)
+        public Assign(Variable variable, Token op, Expr value) : base(StmtType.ASSIGN)
         {
             this.Variable = variable;
+            this.Operator = op;
             this.Value = value;
         }
     }

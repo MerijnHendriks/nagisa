@@ -37,6 +37,10 @@ namespace Nagisa.Core.Execution
         {
             switch (statement.Type)
             {
+                case StmtType.ASSIGN:
+                    AssignStatement(statement);
+                    return;
+
                 case StmtType.EXPRESSION:
                     ExpressionStmt(statement);
                     return;
@@ -51,6 +55,41 @@ namespace Nagisa.Core.Execution
             }
 
             throw new InvalidOperationException("Statement not implemented.");
+        }
+
+        private void AssignStatement(Stmt statement)
+        {
+            Assign stmt = (Assign)statement;
+
+            Expr expr;
+            switch (stmt.Operator.Type)
+            {
+                case TokenType.ASSIGN:
+                    expr = stmt.Value;
+                    break;
+
+                case TokenType.ADD_ASSIGN:
+                    expr = new Binary(stmt.Variable, new Token(string.Empty, 0, 0, 0, TokenType.PLUS, string.Empty), stmt.Value);
+                    break;
+
+                case TokenType.SUBSTRACT_ASSIGN:
+                    expr = new Binary(stmt.Variable, new Token(string.Empty, 0, 0, 0, TokenType.MINUS, string.Empty), stmt.Value);
+                    break;
+
+                case TokenType.MULTIPLY_ASSIGN:
+                    expr = new Binary(stmt.Variable, new Token(string.Empty, 0, 0, 0, TokenType.STAR, string.Empty), stmt.Value);
+                    break;
+
+                case TokenType.DIVIDE_ASSIGN:
+                    expr = new Binary(stmt.Variable, new Token(string.Empty, 0, 0, 0, TokenType.SLASH, string.Empty), stmt.Value);
+                    break;
+
+                default:
+                    throw new InvalidOperationException("Assignment not implemented: " + stmt.Operator.Type);
+            }
+
+            object value = this.EvaluateExpression(expr);
+            this._environment.Set(stmt.Variable.Identifier.Value, value);
         }
 
         private void ExpressionStmt(Stmt statement)
@@ -74,9 +113,9 @@ namespace Nagisa.Core.Execution
         {
             Var stmt = (Var)statement;
 
-            object value = this.EvaluateExpression(stmt.Expr);
+            object value = this.EvaluateExpression(stmt.Value);
 
-            this._environment.DefineMutable(stmt.Identifier.Value, value);
+            this._environment.Define(stmt.Variable.Identifier.Value, true, value);
         }
 
         // Expressions

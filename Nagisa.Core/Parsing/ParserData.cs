@@ -106,16 +106,9 @@ namespace Nagisa.Core.Parsing
             return this._tokens[this._current - 1];
         }
 
-        // --- TODO: REMOVE THIS
-        public void PrintExpr(Expr expr)
+        public void Rewind()
         {
-            this._logger.WriteInfo(expr.Type.ToString());
+            this._current -= 1;
         }
-
-        public void PrintCurrentToken()
-        {
-            this._logger.WriteInfo(this.Peek().Type.ToString());
-        }
-        // ---
     }
 }

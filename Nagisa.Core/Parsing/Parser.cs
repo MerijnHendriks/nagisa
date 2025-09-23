@@ -35,26 +35,71 @@ namespace Nagisa.Core.Parsing
             return this.Statement(parserData);
         }
 
+        // var a = 10;
         private Stmt VarDeclaration(ParserData parserData)
         {
-            Token identifier = parserData.Consume(TokenType.IDENTIFIER, "Expect variable identifier.");
+            Expr expr = this.Expression(parserData);
+            Variable variable = (Variable)expr;
+
+            if (expr.Type != ExprType.VARIABLE)
+            {
+                throw new InvalidOperationException("Expect variable identifier.");
+            }
 
             if (!parserData.Match(TokenType.ASSIGN))
             {
                 throw new InvalidOperationException("Variable must be initialized.");
             }
 
-            Expr initializer = this.Expression(parserData);
+            Expr value = this.Expression(parserData);
 
             parserData.Consume(TokenType.SEMICOLON, "Expect ';' after variable declaration.");
 
-            return new Var(identifier, initializer);
+            return new Var(variable, value);
         }
 
         // Statements
 
         private Stmt Statement(ParserData parserData)
         {
+            if (parserData.Peek().Type == TokenType.IDENTIFIER)
+            {
+                parserData.Advance();
+
+                if (parserData.Peek().Type == TokenType.ASSIGN)
+                {
+                    parserData.Rewind();
+                    return this.AssignStatement(parserData);
+                }
+
+                if (parserData.Peek().Type == TokenType.ADD_ASSIGN)
+                {
+                    parserData.Rewind();
+                    return this.AssignStatement(parserData);
+                }
+
+                if (parserData.Peek().Type == TokenType.SUBSTRACT_ASSIGN)
+                {
+                    parserData.Rewind();
+                    return this.AssignStatement(parserData);
+                }
+
+                if (parserData.Peek().Type == TokenType.MULTIPLY_ASSIGN)
+                {
+                    parserData.Rewind();
+                    return this.AssignStatement(parserData);
+                }
+
+                if (parserData.Peek().Type == TokenType.DIVIDE_ASSIGN)
+                {
+                    parserData.Rewind();
+                    return this.AssignStatement(parserData);
+                }
+                
+                // likely an expression statement
+                parserData.Rewind();
+            }
+
             if (parserData.Match(TokenType.PRINT))
             {
                 return this.PrintStatement(parserData);
@@ -63,6 +108,30 @@ namespace Nagisa.Core.Parsing
             return this.ExpressionStatement(parserData);
         }
 
+        // a = 10;
+        // a += 10;
+        // a -= 10;
+        // a *= 10;
+        // a /= 10;
+        private Stmt AssignStatement(ParserData parserData)
+        {
+            Expr expr = this.Expression(parserData);
+
+            if (expr.Type != ExprType.VARIABLE)
+            {
+                throw new InvalidOperationException("Invalid assignment target");
+            }
+
+            Variable variable = (Variable)expr;
+            Token op = parserData.Advance();
+            Expr value = this.Expression(parserData);
+
+            parserData.Consume(TokenType.SEMICOLON, "Expect ';' after value.");
+
+            return new Assign(variable, op, value);
+        }
+
+        // print a
         private Stmt PrintStatement(ParserData parserData)
         {
             Expr value = this.Expression(parserData);
