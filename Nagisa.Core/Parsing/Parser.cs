@@ -66,36 +66,17 @@ namespace Nagisa.Core.Parsing
             {
                 parserData.Advance();
 
-                if (parserData.Peek().Type == TokenType.ASSIGN)
+                if (parserData.Peek().Type == TokenType.ASSIGN
+                    || parserData.Peek().Type == TokenType.ADD_ASSIGN
+                    || parserData.Peek().Type == TokenType.SUBSTRACT_ASSIGN
+                    || parserData.Peek().Type == TokenType.MULTIPLY_ASSIGN
+                    || parserData.Peek().Type == TokenType.DIVIDE_ASSIGN)
                 {
                     parserData.Rewind();
+
                     return this.AssignStatement(parserData);
                 }
 
-                if (parserData.Peek().Type == TokenType.ADD_ASSIGN)
-                {
-                    parserData.Rewind();
-                    return this.AssignStatement(parserData);
-                }
-
-                if (parserData.Peek().Type == TokenType.SUBSTRACT_ASSIGN)
-                {
-                    parserData.Rewind();
-                    return this.AssignStatement(parserData);
-                }
-
-                if (parserData.Peek().Type == TokenType.MULTIPLY_ASSIGN)
-                {
-                    parserData.Rewind();
-                    return this.AssignStatement(parserData);
-                }
-
-                if (parserData.Peek().Type == TokenType.DIVIDE_ASSIGN)
-                {
-                    parserData.Rewind();
-                    return this.AssignStatement(parserData);
-                }
-                
                 // likely an expression statement
                 parserData.Rewind();
             }
