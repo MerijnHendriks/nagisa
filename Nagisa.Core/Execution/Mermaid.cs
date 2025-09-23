@@ -26,7 +26,7 @@ namespace Nagisa.Core.Execution
         {
             string text = string.Empty;
 
-            this.Execute(statements);
+            this.Execute(statements, 0);
             text = this.ToMermaid();
 
             return text;
@@ -79,10 +79,8 @@ namespace Nagisa.Core.Execution
             this._connections.Add(text);
         }
 
-        public void Execute(List<Stmt> statements)
+        public int Execute(List<Stmt> statements, int root)
         {
-            int root = 0;
-
             for (int i = 0; i < statements.Count; i += 1)
             {
                 Stmt statement = statements[i];
@@ -95,6 +93,8 @@ namespace Nagisa.Core.Execution
 
                 root = child;
             }
+
+            return root;
         }
 
         // Statements
@@ -106,14 +106,17 @@ namespace Nagisa.Core.Execution
                 case StmtType.ASSIGN:
                     return AssignStatement(statement);
 
+                case StmtType.BLOCK:
+                    return BlockStatement(statement);
+
                 case StmtType.EXPRESSION:
-                    return ExpressionStmt(statement);
+                    return ExpressionStatement(statement);
 
                 case StmtType.PRINT:
-                    return PrintStmt(statement);
+                    return PrintStatement(statement);
 
                 case StmtType.VAR:
-                    return VarStmt(statement);
+                    return VarStatement(statement);
             }
 
             throw new InvalidOperationException("Statement not implemented.");
@@ -136,7 +139,19 @@ namespace Nagisa.Core.Execution
             return root;
         }
 
-        private int ExpressionStmt(Stmt statement)
+        // TODO: fix!
+        private int BlockStatement(Stmt statement)
+        {
+            Block stmt = (Block)statement;
+
+            int root = this.AddNode("block");
+
+            this.Execute(stmt.Statements, root);
+
+            return root;
+        }
+
+        private int ExpressionStatement(Stmt statement)
         {
             Expression stmt = (Expression)statement;
 
@@ -148,7 +163,7 @@ namespace Nagisa.Core.Execution
             return root;
         }
 
-        private int PrintStmt(Stmt statement)
+        private int PrintStatement(Stmt statement)
         {
             Print stmt = (Print)statement;
 
@@ -160,7 +175,7 @@ namespace Nagisa.Core.Execution
             return root;
         }
 
-        private int VarStmt(Stmt statement)
+        private int VarStatement(Stmt statement)
         {
             Var stmt = (Var)statement;
 

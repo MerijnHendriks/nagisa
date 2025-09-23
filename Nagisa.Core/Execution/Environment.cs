@@ -5,10 +5,12 @@ namespace Nagisa.Core.Execution
 {
     public sealed class Environment
     {
+        private readonly Environment _enclosing;
         private readonly List<EnvironmentData> _values;
 
-        public Environment()
+        public Environment(Environment enclosing)
         {
+            this._enclosing = enclosing;
             this._values = new List<EnvironmentData>();
         }
 
@@ -43,31 +45,44 @@ namespace Nagisa.Core.Execution
 
         public object Get(string name)
         {
+
             int index = this.GetIndex(name);
 
-            if (index == -1)
+            if (index != -1)
             {
-                throw new InvalidOperationException("Undefined variable: " + name);
+                return this._values[index].Value;
             }
 
-            return this._values[index].Value;
+            if (_enclosing != null)
+            {
+                return this._enclosing.Get(name);
+            }
+
+            throw new InvalidOperationException("Undefined variable: " + name);
         }
 
         public void Set(string name, object value)
         {
             int index = this.GetIndex(name);
 
-            if (index == -1)
+            if (index != -1)
             {
-                throw new InvalidOperationException("Undefined variable: " + name);
+                if (this._values[index].IsMutable == false)
+                {
+                    throw new InvalidOperationException("Assignment to immutable variable: " + name);
+                }
+
+                this._values[index].Value = value;
+                return;
             }
 
-            if (this._values[index].IsMutable == false)
+            if (_enclosing != null)
             {
-                throw new InvalidOperationException("Assignment to immutable variable: " + name);
+                this._enclosing.Set(name, value);
+                return;
             }
 
-            this._values[index].Value = value;
+            throw new InvalidOperationException("Undefined variable: " + name);
         }
     }
 }

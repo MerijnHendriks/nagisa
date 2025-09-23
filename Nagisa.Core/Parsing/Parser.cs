@@ -86,6 +86,11 @@ namespace Nagisa.Core.Parsing
                 return this.PrintStatement(parserData);
             }
 
+            if (parserData.Match(TokenType.LEFT_CURLY))
+            {
+                return this.BlockStatement(parserData);
+            }
+
             return this.ExpressionStatement(parserData);
         }
 
@@ -120,6 +125,20 @@ namespace Nagisa.Core.Parsing
             parserData.Consume(TokenType.SEMICOLON, "Expect ';' after value.");
 
             return new Print(value);
+        }
+
+        private Stmt BlockStatement(ParserData parserData)
+        {
+            List<Stmt> statements = new List<Stmt>();
+
+            while (!parserData.Check(TokenType.RIGHT_CURLY) && !parserData.IsAtEnd())
+            {
+                statements.Add(this.Declaration(parserData));
+            }
+
+            parserData.Consume(TokenType.RIGHT_CURLY, "Expect '}' after block.");
+
+            return new Block(statements);
         }
 
         private Stmt ExpressionStatement(ParserData parserData)

@@ -12,13 +12,13 @@ namespace Nagisa.Core.Execution
     {
         private readonly Logger _logger;
         private readonly LanguageData _language;
-        private readonly Environment _environment;
+        private Environment _environment;
 
         public Interpreter(Logger logger, LanguageData language)
         {
             this._logger = logger;
             this._language = language;
-            this._environment = new Environment();
+            this._environment = new Environment(null);
         }
 
         public void Execute(List<Stmt> statements)
@@ -38,19 +38,23 @@ namespace Nagisa.Core.Execution
             switch (statement.Type)
             {
                 case StmtType.ASSIGN:
-                    AssignStatement(statement);
+                    this.AssignStatement(statement);
+                    return;
+
+                case StmtType.BLOCK:
+                    this.BlockStatement(statement);
                     return;
 
                 case StmtType.EXPRESSION:
-                    ExpressionStmt(statement);
+                    this.ExpressionStatement(statement);
                     return;
 
                 case StmtType.PRINT:
-                    PrintStmt(statement);
+                    this.PrintStatement(statement);
                     return;
 
                 case StmtType.VAR:
-                    VarStmt(statement);
+                    VarStatement(statement);
                     return;
             }
 
@@ -92,14 +96,21 @@ namespace Nagisa.Core.Execution
             this._environment.Set(stmt.Variable.Identifier.Value, value);
         }
 
-        private void ExpressionStmt(Stmt statement)
+        private void BlockStatement(Stmt statement)
+        {
+            Block stmt = (Block)statement;
+
+            this.ExecuteBlock(stmt.Statements, new Environment(this._environment));
+        }
+
+        private void ExpressionStatement(Stmt statement)
         {
             Expression stmt = (Expression)statement;
 
             this.EvaluateExpression(stmt.Expr);
         }
 
-        private void PrintStmt(Stmt statement)
+        private void PrintStatement(Stmt statement)
         {
             Print stmt = (Print)statement;
 
@@ -109,13 +120,25 @@ namespace Nagisa.Core.Execution
             this._logger.Write(text);
         }
 
-        private void VarStmt(Stmt statement)
+        private void VarStatement(Stmt statement)
         {
             Var stmt = (Var)statement;
 
             object value = this.EvaluateExpression(stmt.Value);
 
             this._environment.Define(stmt.Variable.Identifier.Value, true, value);
+        }
+
+        private void ExecuteBlock(List<Stmt> statements, Environment environment)
+        {
+            Environment previous = this._environment;
+
+            // run in enclosed scope
+            this._environment = environment;
+            this.Execute(statements);
+
+            // restore scope
+            this._environment = previous;
         }
 
         // Expressions
