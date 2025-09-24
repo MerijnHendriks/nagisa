@@ -49,6 +49,10 @@ namespace Nagisa.Core.Execution
                     this.ExpressionStatement(statement);
                     return;
 
+                case StmtType.IF:
+                    this.IfStatement(statement);
+                    return;
+
                 case StmtType.PRINT:
                     this.PrintStatement(statement);
                     return;
@@ -108,6 +112,25 @@ namespace Nagisa.Core.Execution
             Expression stmt = (Expression)statement;
 
             this.EvaluateExpression(stmt.Expr);
+        }
+
+        private void IfStatement(Stmt statement)
+        {
+            If stmt = (If)statement;
+
+            object result = this.EvaluateExpression(stmt.Condition);
+
+            if (this.IsTruthy(result))
+            {
+                this.EvaluateStatement(stmt.ThenBranch);
+            }
+            else
+            {
+                if (stmt.ElseBranch != null)
+                {
+                    this.EvaluateStatement(stmt.ElseBranch);
+                }
+            }
         }
 
         private void PrintStatement(Stmt statement)

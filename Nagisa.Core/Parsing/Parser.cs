@@ -81,6 +81,11 @@ namespace Nagisa.Core.Parsing
                 parserData.Rewind();
             }
 
+            if (parserData.Match(TokenType.IF))
+            {
+                return this.IfStatement(parserData);
+            }
+
             if (parserData.Match(TokenType.PRINT))
             {
                 return this.PrintStatement(parserData);
@@ -115,6 +120,26 @@ namespace Nagisa.Core.Parsing
             parserData.Consume(TokenType.SEMICOLON, "Expect ';' after value.");
 
             return new Assign(variable, op, value);
+        }
+
+        // if (a == b) { ... } else { ... }
+        private Stmt IfStatement(ParserData parserData)
+        {
+            parserData.Consume(TokenType.LEFT_CIRCLE, "Expect '(' after 'if'.");
+
+            Expr condition = this.Expression(parserData);
+
+            parserData.Consume(TokenType.RIGHT_CIRCLE, "Expect ')' after 'if' condition.");
+
+            Stmt thenBranch = this.Statement(parserData);
+            Stmt elseBranch = null;
+
+            if (parserData.Match(TokenType.ELSE))
+            {
+                elseBranch = this.Statement(parserData);
+            }
+
+            return new If(condition, thenBranch, elseBranch);
         }
 
         // print a

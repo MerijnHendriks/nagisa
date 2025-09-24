@@ -104,19 +104,22 @@ namespace Nagisa.Core.Execution
             switch (statement.Type)
             {
                 case StmtType.ASSIGN:
-                    return AssignStatement(statement);
+                    return this.AssignStatement(statement);
 
                 case StmtType.BLOCK:
-                    return BlockStatement(statement);
+                    return this.BlockStatement(statement);
 
                 case StmtType.EXPRESSION:
-                    return ExpressionStatement(statement);
+                    return this.ExpressionStatement(statement);
 
                 case StmtType.PRINT:
-                    return PrintStatement(statement);
+                    return this.PrintStatement(statement);
+
+                case StmtType.IF:
+                    return this.IfStatement(statement);
 
                 case StmtType.VAR:
-                    return VarStatement(statement);
+                    return this.VarStatement(statement);
             }
 
             throw new InvalidOperationException("Statement not implemented.");
@@ -159,6 +162,22 @@ namespace Nagisa.Core.Execution
             int root = this.AddNode("expression");
 
             this.AddDottedConnection(root, child);
+
+            return root;
+        }
+
+        private int IfStatement(Stmt statement)
+        {
+            If stmt = (If)statement;
+
+            int condition = this.EvaluateExpression(stmt.Condition);
+            int left = this.EvaluateStatement(stmt.ThenBranch);
+            int right = this.EvaluateStatement(stmt.ElseBranch);
+            int root = this.AddNode("if");
+
+            this.AddDottedConnection(root, condition);
+            this.AddLineConnection(root, left);
+            this.AddLineConnection(root, right);
 
             return root;
         }
