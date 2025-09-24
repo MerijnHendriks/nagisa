@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Nagisa.Core.Common;
-using Nagisa.Core.Lexing;
+using Nagisa.Lox.Common;
 using Nagisa.Lox.Lexing;
+using Nagisa.Lox.Lexing.Patterns;
 
 namespace Nagisa.Lox.Tests.Common
 {

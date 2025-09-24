@@ -12,7 +12,7 @@ Works with almost every C# version and .NET framework.
 
 **Project**        | **Description**
 ------------------ | -----------------------------------------------
-`Nagisa.Core`      | Generic interpreter infrastructure.
+`Nagisa.Lox`      | Generic interpreter infrastructure.
 `Nagisa.Lox`       | A C# implementation of Lox.
 `Nagisa.Lox.App`   | A standalone C# interpreter for Lox.
 `Nagisa.Lox.Tests` | Tests to validate the C# implementation of Lox.

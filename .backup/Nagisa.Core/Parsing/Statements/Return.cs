@@ -1,7 +1,7 @@
-using Nagisa.Core.Lexing;
-using Nagisa.Core.Parsing.Expressions;
+using Nagisa.Lox.Lexing;
+using Nagisa.Lox.Parsing.Expressions;
 
-namespace Nagisa.Core.Parsing.Statements
+namespace Nagisa.Lox.Parsing.Statements
 {
     public sealed class Return : Stmt
     {

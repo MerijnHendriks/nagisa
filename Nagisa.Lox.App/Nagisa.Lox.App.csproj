@@ -15,7 +15,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <projectReference Include="../Nagisa.Core/Nagisa.Core.csproj" />
     <projectReference Include="../Nagisa.Lox/Nagisa.Lox.csproj" />
   </ItemGroup>
 

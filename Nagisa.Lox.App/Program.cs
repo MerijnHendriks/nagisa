@@ -1,5 +1,4 @@
-﻿using Nagisa.Core;
-using Nagisa.Lox.Lexing;
+﻿using Nagisa.Lox;
 
 namespace Nagisa.App
 {

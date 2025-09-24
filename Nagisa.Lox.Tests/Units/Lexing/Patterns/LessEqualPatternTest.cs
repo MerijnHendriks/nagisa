@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Nagisa.Core.Lexing;
 using Nagisa.Lox.Lexing;
+using Nagisa.Lox.Lexing.Patterns;
 using Nagisa.Lox.Tests.Common;
 
 namespace Nagisa.Lox.Tests.Units.Lexing.Patterns

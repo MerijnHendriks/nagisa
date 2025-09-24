@@ -15,8 +15,4 @@
     <PackageReference PrivateAssets="All" IncludeAssets="runtime; build; native; contentfiles; analyzers" Include="Microsoft.NETFramework.ReferenceAssemblies.net20" Version="1.0.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <projectReference Include="../Nagisa.Core/Nagisa.Core.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -44,7 +44,7 @@ The following C# versions and runtimes are used:
 
 **Project**      | **C# version** | **Runtime**
 -----------------| -------------- | -----------------------------------
-Nagisa.Core      | C# 2.0         | `net20`, `netstandard1.0`, `net8.0`
+Nagisa.Lox      | C# 2.0         | `net20`, `netstandard1.0`, `net8.0`
 Nagisa.Lox       | C# 2.0         | `net20`, `netstandard1.0`, `net8.0`
 Nagisa.Lox.App   | C# 3.0         | `net8.0`
 Nagisa.Lox.Tests | C# 3.0         | `net8.0`

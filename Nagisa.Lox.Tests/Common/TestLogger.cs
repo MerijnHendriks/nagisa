@@ -1,5 +1,5 @@
 using System;
-using Nagisa.Core.Common;
+using Nagisa.Lox.Common;
 
 namespace Nagisa.Lox.Tests.Common
 {

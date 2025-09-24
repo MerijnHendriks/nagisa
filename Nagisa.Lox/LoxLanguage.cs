@@ -6,10 +6,10 @@
 
 using System;
 using System.Collections.Generic;
-using Nagisa.Core;
-using Nagisa.Core.Lexing;
+using Nagisa.Lox.Lexing;
+using Nagisa.Lox.Lexing.Patterns;
 
-namespace Nagisa.Lox.Lexing
+namespace Nagisa.Lox
 {
     public class LoxLanguage : LanguageData
     {
