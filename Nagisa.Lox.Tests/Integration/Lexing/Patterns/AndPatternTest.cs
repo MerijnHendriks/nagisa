@@ -12,12 +12,12 @@ namespace Nagisa.Lox.Tests.Integration.Lexing.Patterns
         public void TestSingle()
         {
             var file = string.Empty;
-            var source = "and";
+            var source = "&&";
 
             var expectedTokens = new Token[]
             {
                 new Token(file, 0, 1, 1, TokenType.AND,         null),
-                new Token(file, 3, 1, 4, TokenType.END_OF_FILE, null)
+                new Token(file, 2, 1, 3, TokenType.END_OF_FILE, null)
             };
 
             LexingTestHelper.AssertScanner(source, expectedTokens);
@@ -27,21 +27,14 @@ namespace Nagisa.Lox.Tests.Integration.Lexing.Patterns
         public void TestSurrounded()
         {
             var file = string.Empty;
-            var source = " and ";
+            var source = " && ";
 
-            var positions = new SourcePosition[]
-            {
-                new SourcePosition(0, 1, 1),
-                new SourcePosition(1, 1, 2),
-                new SourcePosition(4, 1, 5),
-                new SourcePosition(5, 1, 6)
-            };
             var expectedTokens = new Token[]
             {
-                new Token(file, positions[0], TokenType.WHITESPACE,  null),
-                new Token(file, positions[1], TokenType.AND,         null),
-                new Token(file, positions[2], TokenType.WHITESPACE,  null),
-                new Token(file, positions[3], TokenType.END_OF_FILE, null)
+                new Token(file, 0, 1, 1, TokenType.WHITESPACE,  null),
+                new Token(file, 1, 1, 2, TokenType.AND,         null),
+                new Token(file, 3, 1, 4, TokenType.WHITESPACE,  null),
+                new Token(file, 4, 1, 5, TokenType.END_OF_FILE, null)
             };
 
             LexingTestHelper.AssertScanner(source, expectedTokens);

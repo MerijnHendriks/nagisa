@@ -12,7 +12,7 @@ namespace Nagisa.Lox.Tests.Integration.Lexing.Patterns
         public void TestSingle()
         {
             var file = string.Empty;
-            var source = "or";
+            var source = "||";
 
             var expectedTokens = new Token[]
             {
@@ -27,7 +27,7 @@ namespace Nagisa.Lox.Tests.Integration.Lexing.Patterns
         public void TestSurrounded()
         {
             var file = string.Empty;
-            var source = " or ";
+            var source = " || ";
 
             var expectedTokens = new Token[]
             {

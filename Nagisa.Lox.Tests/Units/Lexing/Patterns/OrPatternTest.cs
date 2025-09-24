@@ -12,8 +12,8 @@ namespace Nagisa.Lox.Tests.Units.Lexing.Patterns
         public void TestIsMatch()
         {
             var file = string.Empty;
-            var source = "or";
-            var pattern = new TextPattern("or", TokenType.OR);
+            var source = "||";
+            var pattern = new TextPattern("||", TokenType.OR);
 
             var expectedResult = true;
 
@@ -24,8 +24,8 @@ namespace Nagisa.Lox.Tests.Units.Lexing.Patterns
         public void TestRun()
         {
             var file = string.Empty;
-            var source = "or";
-            var pattern = new TextPattern("or", TokenType.OR);
+            var source = "||";
+            var pattern = new TextPattern("||", TokenType.OR);
 
             var position = new SourcePosition(0, 1, 1);
             var expectedToken = new Token(file, position, TokenType.OR, null);

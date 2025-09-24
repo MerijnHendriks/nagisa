@@ -46,8 +46,8 @@ namespace Nagisa.Lox.Lexing
             this.Patterns.Add(new TextPattern("else", TokenType.ELSE));
             this.Patterns.Add(new TextPattern("while", TokenType.WHILE));
             this.Patterns.Add(new TextPattern("for", TokenType.FOR));
-            this.Patterns.Add(new TextPattern("and", TokenType.AND));
-            this.Patterns.Add(new TextPattern("or", TokenType.OR));
+            this.Patterns.Add(new TextPattern("&&", TokenType.AND));
+            this.Patterns.Add(new TextPattern("||", TokenType.OR));
             this.Patterns.Add(new TextPattern("return", TokenType.RETURN));
             this.Patterns.Add(new TextPattern("break", TokenType.BREAK));
             this.Patterns.Add(new TextPattern("continue", TokenType.CONTINUE));
@@ -101,8 +101,8 @@ namespace Nagisa.Lox.Lexing
             this.PatternNames.Add(TokenType.VAR,               "var");
             this.PatternNames.Add(TokenType.FUN,               "fun");
             this.PatternNames.Add(TokenType.CLASS,             "class");
-            this.PatternNames.Add(TokenType.AND,               "and");
-            this.PatternNames.Add(TokenType.OR,                "or");
+            this.PatternNames.Add(TokenType.AND,               "&&");
+            this.PatternNames.Add(TokenType.OR,                "||");
             this.PatternNames.Add(TokenType.IF,                "if");
             this.PatternNames.Add(TokenType.ELSE,              "else");
             this.PatternNames.Add(TokenType.WHILE,             "while");

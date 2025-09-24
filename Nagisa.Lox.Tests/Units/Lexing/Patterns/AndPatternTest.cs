@@ -12,8 +12,8 @@ namespace Nagisa.Lox.Tests.Units.Lexing.Patterns
         public void TestIsMatch()
         {
             var file = string.Empty;
-            var source = "and";
-            var pattern = new TextPattern("and", TokenType.AND);
+            var source = "&&";
+            var pattern = new TextPattern("&&", TokenType.AND);
 
             var expectedResult = true;
 
@@ -24,12 +24,12 @@ namespace Nagisa.Lox.Tests.Units.Lexing.Patterns
         public void TestRun()
         {
             var file = string.Empty;
-            var source = "and";
-            var pattern = new TextPattern("and", TokenType.AND);
+            var source = "&&";
+            var pattern = new TextPattern("&&", TokenType.OR);
 
             var position = new SourcePosition(0, 1, 1);
-            var expectedToken = new Token(file, position, TokenType.AND, null);
-            var expectedNext = new SourcePosition(3, 1, 4);
+            var expectedToken = new Token(file, position, TokenType.OR, null);
+            var expectedNext = new SourcePosition(2, 1, 3);
 
             LexingTestHelper.AssertPatternRun(pattern, file, source, expectedToken, expectedNext);
         }
