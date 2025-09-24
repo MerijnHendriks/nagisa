@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Nagisa.Lox.Lexing;
-using Nagisa.Lox.Parsing.Expressions;
+using Nagisa.Fox.Lexing;
+using Nagisa.Fox.Parsing.Expressions;
 
-namespace Nagisa.Lox.Parsing.Statements
+namespace Nagisa.Fox.Parsing.Statements
 {
     public sealed class Class : Stmt
     {

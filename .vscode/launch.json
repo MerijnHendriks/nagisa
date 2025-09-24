@@ -5,9 +5,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "dotnet: build debug",
-            "program": "${workspaceFolder}/Nagisa.Lox.App/bin/Debug/net8.0/win-x64/loxc.dll",
+            "program": "${workspaceFolder}/Nagisa.Fox.App/bin/Debug/net8.0/win-x64/foxc.dll",
             "args": [
-                "program.lox"
+                "program.fox"
             ],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,

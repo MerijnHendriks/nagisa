@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Nagisa.Lox.Tests.Integration.Lexing.Patterns
+namespace Nagisa.Fox.Tests.Integration.Lexing.Patterns
 {
     [TestClass]
     public sealed class StringPatternTest

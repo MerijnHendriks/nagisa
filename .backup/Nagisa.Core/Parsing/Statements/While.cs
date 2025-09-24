@@ -1,6 +1,6 @@
-using Nagisa.Lox.Parsing.Expressions;
+using Nagisa.Fox.Parsing.Expressions;
 
-namespace Nagisa.Lox.Parsing.Statements
+namespace Nagisa.Fox.Parsing.Statements
 {
     public sealed class While : Stmt
     {

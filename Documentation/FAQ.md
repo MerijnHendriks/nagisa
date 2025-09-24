@@ -27,10 +27,10 @@ languages like `TS`, `Lox` and such do not implement `enum` but do implement
 It seems to do the job pretty well, it's decently documented and well
 supported.
 
-> Q: Is an older version of .NET Framework supported for `Nagisa.Lox.Tests`?
+> Q: Is an older version of .NET Framework supported for `Nagisa.Fox.Tests`?
 
 Yes! If you need to integrate the tests in a project targeting `net45`, add
-the following to `Nagisa.Lox.Tests`:
+the following to `Nagisa.Fox.Tests`:
 
 ```xml
 <!-- .NET Framework v4.5 compatible MSTest v2 -->

@@ -1,4 +1,4 @@
-namespace Nagisa.Lox.Parsing
+namespace Nagisa.Fox.Parsing
 {
     public sealed class Parser
     {

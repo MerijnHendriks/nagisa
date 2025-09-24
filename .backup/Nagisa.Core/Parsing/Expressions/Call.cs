@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Nagisa.Lox.Lexing;
+using Nagisa.Fox.Lexing;
 
-namespace Nagisa.Lox.Parsing.Expressions
+namespace Nagisa.Fox.Parsing.Expressions
 {
     public sealed class Call : Expr
     {

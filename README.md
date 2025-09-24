@@ -7,27 +7,20 @@
 
 > Lasciate ogne speranza, voi ch'intrate.
 
-Generic interpreter infrastructure written in a very limited subset of C#.
+An implementation of Fox written in a very limited subset of C#.
 Works with almost every C# version and .NET framework.
 
 **Project**        | **Description**
 ------------------ | -----------------------------------------------
-`Nagisa.Lox`      | Generic interpreter infrastructure.
-`Nagisa.Lox`       | A C# implementation of Lox.
-`Nagisa.Lox.App`   | A standalone C# interpreter for Lox.
-`Nagisa.Lox.Tests` | Tests to validate the C# implementation of Lox.
+`Nagisa.Fox`       | A C# implementation of Fox.
+`Nagisa.Fox.App`   | A standalone C# interpreter for Fox.
+`Nagisa.Fox.Tests` | Tests to validate the C# implementation of Fox.
 
 **Usage** | **Command**
 --------- | ------------------------------------------------------
 Build     | `dotnet build`
 Test      | `dotnet test`
-Run       | `dotnet run --project Nagisa.Lox.App -- program.lox`
-
-## Goals
-
-- Support Lox standard
-  - Grammer: Appendix A1 conforming
-  - Features: none of the challenges
+Run       | `dotnet run --project Nagisa.Fox.App -- program.fox`
 
 ## Requirements
 

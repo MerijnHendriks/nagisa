@@ -44,18 +44,6 @@ The following C# versions and runtimes are used:
 
 **Project**      | **C# version** | **Runtime**
 -----------------| -------------- | -----------------------------------
-Nagisa.Lox      | C# 2.0         | `net20`, `netstandard1.0`, `net8.0`
-Nagisa.Lox       | C# 2.0         | `net20`, `netstandard1.0`, `net8.0`
-Nagisa.Lox.App   | C# 3.0         | `net8.0`
-Nagisa.Lox.Tests | C# 3.0         | `net8.0`
-
-## Lexing
-
-### Scanner
-
-Both `Token` and `SourcePosition` use a combination of `File` and `Index` to
-give them an unique matching ID.
-
-- `File` is the source file it originated from (exp. `./MyFolder/MyFile.lox`)
-- `Index` is the index of the scanner's iterator where the token was
-  encountered.
+Nagisa.Fox       | C# 2.0         | `net20`, `netstandard1.0`, `net8.0`
+Nagisa.Fox.App   | C# 3.0         | `net8.0`
+Nagisa.Fox.Tests | C# 3.0         | `net8.0`

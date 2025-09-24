@@ -1,4 +1,4 @@
-namespace Nagisa.Lox.Execution
+namespace Nagisa.Fox.Execution
 {
     public sealed class Interpreter
     {

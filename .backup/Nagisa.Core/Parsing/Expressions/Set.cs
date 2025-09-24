@@ -1,6 +1,6 @@
-using Nagisa.Lox.Lexing;
+using Nagisa.Fox.Lexing;
 
-namespace Nagisa.Lox.Parsing.Expressions
+namespace Nagisa.Fox.Parsing.Expressions
 {
     public sealed class Set : Expr
     {

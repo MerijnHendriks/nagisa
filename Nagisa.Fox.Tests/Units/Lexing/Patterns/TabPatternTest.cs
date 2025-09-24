@@ -1,0 +1,37 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Nagisa.Fox.Lexing;
+using Nagisa.Fox.Lexing.Patterns;
+using Nagisa.Fox.Tests.Common;
+
+namespace Nagisa.Fox.Tests.Units.Lexing.Patterns
+{
+    [TestClass]
+    public sealed class TabPatternTest
+    {
+        [TestMethod]
+        public void TestIsMatch()
+        {
+            var file = string.Empty;
+            var source = "\t";
+            var pattern = new CharacterPattern('\t', TokenType.TAB);
+
+            var expectedResult = true;
+
+            LexingTestHelper.AssertPatternIsMatch(pattern, file, source, expectedResult);
+        }
+
+        [TestMethod]
+        public void TestRun()
+        {
+            var file = string.Empty;
+            var source = "\t";
+            var pattern = new CharacterPattern('\t', TokenType.TAB);
+
+            var position = new SourcePosition(0, 1, 1);
+            var expectedToken = new Token(file, position, TokenType.TAB, null);
+            var expectedNext = new SourcePosition(1, 1, 2);
+
+            LexingTestHelper.AssertPatternRun(pattern, file, source, expectedToken, expectedNext);
+        }
+    }
+}

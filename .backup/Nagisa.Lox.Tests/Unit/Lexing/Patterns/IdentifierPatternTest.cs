@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Nagisa.Lox.Tests.Units.Lexing.Patterns
+namespace Nagisa.Fox.Tests.Units.Lexing.Patterns
 {
     [TestClass]
     public sealed class IdentifierPatternTest
