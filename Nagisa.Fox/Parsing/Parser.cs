@@ -86,10 +86,15 @@ namespace Nagisa.Fox.Parsing
                 return this.IfStatement(parserData);
             }
 
-            if (parserData.Match(TokenType.PRINT))
+            if (parserData.Match(TokenType.WHILE))
             {
-                return this.PrintStatement(parserData);
+                return this.WhileStatement(parserData);
             }
+
+            if (parserData.Match(TokenType.PRINT))
+                {
+                    return this.PrintStatement(parserData);
+                }
 
             if (parserData.Match(TokenType.LEFT_CURLY))
             {
@@ -150,6 +155,19 @@ namespace Nagisa.Fox.Parsing
             parserData.Consume(TokenType.SEMICOLON, "Expect ';' after value.");
 
             return new Print(value);
+        }
+
+        private Stmt WhileStatement(ParserData parserData)
+        {
+            parserData.Consume(TokenType.LEFT_CIRCLE, "Expect '(' after 'if'.");
+
+            Expr condition = this.Expression(parserData);
+
+            parserData.Consume(TokenType.RIGHT_CIRCLE, "Expect ')' after 'if' condition.");
+
+            Stmt body = this.Statement(parserData);
+
+            return new While(condition, body);
         }
 
         private Stmt BlockStatement(ParserData parserData)

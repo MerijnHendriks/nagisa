@@ -58,7 +58,11 @@ namespace Nagisa.Fox.Execution
                     return;
 
                 case StmtType.VAR:
-                    VarStatement(statement);
+                    this.VarStatement(statement);
+                    return;
+
+                case StmtType.WHILE:
+                    this.WhileStatement(statement);
                     return;
             }
 
@@ -150,6 +154,16 @@ namespace Nagisa.Fox.Execution
             object value = this.EvaluateExpression(stmt.Value);
 
             this._environment.Define(stmt.Variable.Identifier.Value, true, value);
+        }
+
+        private void WhileStatement(Stmt statement)
+        {
+            While stmt = (While)statement;
+
+            while (this.IsTruthy(this.EvaluateExpression(stmt.Condition)))
+            {
+                this.EvaluateStatement(stmt.Body);
+            }
         }
 
         private void ExecuteBlock(List<Stmt> statements, Environment environment)

@@ -120,6 +120,9 @@ namespace Nagisa.Fox.Execution
 
                 case StmtType.VAR:
                     return this.VarStatement(statement);
+
+                case StmtType.WHILE:
+                    return this.WhileStatement(statement);
             }
 
             throw new InvalidOperationException("Statement not implemented.");
@@ -208,6 +211,20 @@ namespace Nagisa.Fox.Execution
             return root;
         }
 
+        private int WhileStatement(Stmt statement)
+        {
+            While stmt = (While)statement;
+
+            int condition = this.EvaluateExpression(stmt.Condition);
+            int body = this.EvaluateStatement(stmt.Body);
+            int root = this.AddNode("while");
+
+            this.AddDottedConnection(root, condition);
+            this.AddLineConnection(root, body);
+
+            return root;
+        }
+
         // Expressions
 
         private int EvaluateExpression(Expr expression)
@@ -232,7 +249,7 @@ namespace Nagisa.Fox.Execution
                 case ExprType.VARIABLE:
                     return this.VariableExpression(expression);
             }
-            
+
             throw new InvalidOperationException("Expression not implemented.");
         }
 
