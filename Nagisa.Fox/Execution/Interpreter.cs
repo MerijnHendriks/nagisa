@@ -179,6 +179,9 @@ namespace Nagisa.Fox.Execution
                 case ExprType.LITERAL:
                     return this.LiteralExpression(expression);
 
+                case ExprType.LOGICAL:
+                    return this.LogicalExpression(expression);
+
                 case ExprType.UNARY:
                     return this.UnaryExpression(expression);
 
@@ -281,6 +284,35 @@ namespace Nagisa.Fox.Execution
             }
 
             throw new InvalidOperationException("Unreachable - Literal.");
+        }
+
+        private object LogicalExpression(Expr expression)
+        {
+            Logical expr = (Logical)expression;
+
+            object left = this.EvaluateExpression(expr.Left);
+
+            switch (expr.Operator.Type)
+            {
+                case TokenType.AND:
+                    if (!this.IsTruthy(left))
+                    {
+                        return left;
+                    }
+                    break;
+
+                case TokenType.OR:
+                    if (this.IsTruthy(left))
+                    {
+                        return left;
+                    }
+                    break;
+
+                default:
+                    throw new InvalidOperationException("Unreachable - Logical.");
+            }
+
+            return this.EvaluateExpression(expr.Right);
         }
 
         private object UnaryExpression(Expr expression)

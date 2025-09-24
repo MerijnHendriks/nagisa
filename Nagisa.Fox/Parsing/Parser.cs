@@ -179,7 +179,37 @@ namespace Nagisa.Fox.Parsing
 
         private Expr Expression(ParserData parserData)
         {
-            return this.Equality(parserData);
+            Expr expr = this.Or(parserData);
+
+            return expr;
+        }
+
+        private Expr Or(ParserData parserData)
+        {
+            Expr expr = this.And(parserData);
+
+            while (parserData.Match(TokenType.OR))
+            {
+                Token op = parserData.Previous();
+                Expr right = this.And(parserData);
+                return new Logical(expr, op, right);
+            }
+
+            return expr;
+        }
+
+        private Expr And(ParserData parserData)
+        {
+            Expr expr = this.Equality(parserData);
+
+            while (parserData.Match(TokenType.AND))
+            {
+                Token op = parserData.Previous();
+                Expr right = this.Equality(parserData);
+                return new Logical(expr, op, right);
+            }
+
+            return expr;
         }
 
         private Expr Equality(ParserData parserData)

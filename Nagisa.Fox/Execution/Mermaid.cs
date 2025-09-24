@@ -223,6 +223,9 @@ namespace Nagisa.Fox.Execution
                 case ExprType.LITERAL:
                     return this.LiteralExpression(expression);
 
+                case ExprType.LOGICAL:
+                    return this.LogicalExpression(expression);
+
                 case ExprType.UNARY:
                     return this.UnaryExpression(expression);
 
@@ -274,6 +277,22 @@ namespace Nagisa.Fox.Execution
             }
 
             int root = this.AddNode(text);
+
+            return root;
+        }
+
+        private int LogicalExpression(Expr expression)
+        {
+            Logical expr = (Logical)expression;
+
+            int left = this.EvaluateExpression(expr.Left);
+            int right = this.EvaluateExpression(expr.Right);
+
+            string name = this._language.GetTokenName(expr.Operator.Type);
+            int root = this.AddNode("logical " + name);
+
+            this.AddDottedConnection(root, left);
+            this.AddDottedConnection(root, right);
 
             return root;
         }
