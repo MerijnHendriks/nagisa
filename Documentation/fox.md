@@ -19,7 +19,7 @@ statement   → exprStmt
             | block ;
 
 exprStmt    → expression ";" ;
-assignStmt  → IDENTIFIER ( "=" | "+=" | "-=" | "*=" | "/=" )
+assignStmt  → IDENTIFIER ( "=" | "+=" | "-=" | "*=" | "/=" | "%=" )
               expression ;
 ifStmt      → "if" "(" expression ")" statement
               ( "else" statement )? ;
@@ -35,7 +35,7 @@ logic_and   → equality ( "&&" equality )* ;
 equality    → comparison ( ( "!=" | "==" ) comparison )* ;
 comparison  → term ( ( ">" | ">=" | "<" | "<=" ) term )* ;
 term        → factor ( ( "-" | "+" ) factor )* ;
-factor      → unary ( ( "/" | "*" ) unary )* ;
+factor      → unary ( ( "/" | "*" | "%" ) unary )* ;
 
 unary       → ( "!" | "-" ) unary ;
 primary     → "true" | "false" | "nil"
