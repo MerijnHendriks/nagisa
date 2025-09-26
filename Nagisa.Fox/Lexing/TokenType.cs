@@ -52,5 +52,7 @@ namespace Nagisa.Fox.Lexing
         public const int LINE_COMMENT = 48;         // // hello; world!
         public const int TAB = 49;                  // \t
         public const int WHITESPACE = 50;           //
+        public const int MODULO = 51;               // %
+        public const int MODULO_ASSIGN = 52;        // %=
     }
 }

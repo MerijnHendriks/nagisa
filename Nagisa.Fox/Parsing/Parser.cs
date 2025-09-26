@@ -70,7 +70,8 @@ namespace Nagisa.Fox.Parsing
                     || parserData.Peek().Type == TokenType.ADD_ASSIGN
                     || parserData.Peek().Type == TokenType.SUBSTRACT_ASSIGN
                     || parserData.Peek().Type == TokenType.MULTIPLY_ASSIGN
-                    || parserData.Peek().Type == TokenType.DIVIDE_ASSIGN)
+                    || parserData.Peek().Type == TokenType.DIVIDE_ASSIGN
+                    || parserData.Peek().Type == TokenType.MODULO_ASSIGN)
                 {
                     parserData.Rewind();
 
@@ -291,8 +292,10 @@ namespace Nagisa.Fox.Parsing
 
             // a / b
             // a * b
+            // a % b
             while (parserData.Match(TokenType.SLASH)
-                || parserData.Match(TokenType.STAR))
+                || parserData.Match(TokenType.STAR)
+                || parserData.Match(TokenType.MODULO))
             {
                 Token op = parserData.Previous();
                 Expr right = this.Unary(parserData);

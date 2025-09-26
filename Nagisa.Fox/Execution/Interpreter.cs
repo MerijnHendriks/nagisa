@@ -96,6 +96,10 @@ namespace Nagisa.Fox.Execution
                     expr = new Binary(stmt.Variable, new Token(string.Empty, 0, 0, 0, TokenType.SLASH, string.Empty), stmt.Value);
                     break;
 
+                case TokenType.MODULO_ASSIGN:
+                    expr = new Binary(stmt.Variable, new Token(string.Empty, 0, 0, 0, TokenType.MODULO, string.Empty), stmt.Value);
+                    break;
+
                 default:
                     throw new InvalidOperationException("Assignment not implemented: " + stmt.Operator.Type);
             }
@@ -257,6 +261,10 @@ namespace Nagisa.Fox.Execution
                     this.CheckNumberOperands(expr.Operator, left, right);
                     return (double)left * (double)right;
 
+                case TokenType.MODULO:
+                    this.CheckNumberOperands(expr.Operator, left, right);
+                    return (double)left % (double)right;
+
                 case TokenType.NOT_EQUAL:
                     return !this.IsEqual(left, right);
 
@@ -264,8 +272,7 @@ namespace Nagisa.Fox.Execution
                     return this.IsEqual(left, right);
             }
 
-            // Unreachable.
-            return null;
+            throw new InvalidOperationException("Unreachable - Binary.");
         }
 
         private object GroupingExpression(Expr expression)
