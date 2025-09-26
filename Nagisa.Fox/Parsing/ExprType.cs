@@ -1,4 +1,4 @@
-namespace Nagisa.Fox.Parsing.Expressions
+namespace Nagisa.Fox.Parsing
 {
     public class ExprType
     {

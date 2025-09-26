@@ -1,4 +1,4 @@
-namespace Nagisa.Fox.Parsing.Statements
+namespace Nagisa.Fox.Parsing
 {
     public abstract class Stmt
     {

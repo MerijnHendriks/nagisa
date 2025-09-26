@@ -1,6 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nagisa.Fox.Lexing;
-using Nagisa.Fox.Lexing.Patterns;
 using Nagisa.Fox.Tests.Common;
 
 namespace Nagisa.Fox.Tests.Integration.Lexing.Patterns

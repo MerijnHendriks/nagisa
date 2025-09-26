@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nagisa.Fox.Common;
 using Nagisa.Fox.Lexing;
-using Nagisa.Fox.Lexing.Patterns;
 
 namespace Nagisa.Fox.Tests.Common
 {
