@@ -13,7 +13,7 @@ namespace Nagisa.Fox.Tests.Common
 
         static LexingTestHelper()
         {
-            var language = new LoxLanguage();
+            var language = new FoxLanguage();
 
             _logger = new TestLogger();
             _scanner = new Scanner(_logger, language);
