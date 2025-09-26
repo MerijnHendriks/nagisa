@@ -11,9 +11,9 @@ using Nagisa.Fox.Lexing.Patterns;
 
 namespace Nagisa.Fox
 {
-    public class LoxLanguage : LanguageData
+    public class FoxLanguage : LanguageData
     {
-        public LoxLanguage()
+        public FoxLanguage()
         {
             this.Patterns.Add(new CharacterPattern(' ', TokenType.WHITESPACE));
             this.Patterns.Add(new CharacterPattern('\t', TokenType.TAB));
@@ -42,6 +42,8 @@ namespace Nagisa.Fox
             this.Patterns.Add(new CharacterPattern('*', TokenType.STAR));
             this.Patterns.Add(new TextPattern("/=", TokenType.DIVIDE_ASSIGN));
             this.Patterns.Add(new CharacterPattern('/', TokenType.SLASH));
+            this.Patterns.Add(new TextPattern("%=", TokenType.MODULO_ASSIGN));
+            this.Patterns.Add(new CharacterPattern('%', TokenType.MODULO));
             this.Patterns.Add(new TextPattern("if", TokenType.IF));
             this.Patterns.Add(new TextPattern("else", TokenType.ELSE));
             this.Patterns.Add(new TextPattern("while", TokenType.WHILE));

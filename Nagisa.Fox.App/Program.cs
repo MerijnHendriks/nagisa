@@ -9,7 +9,7 @@ namespace Nagisa.App
             var logger = new AppLogger();
             var vfs = new AppVFS();
 
-            var language = new LoxLanguage();
+            var language = new FoxLanguage();
             var compiler = new Compiler(logger, language);
 
             if (args.Length == 0)
