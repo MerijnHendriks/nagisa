@@ -60,7 +60,6 @@ namespace Nagisa.Fox
             this.Patterns.Add(new TextPattern("class", TokenType.CLASS));
             this.Patterns.Add(new TextPattern("this", TokenType.THIS));
             this.Patterns.Add(new TextPattern("super", TokenType.SUPER));
-            this.Patterns.Add(new TextPattern("print", TokenType.PRINT));           // TODO: move this to VM bindings or standard library
             this.Patterns.Add(new NumberPattern());
             this.Patterns.Add(new StringPattern());
             this.Patterns.Add(new IdentifierPattern());
@@ -111,7 +110,6 @@ namespace Nagisa.Fox
             this.PatternNames.Add(TokenType.CONTINUE,          "continue");
             this.PatternNames.Add(TokenType.BREAK,             "break");
             this.PatternNames.Add(TokenType.RETURN,            "return");
-            this.PatternNames.Add(TokenType.PRINT,             "print");
             this.PatternNames.Add(TokenType.LINE_COMMENT,      "//");
             this.PatternNames.Add(TokenType.TAB,               "\t");
             this.PatternNames.Add(TokenType.WHITESPACE,        "' '");

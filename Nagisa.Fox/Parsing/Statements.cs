@@ -51,17 +51,6 @@ namespace Nagisa.Fox.Parsing
         }
     }
 
-    // TODO: move this to VM bindings or standard library
-    public sealed class Print : Stmt
-    {
-        public readonly Expr Expr;
-
-        public Print(Expr expr) : base(StmtType.PRINT)
-        {
-            this.Expr = expr;
-        }
-    }
-
     public sealed class Return : Stmt
     {
         public readonly Token Keyword;

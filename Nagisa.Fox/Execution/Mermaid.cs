@@ -111,9 +111,6 @@ namespace Nagisa.Fox.Execution
                 case StmtType.EXPRESSION:
                     return this.ExpressionStatement(statement);
 
-                case StmtType.PRINT:
-                    return this.PrintStatement(statement);
-
                 case StmtType.IF:
                     return this.IfStatement(statement);
 
@@ -180,18 +177,6 @@ namespace Nagisa.Fox.Execution
             this.AddDottedConnection(root, condition);
             this.AddLineConnection(root, left);
             this.AddLineConnection(root, right);
-
-            return root;
-        }
-
-        private int PrintStatement(Stmt statement)
-        {
-            Print stmt = (Print)statement;
-
-            int child = this.EvaluateExpression(stmt.Expr);
-            int root = this.AddNode("print");
-
-            this.AddDottedConnection(root, child);
 
             return root;
         }

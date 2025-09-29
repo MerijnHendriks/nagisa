@@ -171,11 +171,11 @@ namespace Nagisa.Fox.Parsing
                 parserData.Advance();
 
                 if (parserData.Peek().Type == TokenType.ASSIGN
-                    || parserData.Peek().Type == TokenType.ADD_ASSIGN
-                    || parserData.Peek().Type == TokenType.SUBSTRACT_ASSIGN
-                    || parserData.Peek().Type == TokenType.MULTIPLY_ASSIGN
-                    || parserData.Peek().Type == TokenType.DIVIDE_ASSIGN
-                    || parserData.Peek().Type == TokenType.MODULO_ASSIGN)
+                    || parserData.Check(TokenType.ADD_ASSIGN)
+                    || parserData.Check(TokenType.SUBSTRACT_ASSIGN)
+                    || parserData.Check(TokenType.MULTIPLY_ASSIGN)
+                    || parserData.Check(TokenType.DIVIDE_ASSIGN)
+                    || parserData.Check(TokenType.MODULO_ASSIGN))
                 {
                     parserData.Rewind();
 
@@ -194,11 +194,6 @@ namespace Nagisa.Fox.Parsing
             if (parserData.Match(TokenType.WHILE))
             {
                 return this.WhileStatement(parserData);
-            }
-
-            if (parserData.Match(TokenType.PRINT))
-            {
-                return this.PrintStatement(parserData);
             }
 
             if (parserData.Match(TokenType.LEFT_CURLY))
@@ -250,16 +245,6 @@ namespace Nagisa.Fox.Parsing
             }
 
             return new If(condition, thenBranch, elseBranch);
-        }
-
-        // print a
-        private Stmt PrintStatement(ParserData parserData)
-        {
-            Expr value = this.Expression(parserData);
-
-            parserData.Consume(TokenType.SEMICOLON, "Expect ';' after value.");
-
-            return new Print(value);
         }
 
         private Stmt WhileStatement(ParserData parserData)
@@ -421,7 +406,39 @@ namespace Nagisa.Fox.Parsing
                 return new Unary(op, right);
             }
 
-            return this.Primary(parserData);
+            return this.Call(parserData);
+        }
+
+        private Expr Call(ParserData parserData)
+        {
+            Expr expr = this.Primary(parserData);
+
+            // (a, b, c)
+            if (parserData.Match(TokenType.LEFT_CIRCLE))
+            {
+                // --- FinishedCall(ParserData, Expr)
+                List<Expr> arguments = new List<Expr>();
+
+                while (!parserData.Check(TokenType.RIGHT_CIRCLE)
+                    || parserData.Match(TokenType.COMMA))
+                {
+                    // NOTE: reason to limit argument count to 48 is for compatibility with Lua.
+                    if (arguments.Count > 48)
+                    {
+                        throw new InvalidOperationException("Can't have more than 48 arguments.");
+                    }
+
+                    Expr argument = this.Expression(parserData);
+                    arguments.Add(argument);
+                }
+
+                parserData.Consume(TokenType.RIGHT_CIRCLE, "Expect ')' after arguments.");
+
+                return new Call(expr, arguments);
+                // ---
+            }
+
+            return expr;
         }
 
         private Expr Primary(ParserData parserData)

@@ -30,13 +30,11 @@ namespace Nagisa.Fox.Parsing
     public sealed class Call : Expr
     {
         public Expr Callee;
-        public Token Paren;
         public List<Expr> Arguments;
 
-        public Call(Expr callee, Token paren, List<Expr> arguments) : base(ExprType.CALL)
+        public Call(Expr callee, List<Expr> arguments) : base(ExprType.CALL)
         {
             this.Callee = callee;
-            this.Paren = paren;
             this.Arguments = arguments;
         }
     }

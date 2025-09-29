@@ -4,6 +4,7 @@ using System.Globalization;
 using Nagisa.Fox.Common;
 using Nagisa.Fox.Lexing;
 using Nagisa.Fox.Parsing;
+using Nagisa.Fox.Std;
 
 namespace Nagisa.Fox.Execution
 {
@@ -11,13 +12,17 @@ namespace Nagisa.Fox.Execution
     {
         private readonly Logger _logger;
         private readonly LanguageData _language;
+        private Environment _globals;
         private Environment _environment;
 
         public Interpreter(Logger logger, LanguageData language)
         {
             this._logger = logger;
             this._language = language;
-            this._environment = new Environment(null);
+            this._globals = new Environment(null);
+            this._environment = this._globals;
+
+            this._globals.Define("print", false, new Print());
         }
 
         public void Execute(List<Stmt> statements)
@@ -50,10 +55,6 @@ namespace Nagisa.Fox.Execution
 
                 case StmtType.IF:
                     this.IfStatement(statement);
-                    return;
-
-                case StmtType.PRINT:
-                    this.PrintStatement(statement);
                     return;
 
                 case StmtType.VAR:
@@ -138,16 +139,6 @@ namespace Nagisa.Fox.Execution
                     this.EvaluateStatement(stmt.ElseBranch);
                 }
             }
-        }
-
-        private void PrintStatement(Stmt statement)
-        {
-            Print stmt = (Print)statement;
-
-            object value = this.EvaluateExpression(stmt.Expr);
-            string text = this.Stringify(value);
-
-            this._logger.Write(text);
         }
 
         private void VarStatement(Stmt statement)
@@ -272,6 +263,36 @@ namespace Nagisa.Fox.Execution
             }
 
             throw new InvalidOperationException("Unreachable - Binary.");
+        }
+
+        private object CallExpression(Expr expression)
+        {
+            Call expr = (Call)expression;
+
+            object callee = this.EvaluateExpression(expr.Callee);
+
+            if (callee.GetType() != typeof(FoxCallable))
+            {
+                throw new InvalidOperationException("Can only call functions.");
+            }
+
+            List<object> arguments = new List<object>();
+
+            for (int i = 0; i < expr.Arguments.Count; i += 1)
+            {
+                object argument = this.EvaluateExpression(expr.Arguments[i]);
+                arguments.Add(argument);
+            }
+
+            // how???
+            FoxCallable func = (FoxCallable)callee;
+
+            if (arguments.Count != func.Arity())
+            {
+                throw new InvalidOperationException("Expected " + func.Arity() + " arguments but got" + arguments.Count + ".");
+            }
+
+            return func.Call(this, arguments);
         }
 
         private object GroupingExpression(Expr expression)

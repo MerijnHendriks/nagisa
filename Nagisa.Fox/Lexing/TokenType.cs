@@ -48,7 +48,6 @@ namespace Nagisa.Fox.Lexing
         public const int CONTINUE = 44;             // continue
         public const int BREAK = 45;                // break
         public const int RETURN = 46;               // return
-        public const int PRINT = 47;                // print    (TODO: move this to VM bindings or standard library)
         public const int LINE_COMMENT = 48;         // // hello; world!
         public const int TAB = 49;                  // \t
         public const int WHITESPACE = 50;           //
