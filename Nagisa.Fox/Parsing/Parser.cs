@@ -131,12 +131,49 @@ namespace Nagisa.Fox.Parsing
 
         private Stmt Declaration(ParserData parserData)
         {
+            if (parserData.Match(TokenType.FUN))
+            {
+                return this.FunDeclaration(parserData);
+            }
+
             if (parserData.Match(TokenType.VAR))
             {
                 return this.VarDeclaration(parserData);
             }
 
             return this.Statement(parserData);
+        }
+
+        private Stmt FunDeclaration(ParserData parserData)
+        {
+            Token identifier = parserData.Consume(TokenType.IDENTIFIER, "Expect function name.");
+
+            // parameters
+            parserData.Consume(TokenType.LEFT_CIRCLE, "Exprect '(' after function name.");
+
+            List<Token> parameters = new List<Token>();
+
+            while (!parserData.Check(TokenType.RIGHT_CIRCLE)
+                || parserData.Match(TokenType.COMMA))
+            {
+                // NOTE: reason to limit parameter count to 48 is for compatibility with Lua.
+                if (parameters.Count > 48)
+                {
+                    throw new InvalidOperationException("Can't have more than 48 parameters.");
+                }
+
+                Token parameter = parserData.Consume(TokenType.IDENTIFIER, "Expect parameter identifier.");
+                parameters.Add(parameter);
+            }
+
+            parserData.Consume(TokenType.RIGHT_CIRCLE, "Expect ')' after parameters.");
+
+            // block
+            parserData.Consume(TokenType.LEFT_CURLY, "Expect '{' before function body.");
+
+            Block body = (Block)this.BlockStatement(parserData);
+
+            return new Fun(identifier, parameters, body);
         }
 
         // var a = 10;
@@ -230,36 +267,49 @@ namespace Nagisa.Fox.Parsing
         // if (a == b) { ... } else { ... }
         private Stmt IfStatement(ParserData parserData)
         {
+            // if condition
             parserData.Consume(TokenType.LEFT_CIRCLE, "Expect '(' after 'if'.");
 
             Expr condition = this.Expression(parserData);
 
             parserData.Consume(TokenType.RIGHT_CIRCLE, "Expect ')' after 'if' condition.");
 
-            Stmt thenBranch = this.Statement(parserData);
-            Stmt elseBranch = null;
+            // then body
+            parserData.Consume(TokenType.LEFT_CURLY, "Expect '{' before then body.");
+
+            Block thenBranch = (Block)this.BlockStatement(parserData);
+
+            // else body
+            Block elseBranch = null;
 
             if (parserData.Match(TokenType.ELSE))
             {
-                elseBranch = this.Statement(parserData);
+                parserData.Consume(TokenType.LEFT_CURLY, "Expect '{' before else body.");
+                elseBranch = (Block)this.BlockStatement(parserData);
             }
 
             return new If(condition, thenBranch, elseBranch);
         }
 
+        // while (a == b) { ... }
         private Stmt WhileStatement(ParserData parserData)
         {
+            // while condition
             parserData.Consume(TokenType.LEFT_CIRCLE, "Expect '(' after 'if'.");
 
             Expr condition = this.Expression(parserData);
 
             parserData.Consume(TokenType.RIGHT_CIRCLE, "Expect ')' after 'if' condition.");
 
-            Stmt body = this.Statement(parserData);
+            // while body
+            parserData.Consume(TokenType.LEFT_CURLY, "Expect '{' before then body.");
+
+            Block body = (Block)this.BlockStatement(parserData);
 
             return new While(condition, body);
         }
 
+        // { ... }
         private Stmt BlockStatement(ParserData parserData)
         {
             List<Stmt> statements = new List<Stmt>();
@@ -296,6 +346,7 @@ namespace Nagisa.Fox.Parsing
         {
             Expr expr = this.And(parserData);
 
+            // a || b
             while (parserData.Match(TokenType.OR))
             {
                 Token op = parserData.Previous();
@@ -310,6 +361,7 @@ namespace Nagisa.Fox.Parsing
         {
             Expr expr = this.Equality(parserData);
 
+            // a && b
             while (parserData.Match(TokenType.AND))
             {
                 Token op = parserData.Previous();

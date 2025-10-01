@@ -37,13 +37,27 @@ namespace Nagisa.Fox.Parsing
         }
     }
 
+    public sealed class Fun : Stmt
+    {
+        public readonly Token Identifier;
+        public readonly List<Token> Parameters;
+        public readonly Block Body;
+
+        public Fun(Token identifier, List<Token> parameters, Block body) : base(StmtType.FUNCTION)
+        {
+            this.Identifier = identifier;
+            this.Parameters = parameters;
+            this.Body = body;
+        }
+    }
+
     public sealed class If : Stmt
     {
         public readonly Expr Condition;
-        public readonly Stmt ThenBranch;
-        public readonly Stmt ElseBranch;
+        public readonly Block ThenBranch;
+        public readonly Block ElseBranch;
 
-        public If(Expr condition, Stmt thenBranch, Stmt elseBranch) : base(StmtType.IF)
+        public If(Expr condition, Block thenBranch, Block elseBranch) : base(StmtType.IF)
         {
             this.Condition = condition;
             this.ThenBranch = thenBranch;
@@ -78,9 +92,9 @@ namespace Nagisa.Fox.Parsing
     public sealed class While : Stmt
     {
         public readonly Expr Condition;
-        public readonly Stmt Body;
+        public readonly Block Body;
 
-        public While(Expr condition, Stmt body) : base(StmtType.WHILE)
+        public While(Expr condition, Block body) : base(StmtType.WHILE)
         {
             this.Condition = condition;
             this.Body = body;
