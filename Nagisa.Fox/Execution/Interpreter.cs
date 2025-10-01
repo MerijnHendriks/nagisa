@@ -10,20 +10,20 @@ namespace Nagisa.Fox.Execution
 {
     public sealed class Interpreter
     {
-        private readonly Logger _logger;
+        public readonly Logger Logger;
         private readonly LanguageData _language;
-        private Environment _globals;
+        public readonly Environment Globals;
         private Environment _environment;
 
         public Interpreter(Logger logger, LanguageData language)
         {
-            this._logger = logger;
+            this.Logger = logger;
             this._language = language;
-            this._globals = new Environment(null);
-            this._environment = this._globals;
-
-            this._globals.Define("print", false, new Print());
+            this.Globals = language.GetGlobals();
+            this._environment = this.Globals;
         }
+
+        // Execute
 
         public void Execute(List<Stmt> statements)
         {
@@ -33,6 +33,18 @@ namespace Nagisa.Fox.Execution
 
                 this.EvaluateStatement(statement);
             }
+        }
+
+        public void ExecuteBlock(List<Stmt> statements, Environment environment)
+        {
+            Environment previous = this._environment;
+
+            // run in enclosed scope
+            this._environment = environment;
+            this.Execute(statements);
+
+            // restore scope
+            this._environment = previous;
         }
 
         // Statements
@@ -51,6 +63,10 @@ namespace Nagisa.Fox.Execution
 
                 case StmtType.EXPRESSION:
                     this.ExpressionStatement(statement);
+                    return;
+
+                case StmtType.FUNCTION:
+                    this.FunctionStatement(statement);
                     return;
 
                 case StmtType.IF:
@@ -122,6 +138,15 @@ namespace Nagisa.Fox.Execution
             this.EvaluateExpression(stmt.Expr);
         }
 
+        private void FunctionStatement(Stmt statement)
+        {
+            Fun stmt = (Fun)statement;
+
+            FoxFunction function = new FoxFunction(stmt);
+
+            this._environment.Define(stmt.Identifier.Value, false, function);
+        }
+
         private void IfStatement(Stmt statement)
         {
             If stmt = (If)statement;
@@ -160,18 +185,6 @@ namespace Nagisa.Fox.Execution
             }
         }
 
-        private void ExecuteBlock(List<Stmt> statements, Environment environment)
-        {
-            Environment previous = this._environment;
-
-            // run in enclosed scope
-            this._environment = environment;
-            this.Execute(statements);
-
-            // restore scope
-            this._environment = previous;
-        }
-
         // Expressions
 
         private object EvaluateExpression(Expr expression)
@@ -180,6 +193,9 @@ namespace Nagisa.Fox.Execution
             {
                 case ExprType.BINARY:
                     return this.BinaryExpression(expression);
+
+                case ExprType.CALL:
+                    return this.CallExpression(expression);
 
                 case ExprType.GROUPING:
                     return this.GroupingExpression(expression);
@@ -271,10 +287,7 @@ namespace Nagisa.Fox.Execution
 
             object callee = this.EvaluateExpression(expr.Callee);
 
-            if (callee.GetType() != typeof(FoxCallable))
-            {
-                throw new InvalidOperationException("Can only call functions.");
-            }
+            // TODO: validate callee being of type FoxCallable
 
             List<object> arguments = new List<object>();
 

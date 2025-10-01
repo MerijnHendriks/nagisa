@@ -46,8 +46,8 @@ namespace Nagisa.Fox
             List<Stmt> ast = this._parser.Parse(this._logger, tokens);
 
             // Print mermaid diagram
-            string diagram = this._mermaid.Generate(ast);
-            this._logger.Write(diagram);
+            //string diagram = this._mermaid.Generate(ast);
+            //this._logger.Write(diagram);
 
             // Execute code
             this._interpreter.Execute(ast);

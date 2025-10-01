@@ -4,9 +4,10 @@
     Performance: Common cases MUST match ASAP, othterwise performance degrades significantly.
 */
 
-using System;
 using System.Collections.Generic;
+using Nagisa.Fox.Execution;
 using Nagisa.Fox.Lexing;
+using Nagisa.Fox.Std;
 
 namespace Nagisa.Fox
 {
@@ -65,54 +66,57 @@ namespace Nagisa.Fox
             this.Patterns.Add(new IdentifierPattern());
 
             // --- Names
-            this.PatternNames.Add(TokenType.END_OF_FILE,       "EOF");
-            this.PatternNames.Add(TokenType.END_OF_LINE,       "EOL");
-            this.PatternNames.Add(TokenType.DOT,               ".");
-            this.PatternNames.Add(TokenType.COMMA,             ",");
-            this.PatternNames.Add(TokenType.SEMICOLON,         ";");
-            this.PatternNames.Add(TokenType.LEFT_CURLY,        "{");
-            this.PatternNames.Add(TokenType.RIGHT_CURLY,       "}");
-            this.PatternNames.Add(TokenType.LEFT_CIRCLE,       "(");
-            this.PatternNames.Add(TokenType.RIGHT_CIRCLE,      ")");
-            this.PatternNames.Add(TokenType.LEFT_ARROW,        "<");
-            this.PatternNames.Add(TokenType.RIGHT_ARROW,       ">");
-            this.PatternNames.Add(TokenType.ASSIGN,            "=");
-            this.PatternNames.Add(TokenType.NOT,               "!");
-            this.PatternNames.Add(TokenType.PLUS,              "+");
-            this.PatternNames.Add(TokenType.MINUS,             "-");
-            this.PatternNames.Add(TokenType.STAR,              "*");
-            this.PatternNames.Add(TokenType.SLASH,             "/");
-            this.PatternNames.Add(TokenType.EQUAL,             "==");
-            this.PatternNames.Add(TokenType.NOT_EQUAL,         "!=");
-            this.PatternNames.Add(TokenType.LESS_EQUAL,        "<=");
-            this.PatternNames.Add(TokenType.GREATER_EQUAL,     ">=");
-            this.PatternNames.Add(TokenType.ADD_ASSIGN,        "+=");
-            this.PatternNames.Add(TokenType.SUBSTRACT_ASSIGN,  "-=");
-            this.PatternNames.Add(TokenType.MULTIPLY_ASSIGN,   "*=");
-            this.PatternNames.Add(TokenType.DIVIDE_ASSIGN,     "/=");
-            this.PatternNames.Add(TokenType.IDENTIFIER,        "identifier");
-            this.PatternNames.Add(TokenType.NUMBER,            "number");
-            this.PatternNames.Add(TokenType.STRING,            "string");
-            this.PatternNames.Add(TokenType.TRUE,              "true");
-            this.PatternNames.Add(TokenType.FALSE,             "false");
-            this.PatternNames.Add(TokenType.NIL,               "nil");
-            this.PatternNames.Add(TokenType.THIS,              "this");
-            this.PatternNames.Add(TokenType.SUPER,             "super");
-            this.PatternNames.Add(TokenType.VAR,               "var");
-            this.PatternNames.Add(TokenType.FUN,               "fun");
-            this.PatternNames.Add(TokenType.CLASS,             "class");
-            this.PatternNames.Add(TokenType.AND,               "&&");
-            this.PatternNames.Add(TokenType.OR,                "||");
-            this.PatternNames.Add(TokenType.IF,                "if");
-            this.PatternNames.Add(TokenType.ELSE,              "else");
-            this.PatternNames.Add(TokenType.WHILE,             "while");
-            this.PatternNames.Add(TokenType.FOR,               "for");
-            this.PatternNames.Add(TokenType.CONTINUE,          "continue");
-            this.PatternNames.Add(TokenType.BREAK,             "break");
-            this.PatternNames.Add(TokenType.RETURN,            "return");
-            this.PatternNames.Add(TokenType.LINE_COMMENT,      "//");
-            this.PatternNames.Add(TokenType.TAB,               "\t");
-            this.PatternNames.Add(TokenType.WHITESPACE,        "' '");
+            this.PatternNames.Add(TokenType.END_OF_FILE, "EOF");
+            this.PatternNames.Add(TokenType.END_OF_LINE, "EOL");
+            this.PatternNames.Add(TokenType.DOT, ".");
+            this.PatternNames.Add(TokenType.COMMA, ",");
+            this.PatternNames.Add(TokenType.SEMICOLON, ";");
+            this.PatternNames.Add(TokenType.LEFT_CURLY, "{");
+            this.PatternNames.Add(TokenType.RIGHT_CURLY, "}");
+            this.PatternNames.Add(TokenType.LEFT_CIRCLE, "(");
+            this.PatternNames.Add(TokenType.RIGHT_CIRCLE, ")");
+            this.PatternNames.Add(TokenType.LEFT_ARROW, "<");
+            this.PatternNames.Add(TokenType.RIGHT_ARROW, ">");
+            this.PatternNames.Add(TokenType.ASSIGN, "=");
+            this.PatternNames.Add(TokenType.NOT, "!");
+            this.PatternNames.Add(TokenType.PLUS, "+");
+            this.PatternNames.Add(TokenType.MINUS, "-");
+            this.PatternNames.Add(TokenType.STAR, "*");
+            this.PatternNames.Add(TokenType.SLASH, "/");
+            this.PatternNames.Add(TokenType.EQUAL, "==");
+            this.PatternNames.Add(TokenType.NOT_EQUAL, "!=");
+            this.PatternNames.Add(TokenType.LESS_EQUAL, "<=");
+            this.PatternNames.Add(TokenType.GREATER_EQUAL, ">=");
+            this.PatternNames.Add(TokenType.ADD_ASSIGN, "+=");
+            this.PatternNames.Add(TokenType.SUBSTRACT_ASSIGN, "-=");
+            this.PatternNames.Add(TokenType.MULTIPLY_ASSIGN, "*=");
+            this.PatternNames.Add(TokenType.DIVIDE_ASSIGN, "/=");
+            this.PatternNames.Add(TokenType.IDENTIFIER, "identifier");
+            this.PatternNames.Add(TokenType.NUMBER, "number");
+            this.PatternNames.Add(TokenType.STRING, "string");
+            this.PatternNames.Add(TokenType.TRUE, "true");
+            this.PatternNames.Add(TokenType.FALSE, "false");
+            this.PatternNames.Add(TokenType.NIL, "nil");
+            this.PatternNames.Add(TokenType.THIS, "this");
+            this.PatternNames.Add(TokenType.SUPER, "super");
+            this.PatternNames.Add(TokenType.VAR, "var");
+            this.PatternNames.Add(TokenType.FUN, "fun");
+            this.PatternNames.Add(TokenType.CLASS, "class");
+            this.PatternNames.Add(TokenType.AND, "&&");
+            this.PatternNames.Add(TokenType.OR, "||");
+            this.PatternNames.Add(TokenType.IF, "if");
+            this.PatternNames.Add(TokenType.ELSE, "else");
+            this.PatternNames.Add(TokenType.WHILE, "while");
+            this.PatternNames.Add(TokenType.FOR, "for");
+            this.PatternNames.Add(TokenType.CONTINUE, "continue");
+            this.PatternNames.Add(TokenType.BREAK, "break");
+            this.PatternNames.Add(TokenType.RETURN, "return");
+            this.PatternNames.Add(TokenType.LINE_COMMENT, "//");
+            this.PatternNames.Add(TokenType.TAB, "\t");
+            this.PatternNames.Add(TokenType.WHITESPACE, "' '");
+
+            // globals
+            this.Globals.Define("print", false, new Print());
         }
 
         public override List<Pattern> GetPatterns()
@@ -122,17 +126,12 @@ namespace Nagisa.Fox
 
         public override string GetTokenName(int type)
         {
-            if (type == TokenType.INVALID)
-            {
-                throw new ArgumentException("Invalid type.");
-            }
-
-            if (!this.PatternNames.ContainsKey(type))
-            {
-                throw new ArgumentException("Invalid type.");
-            }
-
             return this.PatternNames[type];
+        }
+
+        public override Environment GetGlobals()
+        {
+            return this.Globals;
         }
     }
 }

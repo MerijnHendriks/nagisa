@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Nagisa.Fox.Execution;
 
@@ -8,9 +7,9 @@ namespace Nagisa.Fox.Std
     {
         public object Call(Interpreter interpreter, List<object> arguments)
         {
-            string value = (string)arguments[0];
+            string value = arguments[0].ToString();
 
-            Console.WriteLine(value);
+            interpreter.Logger.Write(value);
 
             // void
             return null;
