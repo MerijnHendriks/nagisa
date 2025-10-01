@@ -1,4 +1,6 @@
 # TODO
 
-- [ ] Implement lox language
-- [ ] Only parse literal values from text to data in Interpreter.
+- https://craftinginterpreters.com/functions.html
+  - [x] void function calls
+  - [ ] return statement
+  - [ ] bind function to variable
