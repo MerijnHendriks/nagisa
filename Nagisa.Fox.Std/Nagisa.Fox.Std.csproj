@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net20;netstandard2.0;net8.0</TargetFrameworks>
+    <LanguageVersion>3</LanguageVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <!-- .NET Framework v2.0 compatible CI builds -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net20'">
+    <PackageReference PrivateAssets="All" IncludeAssets="runtime; build; native; contentfiles; analyzers" Include="Microsoft.NETFramework.ReferenceAssemblies.net20" Version="1.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <projectReference Include="../Nagisa.Fox/Nagisa.Fox.csproj" />
+  </ItemGroup>
+
+</Project>

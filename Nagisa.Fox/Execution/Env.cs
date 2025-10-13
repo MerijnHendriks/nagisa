@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace Nagisa.Fox.Execution
 {
-    public sealed class EnvironmentData
+    public sealed class EnvData
     {
         public readonly string Name;
         public readonly bool IsMutable;
         public object Value;
 
-        public EnvironmentData(string name, bool isMutable, object value)
+        public EnvData(string name, bool isMutable, object value)
         {
             this.Name = name;
             this.IsMutable = isMutable;
@@ -17,15 +17,15 @@ namespace Nagisa.Fox.Execution
         }
     }
 
-    public sealed class Environment
+    public class Env
     {
-        private readonly Environment _enclosing;
-        private readonly List<EnvironmentData> _values;
+        private readonly Env _enclosing;
+        private readonly List<EnvData> _values;
 
-        public Environment(Environment enclosing)
+        public Env(Env enclosing)
         {
             this._enclosing = enclosing;
-            this._values = new List<EnvironmentData>();
+            this._values = new List<EnvData>();
         }
 
         public int GetIndex(string name)
@@ -43,7 +43,7 @@ namespace Nagisa.Fox.Execution
 
         public void Define(string name, bool isMutable, object value)
         {
-            EnvironmentData data = new EnvironmentData(name, isMutable, value);
+            EnvData data = new EnvData(name, isMutable, value);
             int index = this.GetIndex(name);
 
             if (index != -1)

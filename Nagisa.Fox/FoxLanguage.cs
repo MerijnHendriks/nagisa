@@ -5,9 +5,7 @@
 */
 
 using System.Collections.Generic;
-using Nagisa.Fox.Execution;
 using Nagisa.Fox.Lexing;
-using Nagisa.Fox.Std;
 
 namespace Nagisa.Fox
 {
@@ -114,9 +112,6 @@ namespace Nagisa.Fox
             this.PatternNames.Add(TokenType.LINE_COMMENT, "//");
             this.PatternNames.Add(TokenType.TAB, "\t");
             this.PatternNames.Add(TokenType.WHITESPACE, "' '");
-
-            // globals
-            this.Globals.Define("print", false, new Print());
         }
 
         public override List<Pattern> GetPatterns()
@@ -127,11 +122,6 @@ namespace Nagisa.Fox
         public override string GetTokenName(int type)
         {
             return this.PatternNames[type];
-        }
-
-        public override Environment GetGlobals()
-        {
-            return this.Globals;
         }
     }
 }

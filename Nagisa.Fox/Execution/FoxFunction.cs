@@ -14,15 +14,15 @@ namespace Nagisa.Fox.Execution
 
         public object Call(Interpreter interpreter, List<object> arguments)
         {
-            Environment environment = new Environment(interpreter.Globals);
+            Env env = new Env(interpreter.StdEnv);
 
             for (int i = 0; i < this._declaration.Parameters.Count; i += 1)
             {
                 string identifier = this._declaration.Parameters[i].Value;
-                environment.Define(identifier, false, arguments[i]);
+                env.Define(identifier, false, arguments[i]);
             }
 
-            interpreter.ExecuteBlock(this._declaration.Body.Statements, environment);
+            interpreter.ExecuteBlock(this._declaration.Body.Statements, env);
             return null;
         }
 

@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <projectReference Include="../Nagisa.Fox/Nagisa.Fox.csproj" />
+    <projectReference Include="../Nagisa.Fox.Std/Nagisa.Fox.Std.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,17 +8,21 @@ namespace Nagisa.Fox
     {
         protected readonly List<Pattern> Patterns;
         protected readonly Dictionary<int, string> PatternNames;
-        protected readonly Environment Globals;
+        public Env StdEnv;
 
         public LanguageData()
         {
             this.Patterns = new List<Pattern>();
             this.PatternNames = new Dictionary<int, string>();
-            this.Globals = new Environment(null);
+            this.StdEnv = null;
         }
 
         public abstract List<Pattern> GetPatterns();
         public abstract string GetTokenName(int type);
-        public abstract Environment GetGlobals();
+
+        public void SetStdEnv(Env env)
+        {
+            this.StdEnv = env;
+        }
     }
 }

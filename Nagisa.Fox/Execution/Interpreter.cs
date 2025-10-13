@@ -4,7 +4,6 @@ using System.Globalization;
 using Nagisa.Fox.Common;
 using Nagisa.Fox.Lexing;
 using Nagisa.Fox.Parsing;
-using Nagisa.Fox.Std;
 
 namespace Nagisa.Fox.Execution
 {
@@ -12,15 +11,15 @@ namespace Nagisa.Fox.Execution
     {
         public readonly Logger Logger;
         private readonly LanguageData _language;
-        public readonly Environment Globals;
-        private Environment _environment;
+        public readonly Env StdEnv;
+        private Env _env;
 
         public Interpreter(Logger logger, LanguageData language)
         {
             this.Logger = logger;
             this._language = language;
-            this.Globals = language.GetGlobals();
-            this._environment = this.Globals;
+            this.StdEnv = language.StdEnv;
+            this._env = this.StdEnv;
         }
 
         // Execute
@@ -35,16 +34,16 @@ namespace Nagisa.Fox.Execution
             }
         }
 
-        public void ExecuteBlock(List<Stmt> statements, Environment environment)
+        public void ExecuteBlock(List<Stmt> statements, Env env)
         {
-            Environment previous = this._environment;
+            Env previous = this._env;
 
             // run in enclosed scope
-            this._environment = environment;
+            this._env = env;
             this.Execute(statements);
 
             // restore scope
-            this._environment = previous;
+            this._env = previous;
         }
 
         // Statements
@@ -121,14 +120,14 @@ namespace Nagisa.Fox.Execution
             }
 
             object value = this.EvaluateExpression(expr);
-            this._environment.Set(stmt.Variable.Identifier.Value, value);
+            this._env.Set(stmt.Variable.Identifier.Value, value);
         }
 
         private void BlockStatement(Stmt statement)
         {
             Block stmt = (Block)statement;
 
-            this.ExecuteBlock(stmt.Statements, new Environment(this._environment));
+            this.ExecuteBlock(stmt.Statements, new Env(this._env));
         }
 
         private void ExpressionStatement(Stmt statement)
@@ -144,7 +143,7 @@ namespace Nagisa.Fox.Execution
 
             FoxFunction function = new FoxFunction(stmt);
 
-            this._environment.Define(stmt.Identifier.Value, false, function);
+            this._env.Define(stmt.Identifier.Value, false, function);
         }
 
         private void IfStatement(Stmt statement)
@@ -172,7 +171,7 @@ namespace Nagisa.Fox.Execution
 
             object value = this.EvaluateExpression(stmt.Value);
 
-            this._environment.Define(stmt.Variable.Identifier.Value, true, value);
+            this._env.Define(stmt.Variable.Identifier.Value, true, value);
         }
 
         private void WhileStatement(Stmt statement)
@@ -392,7 +391,7 @@ namespace Nagisa.Fox.Execution
         {
             Variable expr = (Variable)expression;
 
-            return this._environment.Get(expr.Identifier.Value);
+            return this._env.Get(expr.Identifier.Value);
         }
 
         private string Stringify(object o)

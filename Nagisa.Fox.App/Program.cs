@@ -1,4 +1,5 @@
 ﻿using Nagisa.Fox;
+using Nagisa.Fox.Std;
 
 namespace Nagisa.App
 {
@@ -10,6 +11,7 @@ namespace Nagisa.App
             var vfs = new AppVFS();
 
             var language = new FoxLanguage();
+            language.SetStdEnv(new StdEnv());
             var compiler = new Compiler(logger, language);
 
             if (args.Length == 0)
