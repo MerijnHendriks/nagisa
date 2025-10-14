@@ -15,7 +15,8 @@ namespace Nagisa.Fox.Std
 
             string value = arguments[0].ToString();
 
-            interpreter.Logger.Write(value);
+            // C# function
+            Console.WriteLine(value);
 
             // void
             return null;

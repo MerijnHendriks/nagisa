@@ -9,7 +9,7 @@ namespace Nagisa.Fox.Execution
 {
     public sealed class Interpreter
     {
-        public readonly Logger Logger;
+        private readonly Logger Logger;
         private readonly LanguageData _language;
         public readonly Env StdEnv;
         private Env _env;
