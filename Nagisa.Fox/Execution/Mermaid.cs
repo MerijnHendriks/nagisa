@@ -232,9 +232,12 @@ namespace Nagisa.Fox.Execution
 
                 case ExprType.VARIABLE:
                     return this.VariableExpression(expression);
+
+                case ExprType.CALL:
+                    return this.CallExpression(expression);
             }
 
-            throw new InvalidOperationException("Expression not implemented.");
+            throw new InvalidOperationException("Expression " + expression.Type + " not implemented.");
         }
 
         private int BinaryExpression(Expr expression)
@@ -318,6 +321,16 @@ namespace Nagisa.Fox.Execution
 
             string name = expr.Identifier.Value;
             string text = "variable " + name;
+            int root = this.AddNode(text);
+
+            return root;
+        }
+
+        private int CallExpression(Expr expression)
+        {
+            Call expr = (Call)expression;
+
+            string text = "call";
             int root = this.AddNode(text);
 
             return root;
